@@ -524,6 +524,11 @@ export type GetAllPedidosQueryVariables = Exact<{
 
 export type GetAllPedidosQuery = { __typename?: 'Query', GetAllPedidos?: { __typename?: 'GetAllPedidos', numeroTotal?: number | null, data?: Array<{ __typename?: 'Pedido', pedidoId?: string | null, tipoComprobante?: string | null, numeroComprobante?: string | null, precioTotal?: number | null, fechaPedido?: any | null, usuarioId?: number | null, Usuario?: { __typename?: 'User', id?: string | null, tipoUsuario?: number | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, email?: string | null, apiToken?: string | null } | null, DetallePedido?: Array<{ __typename?: 'DetallePedido', detallePedidoId?: string | null, tendido?: string | null, codigo?: string | null, asiento?: string | null, precio?: number | null, eventoId?: number | null, feriaId?: number | null, pedidoId?: number | null }> | null }> | null } | null };
 
+export type GetFeriaQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetFeriaQuery = { __typename?: 'Query', GetFeria?: { __typename?: 'Feria', feriaId?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, descuento?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null, imagenSecundaria?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
+
 
 export const LoginDocument = gql`
     mutation Login($input: LoginInput!) {
@@ -631,3 +636,58 @@ export function useGetAllPedidosLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetAllPedidosQueryHookResult = ReturnType<typeof useGetAllPedidosQuery>;
 export type GetAllPedidosLazyQueryHookResult = ReturnType<typeof useGetAllPedidosLazyQuery>;
 export type GetAllPedidosQueryResult = Apollo.QueryResult<GetAllPedidosQuery, GetAllPedidosQueryVariables>;
+export const GetFeriaDocument = gql`
+    query GetFeria {
+  GetFeria {
+    feriaId
+    titulo
+    descripcionCorta
+    descripcionLarga
+    terminosCondiciones
+    imagenPrincipal {
+      id
+      titulo
+      url
+    }
+    imagenSecundaria {
+      id
+      titulo
+      url
+    }
+    fecha
+    hora
+    fechaInicial
+    horaInicial
+    fechaFinal
+    horaFinal
+    descuento
+  }
+}
+    `;
+
+/**
+ * __useGetFeriaQuery__
+ *
+ * To run a query within a React component, call `useGetFeriaQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFeriaQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFeriaQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFeriaQuery(baseOptions?: Apollo.QueryHookOptions<GetFeriaQuery, GetFeriaQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetFeriaQuery, GetFeriaQueryVariables>(GetFeriaDocument, options);
+      }
+export function useGetFeriaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFeriaQuery, GetFeriaQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetFeriaQuery, GetFeriaQueryVariables>(GetFeriaDocument, options);
+        }
+export type GetFeriaQueryHookResult = ReturnType<typeof useGetFeriaQuery>;
+export type GetFeriaLazyQueryHookResult = ReturnType<typeof useGetFeriaLazyQuery>;
+export type GetFeriaQueryResult = Apollo.QueryResult<GetFeriaQuery, GetFeriaQueryVariables>;

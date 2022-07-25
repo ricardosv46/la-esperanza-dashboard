@@ -5,16 +5,17 @@ import IconConfig from '../icons/IconConfig'
 import IconOptions from '../icons/IconOptions'
 import IconBank from '../icons/IconBank'
 import { Route } from '../interfaces'
-import Pedidos from '../pages/home/pedidos/Pedidos'
+
 // import EditCategoryProduct from '../pages/home/products/categorys/EditCategoryProduct'
 
+const Pedidos = lazy(() => import('../pages/home/pedidos/Pedidos'))
+const FeriaPage = lazy(() => import('../pages/home/feria/FeriaPage'))
 const BlogsPage = lazy(() => import('../pages/home/blogs/BlogsPage'))
-const ImagesPage = lazy(() => import('../pages/home/ImagesPage'))
-const MultiStepPage = lazy(() => import('../pages/home/MultiStepPage'))
 const ClientsPage = lazy(() => import('../pages/home/clients/ClientsPage'))
 const ProductsPage = lazy(() => import('../pages/home/products/ProductsPage'))
 const CreateProduct = lazy(() => import('../pages/home/products/CreateProduct'))
 const EditProduct = lazy(() => import('../pages/home/products/EditProduct'))
+
 const CategoryProduct = lazy(
   () => import('../pages/home/products/categorys/CategoryProduct')
 )
@@ -53,10 +54,10 @@ export const homeRoutes: Route[] = [
   },
   {
     icon: IconFile,
-    name: 'Multi-step',
-    path: 'multi-step',
-    to: '/home/multi-step',
-    component: MultiStepPage,
+    name: 'Abonados',
+    path: 'abonados',
+    to: '/home/abonados',
+    component: FeriaPage,
     subMenu: { value: false, paths: [] }
   },
   {

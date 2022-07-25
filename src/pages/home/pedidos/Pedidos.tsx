@@ -42,7 +42,7 @@ const Pedidos = () => {
             fontSize="14px"
             mt={3}
           >
-            Desde aquí podrás visualizar la información de todos tus productos.
+            Desde aquí podrás visualizar la información de todos tus pedidos.
           </Text>
         </Box>
         <Flex justifyContent="flex-end" alignItems="center" mt={5}>
