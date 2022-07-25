@@ -516,6 +516,14 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', Login?: { __typename?: 'User', id?: string | null, email?: string | null, tipoUsuario?: number | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, apiToken?: string | null } | null };
 
+export type GetAllEventosQueryVariables = Exact<{
+  feriaId?: InputMaybe<Scalars['Int']>;
+  estado?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetAllEventosQuery = { __typename?: 'Query', GetAllEventos?: { __typename?: 'GetAllEventos', numeroTotal?: number | null, data?: Array<{ __typename?: 'Evento', eventoId?: string | null, slug?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, direccion?: string | null, ubicacion?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, estado?: string | null, feriaId?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null }> | null } | null };
+
 export type GetAllPedidosQueryVariables = Exact<{
   pagina: Scalars['Int'];
   numeroPagina: Scalars['Int'];
@@ -571,6 +579,65 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const GetAllEventosDocument = gql`
+    query GetAllEventos($feriaId: Int, $estado: String) {
+  GetAllEventos(feriaId: $feriaId, estado: $estado) {
+    numeroTotal
+    data {
+      eventoId
+      slug
+      titulo
+      descripcionCorta
+      descripcionLarga
+      terminosCondiciones
+      direccion
+      ubicacion
+      fecha
+      hora
+      imagenPrincipal {
+        id
+        titulo
+        url
+      }
+      fechaInicial
+      horaInicial
+      fechaFinal
+      horaFinal
+      estado
+      feriaId
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllEventosQuery__
+ *
+ * To run a query within a React component, call `useGetAllEventosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllEventosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllEventosQuery({
+ *   variables: {
+ *      feriaId: // value for 'feriaId'
+ *      estado: // value for 'estado'
+ *   },
+ * });
+ */
+export function useGetAllEventosQuery(baseOptions?: Apollo.QueryHookOptions<GetAllEventosQuery, GetAllEventosQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllEventosQuery, GetAllEventosQueryVariables>(GetAllEventosDocument, options);
+      }
+export function useGetAllEventosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllEventosQuery, GetAllEventosQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllEventosQuery, GetAllEventosQueryVariables>(GetAllEventosDocument, options);
+        }
+export type GetAllEventosQueryHookResult = ReturnType<typeof useGetAllEventosQuery>;
+export type GetAllEventosLazyQueryHookResult = ReturnType<typeof useGetAllEventosLazyQuery>;
+export type GetAllEventosQueryResult = Apollo.QueryResult<GetAllEventosQuery, GetAllEventosQueryVariables>;
 export const GetAllPedidosDocument = gql`
     query GetAllPedidos($pagina: Int!, $numeroPagina: Int!) {
   GetAllPedidos(pagina: $pagina, numeroPagina: $numeroPagina) {

@@ -9,8 +9,8 @@ const useAllPedidos = ({ pagina, numeroPagina }: Ipedidos) => {
   const { data, loading, refetch } = useGetAllPedidosQuery({
     fetchPolicy: 'network-only',
     variables: {
-      pagina: 1,
-      numeroPagina: 10
+      pagina,
+      numeroPagina
     }
   })
   const db = data?.GetAllPedidos?.data ?? []

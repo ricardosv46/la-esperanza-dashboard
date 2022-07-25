@@ -13,16 +13,15 @@ import {
   Th,
   Tbody,
   Td,
-  IconButton,
-  Image
+  IconButton
 } from '@chakra-ui/react'
-// import { useNavigate } from 'react-router-dom'
-import useFeria from '../../../services/useFeria'
+import { useNavigate } from 'react-router-dom'
+import useAllEventos from '../../../services/useAllEventos'
 
-const FeriaPage = () => {
-  // const navigate = useNavigate()
-  const { db: abonados } = useFeria()
-  console.log(abonados)
+const Eventos = () => {
+  const navigate = useNavigate()
+  const { db: eventos } = useAllEventos({ feriaId: 1, estado: null })
+  console.log(eventos)
   return (
     <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>
@@ -36,18 +35,18 @@ const FeriaPage = () => {
             fontSize="14px"
             mt={3}
           >
-            Desde aquí podrás visualizar la información de todos los Abonados.
+            Desde aquí podrás visualizar la información de todos los Eventos.
           </Text>
         </Box>
         <Flex justifyContent="flex-end" alignItems="center" mt={5}>
-          {/* <Button
+          <Button
             colorScheme="primary"
             variant="solid"
             leftIcon={<AddIcon />}
             onClick={() => navigate('/home/create-product')}
           >
             <Text lineHeight={0}>Crear abonados</Text>
-          </Button> */}
+          </Button>
         </Flex>
         {/* {loading ? (
           <Flex justifyContent="center" alignItems="center" h={'xl'}>
@@ -64,9 +63,9 @@ const FeriaPage = () => {
           <Table colorScheme="gray">
             <Thead fontWeight={'black'}>
               <Tr>
-                <Th color="gray.400">Imagen principal</Th>
+                <Th color="gray.400">Slug</Th>
                 <Th color="gray.400">Titulo</Th>
-                <Th color="gray.400">Descuento</Th>
+                <Th color="gray.400">direccion</Th>
                 <Th textAlign="center" color="gray.400">
                   Fecha
                 </Th>
@@ -79,49 +78,45 @@ const FeriaPage = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr key={abonados?.feriaId}>
-                <Td>
-                  <Image
-                    boxSize="50px"
-                    objectFit="contain"
-                    src={abonados?.imagenPrincipal?.url ?? ''}
-                    alt="imgs"
-                  />
-                </Td>
-                <Td>{abonados?.titulo}</Td>
-                <Td>{abonados?.descuento}</Td>
-                <Td>{abonados?.fechaInicial}</Td>
-                <Td>{abonados?.hora}</Td>
-                <Td>
-                  <Flex justifyContent="center" alignItems="center" gap={5}>
-                    <IconButton
-                      aria-label="editar"
-                      // onClick={() =>
-                      //   navigate(
-                      //     `/home/edit-product/${producto.productoId}`,
-                      //     {
-                      //       state: { producto }
-                      //     }
-                      //   )
-                      // }
-                    >
-                      <EditIcon w={5} h={5} />
-                    </IconButton>
-                    <IconButton
-                      aria-label="eliminar"
-                      // onClick={() => {
-                      //   onOpen()
-                      //   setSelectId(producto?.productoId)
-                      // }}
-                    >
-                      <DeleteIcon w={5} h={5} />
-                    </IconButton>
-                  </Flex>
-                </Td>
-              </Tr>
+              {eventos.map((evento) => (
+                <Tr key={evento.eventoId}>
+                  <Td>{evento.slug}</Td>
+                  <Td>{evento?.titulo}</Td>
+                  <Td>{evento.direccion}</Td>
+                  <Td>{evento.fecha}</Td>
+                  <Td>{evento.hora}</Td>
+                  <Td>
+                    <Flex justifyContent="center" alignItems="center" gap={5}>
+                      <IconButton
+                        aria-label="editar"
+                        // onClick={() =>
+                        //   navigate(
+                        //     `/home/edit-product/${producto.productoId}`,
+                        //     {
+                        //       state: { producto }
+                        //     }
+                        //   )
+                        // }
+                      >
+                        <EditIcon w={5} h={5} />
+                      </IconButton>
+                      <IconButton
+                        aria-label="eliminar"
+                        // onClick={() => {
+                        //   onOpen()
+                        //   setSelectId(producto?.productoId)
+                        // }}
+                      >
+                        <DeleteIcon w={5} h={5} />
+                      </IconButton>
+                    </Flex>
+                  </Td>
+                </Tr>
+              ))}
             </Tbody>
           </Table>
         </TableContainer>
+
         {/* )} */}
 
         {/* <Pagination state={state} setstate={setstate} paginas={paginas} /> */}
@@ -137,4 +132,4 @@ const FeriaPage = () => {
   )
 }
 
-export default FeriaPage
+export default Eventos

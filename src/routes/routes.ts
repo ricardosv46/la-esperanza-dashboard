@@ -10,6 +10,7 @@ import { Route } from '../interfaces'
 
 const Pedidos = lazy(() => import('../pages/home/pedidos/Pedidos'))
 const FeriaPage = lazy(() => import('../pages/home/feria/FeriaPage'))
+const Eventos = lazy(() => import('../pages/home/eventos/Eventos'))
 const BlogsPage = lazy(() => import('../pages/home/blogs/BlogsPage'))
 const ClientsPage = lazy(() => import('../pages/home/clients/ClientsPage'))
 const ProductsPage = lazy(() => import('../pages/home/products/ProductsPage'))
@@ -62,10 +63,10 @@ export const homeRoutes: Route[] = [
   },
   {
     icon: IconUser,
-    name: 'Clientes',
-    to: '/home/clients',
-    path: 'clients',
-    component: ClientsPage,
+    name: 'Eventos',
+    to: '/home/eventos',
+    path: 'eventos',
+    component: Eventos,
     subMenu: { value: false, paths: [] }
   },
   {
