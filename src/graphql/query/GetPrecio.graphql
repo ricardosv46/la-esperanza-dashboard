@@ -1,0 +1,8 @@
+query GetAllPrecioReferencial {
+  GetAllPrecioReferencial {
+    referenciaId
+    tendido
+    titulo
+    precio
+  }
+}

@@ -516,6 +516,13 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', Login?: { __typename?: 'User', id?: string | null, email?: string | null, tipoUsuario?: number | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, apiToken?: string | null } | null };
 
+export type GetAllButacasQueryVariables = Exact<{
+  tendido: Scalars['String'];
+}>;
+
+
+export type GetAllButacasQuery = { __typename?: 'Query', GetAllButacas?: { __typename?: 'GetAllButacas', numeroTotal?: number | null, data?: Array<{ __typename?: 'Butaca', butacaId?: string | null, tendido?: string | null, codigo?: string | null, cantidad?: number | null, precio?: number | null } | null> | null } | null };
+
 export type GetAllEventosQueryVariables = Exact<{
   feriaId?: InputMaybe<Scalars['Int']>;
   estado?: InputMaybe<Scalars['String']>;
@@ -536,6 +543,11 @@ export type GetFeriaQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetFeriaQuery = { __typename?: 'Query', GetFeria?: { __typename?: 'Feria', feriaId?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, descuento?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null, imagenSecundaria?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
+
+export type GetAllPrecioReferencialQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllPrecioReferencialQuery = { __typename?: 'Query', GetAllPrecioReferencial?: Array<{ __typename?: 'Referencial', referenciaId?: string | null, tendido?: string | null, titulo?: string | null, precio?: number | null } | null> | null };
 
 
 export const LoginDocument = gql`
@@ -579,6 +591,48 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const GetAllButacasDocument = gql`
+    query GetAllButacas($tendido: String!) {
+  GetAllButacas(tendido: $tendido) {
+    numeroTotal
+    data {
+      butacaId
+      tendido
+      codigo
+      cantidad
+      precio
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllButacasQuery__
+ *
+ * To run a query within a React component, call `useGetAllButacasQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllButacasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllButacasQuery({
+ *   variables: {
+ *      tendido: // value for 'tendido'
+ *   },
+ * });
+ */
+export function useGetAllButacasQuery(baseOptions: Apollo.QueryHookOptions<GetAllButacasQuery, GetAllButacasQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllButacasQuery, GetAllButacasQueryVariables>(GetAllButacasDocument, options);
+      }
+export function useGetAllButacasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllButacasQuery, GetAllButacasQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllButacasQuery, GetAllButacasQueryVariables>(GetAllButacasDocument, options);
+        }
+export type GetAllButacasQueryHookResult = ReturnType<typeof useGetAllButacasQuery>;
+export type GetAllButacasLazyQueryHookResult = ReturnType<typeof useGetAllButacasLazyQuery>;
+export type GetAllButacasQueryResult = Apollo.QueryResult<GetAllButacasQuery, GetAllButacasQueryVariables>;
 export const GetAllEventosDocument = gql`
     query GetAllEventos($feriaId: Int, $estado: String) {
   GetAllEventos(feriaId: $feriaId, estado: $estado) {
@@ -758,3 +812,40 @@ export function useGetFeriaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetFeriaQueryHookResult = ReturnType<typeof useGetFeriaQuery>;
 export type GetFeriaLazyQueryHookResult = ReturnType<typeof useGetFeriaLazyQuery>;
 export type GetFeriaQueryResult = Apollo.QueryResult<GetFeriaQuery, GetFeriaQueryVariables>;
+export const GetAllPrecioReferencialDocument = gql`
+    query GetAllPrecioReferencial {
+  GetAllPrecioReferencial {
+    referenciaId
+    tendido
+    titulo
+    precio
+  }
+}
+    `;
+
+/**
+ * __useGetAllPrecioReferencialQuery__
+ *
+ * To run a query within a React component, call `useGetAllPrecioReferencialQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllPrecioReferencialQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllPrecioReferencialQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllPrecioReferencialQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>(GetAllPrecioReferencialDocument, options);
+      }
+export function useGetAllPrecioReferencialLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>(GetAllPrecioReferencialDocument, options);
+        }
+export type GetAllPrecioReferencialQueryHookResult = ReturnType<typeof useGetAllPrecioReferencialQuery>;
+export type GetAllPrecioReferencialLazyQueryHookResult = ReturnType<typeof useGetAllPrecioReferencialLazyQuery>;
+export type GetAllPrecioReferencialQueryResult = Apollo.QueryResult<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>;
