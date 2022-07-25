@@ -1,9 +1,9 @@
 overwrite: true
-schema: "https://plantilla.rongqian.pe/public/graphql"
-documents: "src/**/*.graphql"
+schema: 'https://laesperanza.almacenrivera.com/public/graphql'
+documents: 'src/**/*.graphql'
 generates:
   src/generated/graphql.tsx:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-apollo"
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'

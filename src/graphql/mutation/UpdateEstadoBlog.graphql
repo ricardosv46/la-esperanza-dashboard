@@ -1,7 +1,0 @@
-mutation UpdateEstadoBlog($input: UpdateEstadoBlogInput!) {
-  UpdateEstadoBlog(input: $input) {
-    blogId
-    titulo
-    estado
-  }
-}

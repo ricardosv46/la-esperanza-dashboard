@@ -5,6 +5,7 @@ import IconConfig from '../icons/IconConfig'
 import IconOptions from '../icons/IconOptions'
 import IconBank from '../icons/IconBank'
 import { Route } from '../interfaces'
+import Pedidos from '../pages/home/pedidos/Pedidos'
 // import EditCategoryProduct from '../pages/home/products/categorys/EditCategoryProduct'
 
 const BlogsPage = lazy(() => import('../pages/home/blogs/BlogsPage'))
@@ -14,14 +15,26 @@ const ClientsPage = lazy(() => import('../pages/home/clients/ClientsPage'))
 const ProductsPage = lazy(() => import('../pages/home/products/ProductsPage'))
 const CreateProduct = lazy(() => import('../pages/home/products/CreateProduct'))
 const EditProduct = lazy(() => import('../pages/home/products/EditProduct'))
-const CategoryProduct = lazy(() => import('../pages/home/products/categorys/CategoryProduct'))
+const CategoryProduct = lazy(
+  () => import('../pages/home/products/categorys/CategoryProduct')
+)
 
-const CreateCategoryProducto = lazy(() => import('../pages/home/products/categorys/CreateCategoryProduct'))
-const EditCategoryProducto = lazy(() => import('../pages/home/products/categorys/EditCategoryProduct'))
+const CreateCategoryProducto = lazy(
+  () => import('../pages/home/products/categorys/CreateCategoryProduct')
+)
+const EditCategoryProducto = lazy(
+  () => import('../pages/home/products/categorys/EditCategoryProduct')
+)
 
-const CategoryBlog = lazy(() => import('../pages/home/blogs/categorys/CategoryBlog'))
-const CreateCategoryBlog = lazy(() => import('../pages/home/blogs/categorys/CreateCategoryBlog'))
-const EditCategoryBlog = lazy(() => import('../pages/home/blogs/categorys/EditCategoryBlog'))
+const CategoryBlog = lazy(
+  () => import('../pages/home/blogs/categorys/CategoryBlog')
+)
+const CreateCategoryBlog = lazy(
+  () => import('../pages/home/blogs/categorys/CreateCategoryBlog')
+)
+const EditCategoryBlog = lazy(
+  () => import('../pages/home/blogs/categorys/EditCategoryBlog')
+)
 const CreateBlog = lazy(() => import('../pages/home/blogs/CreateBlog'))
 const EditBlog = lazy(() => import('../pages/home/blogs/EditBlog'))
 const Profile = lazy(() => import('../pages/home/Profile'))
@@ -32,10 +45,10 @@ const EditBank = lazy(() => import('../pages/home/banks/EditarBank'))
 export const homeRoutes: Route[] = [
   {
     icon: IconFile,
-    path: 'images',
-    name: 'Imagenes',
-    to: '/home/images',
-    component: ImagesPage,
+    path: 'pedidos',
+    name: 'Pedidos',
+    to: '/home/pedidos',
+    component: Pedidos,
     subMenu: { value: false, paths: [] }
   },
   {

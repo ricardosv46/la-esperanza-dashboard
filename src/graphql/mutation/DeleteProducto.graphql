@@ -1,3 +1,0 @@
-mutation DeleteProducto($productoId: Int!) {
-  DeleteProducto(productoId: $productoId)
-}

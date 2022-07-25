@@ -1,8 +1,0 @@
-query GetAllImagenes($estado: String) {
-  GetAllImagenes(estado: $estado) {
-    id
-    url
-    titulo
-    estado
-  }
-}

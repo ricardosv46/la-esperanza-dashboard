@@ -1,17 +1,13 @@
 mutation Login($input: LoginInput!) {
   Login(input: $input) {
     id
+    email
     tipoUsuario
     tipoDocumento
     numeroDocumento
-    genero
     nombres
     apellidos
     celular
-    fechaNacimiento
-    foto
-    email
     apiToken
-    customer_id
   }
 }
