@@ -209,6 +209,7 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  ConsultEmail?: Maybe<Scalars['String']>;
   CreateEvento?: Maybe<Evento>;
   CreateImagen: Scalars['String'];
   CreatePedido: Pedido;
@@ -226,6 +227,11 @@ export type Mutation = {
   UpdatePrecioReferencial?: Maybe<Referencial>;
   UpdateUsuario: User;
   ValidacionEntrada?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationConsultEmailArgs = {
+  email: Scalars['String'];
 };
 
 
@@ -511,6 +517,13 @@ export type UserInput = {
   tipoDocumento?: InputMaybe<Scalars['String']>;
 };
 
+export type CreateEventoMutationVariables = Exact<{
+  input: EventoInput;
+}>;
+
+
+export type CreateEventoMutation = { __typename?: 'Mutation', CreateEvento?: { __typename?: 'Evento', eventoId?: string | null, slug?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, direccion?: string | null, ubicacion?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, estado?: string | null, feriaId?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
+
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
 }>;
@@ -540,6 +553,14 @@ export type GetAllEventosQueryVariables = Exact<{
 
 export type GetAllEventosQuery = { __typename?: 'Query', GetAllEventos?: { __typename?: 'GetAllEventos', numeroTotal?: number | null, data?: Array<{ __typename?: 'Evento', eventoId?: string | null, slug?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, direccion?: string | null, ubicacion?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, estado?: string | null, feriaId?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null }> | null } | null };
 
+export type GetAllImagenesQueryVariables = Exact<{
+  pagina?: InputMaybe<Scalars['Int']>;
+  numeroPagina?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetAllImagenesQuery = { __typename?: 'Query', GetAllImagenes?: { __typename?: 'GetAllImagenes', data?: Array<{ __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null }> | null } | null };
+
 export type GetAllPedidosQueryVariables = Exact<{
   pagina: Scalars['Int'];
   numeroPagina: Scalars['Int'];
@@ -559,6 +580,59 @@ export type GetAllPrecioReferencialQueryVariables = Exact<{ [key: string]: never
 export type GetAllPrecioReferencialQuery = { __typename?: 'Query', GetAllPrecioReferencial?: Array<{ __typename?: 'Referencial', referenciaId?: string | null, tendido?: string | null, titulo?: string | null, precio?: number | null } | null> | null };
 
 
+export const CreateEventoDocument = gql`
+    mutation CreateEvento($input: EventoInput!) {
+  CreateEvento(input: $input) {
+    eventoId
+    slug
+    titulo
+    descripcionCorta
+    descripcionLarga
+    terminosCondiciones
+    direccion
+    ubicacion
+    fecha
+    hora
+    imagenPrincipal {
+      id
+      titulo
+      url
+    }
+    fechaInicial
+    horaInicial
+    fechaFinal
+    horaFinal
+    estado
+    feriaId
+  }
+}
+    `;
+export type CreateEventoMutationFn = Apollo.MutationFunction<CreateEventoMutation, CreateEventoMutationVariables>;
+
+/**
+ * __useCreateEventoMutation__
+ *
+ * To run a mutation, you first call `useCreateEventoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateEventoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createEventoMutation, { data, loading, error }] = useCreateEventoMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateEventoMutation(baseOptions?: Apollo.MutationHookOptions<CreateEventoMutation, CreateEventoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateEventoMutation, CreateEventoMutationVariables>(CreateEventoDocument, options);
+      }
+export type CreateEventoMutationHookResult = ReturnType<typeof useCreateEventoMutation>;
+export type CreateEventoMutationResult = Apollo.MutationResult<CreateEventoMutation>;
+export type CreateEventoMutationOptions = Apollo.BaseMutationOptions<CreateEventoMutation, CreateEventoMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($input: LoginInput!) {
   Login(input: $input) {
@@ -755,6 +829,46 @@ export function useGetAllEventosLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetAllEventosQueryHookResult = ReturnType<typeof useGetAllEventosQuery>;
 export type GetAllEventosLazyQueryHookResult = ReturnType<typeof useGetAllEventosLazyQuery>;
 export type GetAllEventosQueryResult = Apollo.QueryResult<GetAllEventosQuery, GetAllEventosQueryVariables>;
+export const GetAllImagenesDocument = gql`
+    query GetAllImagenes($pagina: Int, $numeroPagina: Int) {
+  GetAllImagenes(pagina: $pagina, numeroPagina: $numeroPagina) {
+    data {
+      id
+      titulo
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllImagenesQuery__
+ *
+ * To run a query within a React component, call `useGetAllImagenesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllImagenesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllImagenesQuery({
+ *   variables: {
+ *      pagina: // value for 'pagina'
+ *      numeroPagina: // value for 'numeroPagina'
+ *   },
+ * });
+ */
+export function useGetAllImagenesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllImagenesQuery, GetAllImagenesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllImagenesQuery, GetAllImagenesQueryVariables>(GetAllImagenesDocument, options);
+      }
+export function useGetAllImagenesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllImagenesQuery, GetAllImagenesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllImagenesQuery, GetAllImagenesQueryVariables>(GetAllImagenesDocument, options);
+        }
+export type GetAllImagenesQueryHookResult = ReturnType<typeof useGetAllImagenesQuery>;
+export type GetAllImagenesLazyQueryHookResult = ReturnType<typeof useGetAllImagenesLazyQuery>;
+export type GetAllImagenesQueryResult = Apollo.QueryResult<GetAllImagenesQuery, GetAllImagenesQueryVariables>;
 export const GetAllPedidosDocument = gql`
     query GetAllPedidos($pagina: Int!, $numeroPagina: Int!) {
   GetAllPedidos(pagina: $pagina, numeroPagina: $numeroPagina) {

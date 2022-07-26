@@ -7,11 +7,12 @@ import IconOptions from '../icons/IconOptions'
 import { Route } from '../interfaces'
 
 // import EditCategoryProduct from '../pages/home/products/categorys/EditCategoryProduct'
-
+const Imagenes = lazy(() => import('../pages/home/imagenes/Imagenes'))
 const Pedidos = lazy(() => import('../pages/home/pedidos/Pedidos'))
 const Abonado = lazy(() => import('../pages/home/abonado/Abonado'))
 const EditarAbonado = lazy(() => import('../pages/home/abonado/EditarAbonado'))
 const Eventos = lazy(() => import('../pages/home/eventos/Eventos'))
+const CrearEvento = lazy(() => import('../pages/home/eventos/CrearEvento'))
 const Precios = lazy(() => import('../pages/home/precios/Precio'))
 const PrecioButacas = lazy(() => import('../pages/home/precios/PrecioButacas'))
 const PrecioReferencial = lazy(
@@ -51,6 +52,17 @@ const DetallePedido = lazy(() => import('../pages/home/pedidos/DetallePedido'))
 // const EditBank = lazy(() => import('../pages/home/banks/EditarBank'))
 
 export const homeRoutes: Route[] = [
+  {
+    icon: IconFile,
+    name: 'Imagenes',
+    path: 'imagenes',
+    to: '/home/imagenes',
+    component: Imagenes,
+    subMenu: {
+      value: false,
+      paths: []
+    }
+  },
   {
     icon: IconFile,
     path: 'pedidos',
@@ -99,7 +111,16 @@ export const homeRoutes: Route[] = [
     component: Eventos,
     subMenu: {
       value: false,
-      paths: []
+      paths: [
+        {
+          icon: IconUser,
+          name: 'Crear-evento',
+          to: '/home/crear-evento',
+          path: 'crear-evento',
+          component: CrearEvento,
+          render: false
+        }
+      ]
     }
   },
   {

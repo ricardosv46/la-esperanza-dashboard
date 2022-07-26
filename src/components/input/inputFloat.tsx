@@ -15,7 +15,7 @@ import { isEmpty } from '../../utils/isEmpty'
 interface IProps {
   label?: string
   name?: string
-  value?: string
+  value: string | number
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   type?: string
   errorMessage?: string

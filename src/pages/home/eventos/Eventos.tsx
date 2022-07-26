@@ -43,9 +43,9 @@ const Eventos = () => {
             colorScheme="primary"
             variant="solid"
             leftIcon={<AddIcon />}
-            onClick={() => navigate('/home/create-product')}
+            onClick={() => navigate('/home/create-evento')}
           >
-            <Text lineHeight={0}>Crear abonados</Text>
+            <Text lineHeight={0}>Crear Evento</Text>
           </Button>
         </Flex>
         {/* {loading ? (

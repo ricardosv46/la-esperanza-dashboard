@@ -39,6 +39,8 @@ const EditarAbonado = () => {
   const { updateFeria } = useFeria()
   const navigate = useNavigate()
   console.log({ detalle })
+  const toast = useToast()
+
   initialState.titulo = detalle.abonados.titulo
   initialState.descuento = detalle.abonados.descuento
   initialState.descripcionCorta = detalle.abonados.descripcionCorta
@@ -115,20 +117,17 @@ const EditarAbonado = () => {
     updateFeria(rest).then((res) => {
       if (res?.ok) {
         toast({
-          title: 'Destacado Actualizado Correctamente',
+          title: 'Abonado Actualizado Correctamente',
           position: 'top-right',
           isClosable: true,
           status: 'success'
         })
       } else {
-        toast.error('Error al editarUsuario', {
+        toast({
+          title: 'Abonado Actualizado Inrrectamente',
           position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined
+          isClosable: true,
+          status: 'error'
         })
       }
       navigate(-1)
