@@ -1,4 +1,7 @@
-import { useGetAllImagenesQuery } from '../generated/graphql'
+import {
+  useCreateImagenMutation,
+  useGetAllImagenesQuery
+} from '../generated/graphql'
 
 interface IImagenes {
   pagina: number
@@ -14,10 +17,27 @@ const useAllImagenes = ({ pagina, numeroPagina }: IImagenes) => {
     }
   })
   const db = data?.GetAllImagenes?.data ?? []
+  const [createImage] = useCreateImagenMutation()
+  let hasError
+  const handleUpload = async (files: File[]) => {
+    hasError = false
+    // setIsLoading(true)
+
+    for (const file of files) {
+      try {
+        await createImage({ variables: { imagen: file } })
+      } catch (error) {
+        hasError = true
+        console.log('Error al subir imagenes: ', error)
+      }
+    }
+  }
   return {
     db,
     loading,
-    refetch
+    refetch,
+    handleUpload,
+    hasError
   }
 }
 

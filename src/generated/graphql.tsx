@@ -524,6 +524,13 @@ export type CreateEventoMutationVariables = Exact<{
 
 export type CreateEventoMutation = { __typename?: 'Mutation', CreateEvento?: { __typename?: 'Evento', eventoId?: string | null, slug?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, direccion?: string | null, ubicacion?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, estado?: string | null, feriaId?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
 
+export type CreateImagenMutationVariables = Exact<{
+  imagen: Scalars['Upload'];
+}>;
+
+
+export type CreateImagenMutation = { __typename?: 'Mutation', CreateImagen: string };
+
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
 }>;
@@ -633,6 +640,37 @@ export function useCreateEventoMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateEventoMutationHookResult = ReturnType<typeof useCreateEventoMutation>;
 export type CreateEventoMutationResult = Apollo.MutationResult<CreateEventoMutation>;
 export type CreateEventoMutationOptions = Apollo.BaseMutationOptions<CreateEventoMutation, CreateEventoMutationVariables>;
+export const CreateImagenDocument = gql`
+    mutation CreateImagen($imagen: Upload!) {
+  CreateImagen(imagen: $imagen)
+}
+    `;
+export type CreateImagenMutationFn = Apollo.MutationFunction<CreateImagenMutation, CreateImagenMutationVariables>;
+
+/**
+ * __useCreateImagenMutation__
+ *
+ * To run a mutation, you first call `useCreateImagenMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateImagenMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createImagenMutation, { data, loading, error }] = useCreateImagenMutation({
+ *   variables: {
+ *      imagen: // value for 'imagen'
+ *   },
+ * });
+ */
+export function useCreateImagenMutation(baseOptions?: Apollo.MutationHookOptions<CreateImagenMutation, CreateImagenMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateImagenMutation, CreateImagenMutationVariables>(CreateImagenDocument, options);
+      }
+export type CreateImagenMutationHookResult = ReturnType<typeof useCreateImagenMutation>;
+export type CreateImagenMutationResult = Apollo.MutationResult<CreateImagenMutation>;
+export type CreateImagenMutationOptions = Apollo.BaseMutationOptions<CreateImagenMutation, CreateImagenMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($input: LoginInput!) {
   Login(input: $input) {
