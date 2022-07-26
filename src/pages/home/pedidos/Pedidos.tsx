@@ -24,6 +24,7 @@ import BtnDestacado from '../../../components/Buttons/BtnDestacado'
 import ModalDelete from '../../../components/modal/ModalDelete'
 import Pagination from '../../../components/pagination'
 import IconDetalle from '../../../icons/IconDetalle'
+import IconEyeD from '../../../icons/IconEyeD'
 import useAllPedidos from '../../../services/useAllPedidos'
 
 const Pedidos = () => {
@@ -98,7 +99,7 @@ const Pedidos = () => {
                             )
                           }}
                         >
-                          <IconDetalle />
+                          <IconEyeD />
                         </IconButton>
                       </Flex>
                     </Td>

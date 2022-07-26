@@ -9,7 +9,8 @@ import { Route } from '../interfaces'
 // import EditCategoryProduct from '../pages/home/products/categorys/EditCategoryProduct'
 
 const Pedidos = lazy(() => import('../pages/home/pedidos/Pedidos'))
-const FeriaPage = lazy(() => import('../pages/home/feria/FeriaPage'))
+const Abonado = lazy(() => import('../pages/home/abonado/Abonado'))
+const EditarAbonado = lazy(() => import('../pages/home/abonado/EditarAbonado'))
 const Eventos = lazy(() => import('../pages/home/eventos/Eventos'))
 const Precios = lazy(() => import('../pages/home/precios/Precio'))
 const PrecioButacas = lazy(() => import('../pages/home/precios/PrecioButacas'))
@@ -75,8 +76,20 @@ export const homeRoutes: Route[] = [
     name: 'Abonados',
     path: 'abonados',
     to: '/home/abonados',
-    component: FeriaPage,
-    subMenu: { value: false, paths: [] }
+    component: Abonado,
+    subMenu: {
+      value: false,
+      paths: [
+        {
+          icon: IconFile,
+          name: 'Editar-abonados',
+          path: 'editar-abonados',
+          to: '/home/editar-abonados/',
+          component: EditarAbonado,
+          render: false
+        }
+      ]
+    }
   },
   {
     icon: IconUser,
