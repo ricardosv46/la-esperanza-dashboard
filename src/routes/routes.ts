@@ -16,6 +16,7 @@ const PrecioButacas = lazy(() => import('../pages/home/precios/PrecioButacas'))
 const PrecioReferencial = lazy(
   () => import('../pages/home/precios/PrecioReferencia')
 )
+const DetallePedido = lazy(() => import('../pages/home/pedidos/DetallePedido'))
 // const BlogsPage = lazy(() => import('../pages/home/blogs/BlogsPage'))
 // const ProductsPage = lazy(() => import('../pages/home/products/ProductsPage'))
 // const CreateProduct = lazy(() => import('../pages/home/products/CreateProduct'))
@@ -55,7 +56,19 @@ export const homeRoutes: Route[] = [
     name: 'Pedidos',
     to: '/home/pedidos',
     component: Pedidos,
-    subMenu: { value: false, paths: [] }
+    subMenu: {
+      value: false,
+      paths: [
+        {
+          icon: IconFile,
+          name: 'Detalle Pedido',
+          path: 'detalle-pedido/:id',
+          to: '/home/detalle-pedido',
+          component: DetallePedido,
+          render: false
+        }
+      ]
+    }
   },
   {
     icon: IconFile,
@@ -71,7 +84,10 @@ export const homeRoutes: Route[] = [
     to: '/home/eventos',
     path: 'eventos',
     component: Eventos,
-    subMenu: { value: false, paths: [] }
+    subMenu: {
+      value: false,
+      paths: []
+    }
   },
   {
     icon: IconFile,
@@ -98,6 +114,7 @@ export const homeRoutes: Route[] = [
           component: PrecioReferencial,
           render: true
         }
+
         // {
         //   icon: IconOptions,
         //   name: 'Crear Categoria Blog',

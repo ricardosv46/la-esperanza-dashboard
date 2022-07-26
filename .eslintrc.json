@@ -15,7 +15,11 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "multiline-ternary": "error",
-    "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }]
+    "multiline-ternary": "off",
+    "operator-linebreak": [
+      "error",
+      "after",
+      { "overrides": { "?": "before", ":": "before" } }
+    ]
   }
 }

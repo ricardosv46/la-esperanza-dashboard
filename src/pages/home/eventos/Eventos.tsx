@@ -27,7 +27,7 @@ const Eventos = () => {
       <Flex flexDir={'column'}>
         <Box maxWidth={'full'}>
           <Heading as="h1" fontSize={22}>
-            Pedidos
+            Eventos
           </Heading>
           <Text
             color="blackAlpha.600"

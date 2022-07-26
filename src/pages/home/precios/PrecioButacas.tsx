@@ -31,7 +31,7 @@ const PrecioButacas = () => {
       <Flex flexDir={'column'}>
         <Box maxWidth={'full'}>
           <Heading as="h1" fontSize={22}>
-            Precios
+            Precios de Butacas
           </Heading>
           <Text
             color="blackAlpha.600"
