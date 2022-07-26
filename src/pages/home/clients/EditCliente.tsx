@@ -16,7 +16,7 @@ import { GroupBase, OptionBase, Select } from 'chakra-react-select'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InputFloat from '../../../components/input/inputFloat'
-import useForm from '../../../hooks/useForm'
+import useForm from '../../../hooks/useFormOld'
 import { Errors } from '../../../interfaces/client'
 import { createClientValidation } from '../../../validation/createClientValidation'
 
@@ -137,22 +137,22 @@ const EditCliente = () => {
   ])
 
   return (
-    <Container maxWidth='1930px' p={'10'}>
+    <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>
         <Box maxWidth={'full'}>
           <Flex alignItems={'center'} columnGap={4}>
             <Flex
-              justifyContent='center'
-              alignItems='center'
+              justifyContent="center"
+              alignItems="center"
               padding={1.5}
-              bg='primary.500'
-              rounded='full'
+              bg="primary.500"
+              rounded="full"
               cursor={'pointer'}
               onClick={() => navigate(-1)}
             >
               <ChevronLeftIcon color={'white'} />
             </Flex>
-            <Heading as='h1' fontSize={22}>
+            <Heading as="h1" fontSize={22}>
               Actualizar Cliente
             </Heading>
           </Flex>
@@ -165,136 +165,136 @@ const EditCliente = () => {
             gap={6}
           >
             <InputFloat
-              type='text'
-              label='Nombres'
-              name='nombreCongresista'
+              type="text"
+              label="Nombres"
+              name="nombreCongresista"
               value={nombreCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.nombreCongresista}
             />
             <InputFloat
-              type='text'
-              label='Apellidos'
-              name='apellidoCongresista'
+              type="text"
+              label="Apellidos"
+              name="apellidoCongresista"
               value={apellidoCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.apellidoCongresista}
             />
             <InputFloat
-              type='text'
+              type="text"
               maxLength={8}
-              label='Documento'
-              name='nroDocumentoCongresista'
+              label="Documento"
+              name="nroDocumentoCongresista"
               value={nroDocumentoCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.nroDocumentoCongresista}
             />
 
             <InputFloat
-              type='text'
-              label='E-mail'
-              name='emailCongresista'
+              type="text"
+              label="E-mail"
+              name="emailCongresista"
               value={emailCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.emailCongresista}
             />
 
             <InputFloat
-              type='text'
-              label='Pais'
-              name='paisCongresista'
+              type="text"
+              label="Pais"
+              name="paisCongresista"
               value={paisCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.paisCongresista}
             />
             <InputFloat
-              type='text'
-              label='Hotel'
-              name='hotelCongresista'
+              type="text"
+              label="Hotel"
+              name="hotelCongresista"
               value={hotelCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.hotelCongresista}
             />
             <InputFloat
-              type='text'
-              label=' Nº Vuelo Llegada'
-              name='nroVueloLlegadaCongresista'
+              type="text"
+              label=" Nº Vuelo Llegada"
+              name="nroVueloLlegadaCongresista"
               value={nroVueloLlegadaCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.nroVueloLlegadaCongresista}
             />
 
             <InputFloat
-              type='text'
-              label=' Nº Vuelo Salida'
-              name='nroVueloSalidaCongresista'
+              type="text"
+              label=" Nº Vuelo Salida"
+              name="nroVueloSalidaCongresista"
               value={nroVueloSalidaCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.nroVueloSalidaCongresista}
             />
 
             <InputFloat
-              type='date'
-              label='Fecha Salida'
-              name='fechaSalidaCongresista'
+              type="date"
+              label="Fecha Salida"
+              name="fechaSalidaCongresista"
               value={fechaSalidaCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.fechaSalidaCongresista}
             />
             <InputFloat
-              type='time'
-              label='Hora Salida'
-              name='horaSalidaCongresista'
+              type="time"
+              label="Hora Salida"
+              name="horaSalidaCongresista"
               value={horaSalidaCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.horaSalidaCongresista}
             />
             <InputFloat
-              type='date'
-              label='Fecha Llegada'
-              name='fechaLlegadaCongresista'
+              type="date"
+              label="Fecha Llegada"
+              name="fechaLlegadaCongresista"
               value={moment().format(fechaLlegadaCongresista)}
               onChange={onChange}
               errorMessage={errorMessage?.fechaLlegadaCongresista}
             />
             <InputFloat
-              type='time'
-              label='Hora Llegada'
-              name='horaLlegadaCongresista'
+              type="time"
+              label="Hora Llegada"
+              name="horaLlegadaCongresista"
               value={horaLlegadaCongresista}
               onChange={onChange}
               errorMessage={errorMessage?.horaLlegadaCongresista}
             />
 
-            <Flex flexDir='column' justifyContent='center' gap={2}>
+            <Flex flexDir="column" justifyContent="center" gap={2}>
               <Checkbox
                 isChecked={!showAlergia}
                 onChange={() => setShowAlergia(!showAlergia)}
-                colorScheme='primary'
+                colorScheme="primary"
               >
                 Sufres de algun tipo de alergia, hipertension, diabetes u otro
               </Checkbox>
               {!showAlergia ? (
                 <InputFloat
-                  type='text'
-                  label='Menciona Cuales'
-                  name='tipoAlergiaCongresista'
+                  type="text"
+                  label="Menciona Cuales"
+                  name="tipoAlergiaCongresista"
                   value={tipoAlergiaCongresista}
                   onChange={onChange}
                 />
               ) : (
-                <Box h='60px'></Box>
+                <Box h="60px"></Box>
               )}
             </Flex>
             <FormControl>
-              <FormLabel color='primary.500'>Categoria</FormLabel>
+              <FormLabel color="primary.500">Categoria</FormLabel>
 
               <Select<ColorOption, false, GroupBase<ColorOption>>
-                name='colors'
+                name="colors"
                 options={mappedcolorOptions}
-                focusBorderColor='primary.300'
-                placeholder='Select a color'
-                selectedOptionColor='primary'
+                focusBorderColor="primary.300"
+                placeholder="Select a color"
+                selectedOptionColor="primary"
                 chakraStyles={{
                   dropdownIndicator: (provided) => ({
                     ...provided,
@@ -312,16 +312,16 @@ const EditCliente = () => {
           </Grid>
         </Box>
       </Flex>
-      <Flex justifyContent='center' py={14}>
+      <Flex justifyContent="center" py={14}>
         <Button
-          type='button'
+          type="button"
           w={96}
           py={7}
-          colorScheme='primary'
+          colorScheme="primary"
           onClick={handleSubmit}
           disabled={isDisable}
         >
-          <Text fontWeight='bold' fontSize='xl'>
+          <Text fontWeight="bold" fontSize="xl">
             Actualizar Cliente
           </Text>
         </Button>

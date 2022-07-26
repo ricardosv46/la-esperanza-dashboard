@@ -143,7 +143,7 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
               Eliminar Imagen
             </AlertDialogHeader>
 
@@ -156,7 +156,7 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
               <Button ref={cancelRef} onClick={() => setOpenAlert(false)}>
                 Cancelar
               </Button>
-              <Button colorScheme='red' onClick={handleDelete} ml={3}>
+              <Button colorScheme="red" onClick={handleDelete} ml={3}>
                 Eliminar
               </Button>
             </AlertDialogFooter>
@@ -164,16 +164,16 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
         </AlertDialogOverlay>
       </AlertDialog>
 
-      <Modal isOpen={isOpen} onClose={handleClose} scrollBehavior='inside'>
+      <Modal isOpen={isOpen} onClose={handleClose} scrollBehavior="inside">
         <ModalOverlay />
-        <ModalContent w='full' maxW='90vw' minH='90vh' bg='gray.800'>
+        <ModalContent w="full" maxW="90vw" minH="90vh" bg="gray.800">
           <ModalHeader>
-            <Flex justify='space-between' align='center' mt={10}>
+            <Flex justify="space-between" align="center" mt={10}>
               <Heading>Imagenes</Heading>
 
               <Button
-                variant='outline'
-                colorScheme='primary'
+                variant="outline"
+                colorScheme="primary"
                 onClick={() => setIsUploadImage((prev) => !prev)}
               >
                 {isUploadImage ? 'Ver galeria' : 'Subir Imagen'}
@@ -181,14 +181,14 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
             </Flex>
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody display='flex'>
+          <ModalBody display="flex">
             {/* GALERIA */}
             {!isUploadImage && (
               <Grid
-                w='full'
+                w="full"
                 gap={8}
-                autoRows='200px'
-                templateColumns='repeat(auto-fit, minmax(200px, 1fr))'
+                autoRows="200px"
+                templateColumns="repeat(auto-fit, minmax(200px, 1fr))"
               >
                 {data &&
                   data.GetAllImagenes?.map((image) => {
@@ -197,17 +197,17 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
                     return (
                       <chakra.button
                         key={image?.id}
-                        rounded='lg'
-                        pos='relative'
+                        rounded="lg"
+                        pos="relative"
                         borderWidth={1}
-                        cursor='pointer'
+                        cursor="pointer"
                         borderColor={isActive ? 'primary.500' : 'gray.300'}
                         _dark={{
                           borderColor: isActive ? 'primary.500' : 'gray.700'
                         }}
-                        overflow='hidden'
+                        overflow="hidden"
                         _hover={{ shadow: 'md' }}
-                        transition='box-shadow 250ms linear'
+                        transition="box-shadow 250ms linear"
                         onClick={() => {
                           setSelectedImage((actualImage) =>
                             actualImage?.id === image.id ? null : image
@@ -220,12 +220,12 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
                             h={5}
                             top={0}
                             right={0}
-                            pos='absolute'
-                            color='black'
-                            bg='primary.500'
+                            pos="absolute"
+                            color="black"
+                            bg="primary.500"
                             zIndex={20}
                           >
-                            <CheckIcon fontSize='12px' />
+                            <CheckIcon fontSize="12px" />
                           </Center>
                         )}
 
@@ -234,14 +234,14 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
                           alt={image?.titulo!}
                           fallback={
                             <Center>
-                              <Spinner colorScheme='primary' size='lg' />
+                              <Spinner colorScheme="primary" size="lg" />
                             </Center>
                           }
-                          w='full'
-                          h='full'
-                          pos='absolute'
+                          w="full"
+                          h="full"
+                          pos="absolute"
                           inset={0}
-                          objectFit='contain'
+                          objectFit="contain"
                           zIndex={10}
                         />
                       </chakra.button>
@@ -259,8 +259,8 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
           <ModalFooter>
             <Flex>
               <Button
-                variant='ghost'
-                colorScheme='red'
+                variant="ghost"
+                colorScheme="red"
                 mr={3}
                 onClick={onClose}
               >
@@ -268,8 +268,8 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
               </Button>
               <Button
                 mr={3}
-                variant='outline'
-                colorScheme='red'
+                variant="outline"
+                colorScheme="red"
                 isLoading={deleteLoading}
                 onClick={() => setOpenAlert(true)}
                 disabled={selectedImage === null}
@@ -278,7 +278,7 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
               </Button>
               <Button
                 mr={3}
-                colorScheme='primary'
+                colorScheme="primary"
                 onClick={handleSelect}
                 disabled={selectedImage === null}
               >

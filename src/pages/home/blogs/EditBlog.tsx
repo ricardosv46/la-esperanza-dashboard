@@ -17,7 +17,7 @@ import InputImage from '../../../components/input/InputImage'
 
 import Select from '../../../components/shared/Select'
 import { Imagenes } from '../../../generated/graphql'
-import useForm from '../../../hooks/useForm'
+import useForm from '../../../hooks/useFormOld'
 import { useBlogs } from '../../../services/useBlogs'
 import { useBlogSlug } from '../../../services/useBlogSlug'
 import { useCategoriaBlogs } from '../../../services/useCategoriaBlogs'
@@ -128,22 +128,22 @@ const EditBlog = () => {
   }, [titulo, descripcionCorta, descripcionLarga, keywords, selectValue])
 
   return (
-    <Container maxWidth='1930px' p={'10'}>
+    <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>
         <Box maxWidth={'full'}>
           <Flex alignItems={'center'} columnGap={4}>
             <Flex
-              justifyContent='center'
-              alignItems='center'
+              justifyContent="center"
+              alignItems="center"
               padding={1.5}
-              bg='primary.500'
-              rounded='full'
+              bg="primary.500"
+              rounded="full"
               cursor={'pointer'}
               onClick={() => navigate(-1)}
             >
               <ChevronLeftIcon color={'white'} />
             </Flex>
-            <Heading as='h1' fontSize={22}>
+            <Heading as="h1" fontSize={22}>
               Actualizar Blog
             </Heading>
           </Flex>
@@ -151,13 +151,13 @@ const EditBlog = () => {
 
         <Box maxWidth={'full'}>
           {cargando ? (
-            <Flex justifyContent='center' alignItems='center' h={'xl'}>
+            <Flex justifyContent="center" alignItems="center" h={'xl'}>
               <Spinner
-                thickness='4px'
-                speed='0.65s'
-                emptyColor='gray.200'
-                color='primary.500'
-                size='xl'
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="primary.500"
+                size="xl"
               />
             </Flex>
           ) : (
@@ -170,30 +170,30 @@ const EditBlog = () => {
               gap={6}
             >
               <InputFloat
-                type='text'
-                label='Titulo'
-                name='titulo'
+                type="text"
+                label="Titulo"
+                name="titulo"
                 value={titulo}
                 onChange={onChange}
               />
               <InputFloat
-                type='text'
-                label='Descripción Corta'
-                name='descripcionCorta'
+                type="text"
+                label="Descripción Corta"
+                name="descripcionCorta"
                 value={descripcionCorta}
                 onChange={onChange}
               />
               <InputFloat
-                type='text'
-                label='Descripción Larga'
-                name='descripcionLarga'
+                type="text"
+                label="Descripción Larga"
+                name="descripcionLarga"
                 value={descripcionLarga}
                 onChange={onChange}
               />
               <InputFloat
-                type='text'
-                label='Keywords'
-                name='keywords'
+                type="text"
+                label="Keywords"
+                name="keywords"
                 value={keywords}
                 onChange={onChange}
               />
@@ -202,33 +202,33 @@ const EditBlog = () => {
                 setValue={setSelectValue}
                 setInnerValue={setInnerValue}
                 selectOptions={categorias!}
-                label='Categoria'
+                label="Categoria"
               />
               <Box></Box>
               <InputImage
                 value={imagenPrincipal}
                 onChange={setImagenPrincipal}
-                label=' Imagen Principal'
+                label=" Imagen Principal"
               />
               <InputImage
                 value={imagenSecundaria}
                 onChange={setImagenSecundaria}
-                label=' Imagen Secundaria'
+                label=" Imagen Secundaria"
               />
             </Grid>
           )}
         </Box>
       </Flex>
-      <Flex justifyContent='center' py={14}>
+      <Flex justifyContent="center" py={14}>
         <Button
-          type='button'
+          type="button"
           w={96}
           py={7}
-          colorScheme='primary'
+          colorScheme="primary"
           onClick={handleSubmit}
           disabled={isDisable}
         >
-          <Text fontWeight='bold' fontSize='xl'>
+          <Text fontWeight="bold" fontSize="xl">
             Actualizar Blog
           </Text>
         </Button>

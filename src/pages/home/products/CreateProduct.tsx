@@ -18,7 +18,7 @@ import InputImage from '../../../components/input/InputImage'
 
 import Select from '../../../components/shared/Select'
 import { Imagenes } from '../../../generated/graphql'
-import useForm from '../../../hooks/useForm'
+import useForm from '../../../hooks/useFormOld'
 import { useCategoriaProductos } from '../../../services/useCategoriaProductos'
 import { useProductos } from '../../../services/useProductos'
 
@@ -129,22 +129,22 @@ const CreateProduct = () => {
   ])
 
   return (
-    <Container maxWidth='1930px' p={'10'}>
+    <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>
         <Box maxWidth={'full'}>
           <Flex alignItems={'center'} columnGap={4}>
             <Flex
-              justifyContent='center'
-              alignItems='center'
+              justifyContent="center"
+              alignItems="center"
               padding={1.5}
-              bg='primary.500'
-              rounded='full'
+              bg="primary.500"
+              rounded="full"
               cursor={'pointer'}
               onClick={() => navigate(-1)}
             >
               <ChevronLeftIcon color={'white'} />
             </Flex>
-            <Heading as='h1' fontSize={22}>
+            <Heading as="h1" fontSize={22}>
               Crear Producto
             </Heading>
           </Flex>
@@ -152,22 +152,22 @@ const CreateProduct = () => {
 
         <Box maxWidth={'full'}>
           {locadingCategoria ? (
-            <Flex justifyContent='center' alignItems='center' h={'xl'}>
+            <Flex justifyContent="center" alignItems="center" h={'xl'}>
               <Spinner
-                thickness='4px'
-                speed='0.65s'
-                emptyColor='gray.200'
-                color='primary.500'
-                size='xl'
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="primary.500"
+                size="xl"
               />
             </Flex>
           ) : (
             <>
               <Grid mt={5} templateColumns={{ base: 'repeat(1, 1fr)' }} gap={6}>
                 <InputFloat
-                  type='text'
-                  label='Titulo'
-                  name='titulo'
+                  type="text"
+                  label="Titulo"
+                  name="titulo"
                   value={titulo}
                   onChange={onChange}
                 />
@@ -181,9 +181,9 @@ const CreateProduct = () => {
                 gap={6}
               >
                 <InputFloat
-                  type='text'
-                  label='Keywords'
-                  name='keywords'
+                  type="text"
+                  label="Keywords"
+                  name="keywords"
                   value={keywords}
                   onChange={onChange}
                 />
@@ -192,76 +192,76 @@ const CreateProduct = () => {
                   setValue={setSelectValue}
                   setInnerValue={setInnerValue}
                   selectOptions={!locadingCategoria ? categorias : []}
-                  label='Categoria'
+                  label="Categoria"
                 />
 
                 <InputFloat
-                  type='text'
-                  label='Descripción Corta'
-                  name='descripcionCorta'
+                  type="text"
+                  label="Descripción Corta"
+                  name="descripcionCorta"
                   value={descripcionCorta}
                   onChange={onChange}
                 />
                 <InputFloat
-                  type='text'
-                  label='Descripción Larga'
-                  name='descripcionLarga'
+                  type="text"
+                  label="Descripción Larga"
+                  name="descripcionLarga"
                   value={descripcionLarga}
                   onChange={onChange}
                 />
                 <InputFloat
-                  type='text'
-                  label='Stock Minimo'
-                  name='stockMinimo'
+                  type="text"
+                  label="Stock Minimo"
+                  name="stockMinimo"
                   value={stockMinimo}
                   onChange={onChange}
                 />
                 <InputFloat
-                  type='text'
-                  label='Stock Real'
-                  name='stockReal'
+                  type="text"
+                  label="Stock Real"
+                  name="stockReal"
                   value={stockReal}
                   onChange={onChange}
                 />
                 <InputFloat
-                  type='text'
-                  label='Precio Real'
-                  name='precioReal'
+                  type="text"
+                  label="Precio Real"
+                  name="precioReal"
                   value={precioReal}
                   onChange={onChange}
                 />
                 <InputFloat
-                  type='text'
-                  label='Precio Oferta'
-                  name='precioOferta'
+                  type="text"
+                  label="Precio Oferta"
+                  name="precioOferta"
                   value={precioOferta}
                   onChange={onChange}
                 />
                 <InputImage
                   value={imagenPrincipal}
                   onChange={setImagenPrincipal}
-                  label=' Imagen Principal'
+                  label=" Imagen Principal"
                 />
                 <InputImage
                   value={imagenSecundaria}
                   onChange={setImagenSecundaria}
-                  label=' Imagen Secundaria'
+                  label=" Imagen Secundaria"
                 />
               </Grid>
             </>
           )}
         </Box>
       </Flex>
-      <Flex justifyContent='center' py={14}>
+      <Flex justifyContent="center" py={14}>
         <Button
-          type='button'
+          type="button"
           w={96}
           py={7}
-          colorScheme='primary'
+          colorScheme="primary"
           onClick={handleSubmit}
           disabled={isDisable}
         >
-          <Text fontWeight='bold' fontSize='xl'>
+          <Text fontWeight="bold" fontSize="xl">
             Crear Producto
           </Text>
         </Button>

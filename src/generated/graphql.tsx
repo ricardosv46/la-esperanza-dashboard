@@ -378,6 +378,7 @@ export type Pedido = {
   pedidoId?: Maybe<Scalars['ID']>;
   precioTotal?: Maybe<Scalars['Float']>;
   tipoComprobante?: Maybe<Scalars['String']>;
+  transaccionId?: Maybe<Scalars['Float']>;
   usuarioId?: Maybe<Scalars['Int']>;
 };
 
@@ -387,6 +388,7 @@ export type PedidoInput = {
   pedidoId?: InputMaybe<Scalars['ID']>;
   precioTotal?: InputMaybe<Scalars['Float']>;
   tipoComprobante?: InputMaybe<Scalars['String']>;
+  transaccionId?: InputMaybe<Scalars['Float']>;
 };
 
 export type Query = {
@@ -516,6 +518,13 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', Login?: { __typename?: 'User', id?: string | null, email?: string | null, tipoUsuario?: number | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, apiToken?: string | null } | null };
 
+export type UpdateFeriaMutationVariables = Exact<{
+  input: FeriaInput;
+}>;
+
+
+export type UpdateFeriaMutation = { __typename?: 'Mutation', UpdateFeria?: { __typename?: 'Feria', feriaId?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, descuento?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null, imagenSecundaria?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
+
 export type GetAllButacasQueryVariables = Exact<{
   tendido: Scalars['String'];
 }>;
@@ -591,6 +600,60 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const UpdateFeriaDocument = gql`
+    mutation UpdateFeria($input: FeriaInput!) {
+  UpdateFeria(input: $input) {
+    feriaId
+    titulo
+    descripcionCorta
+    descripcionLarga
+    terminosCondiciones
+    imagenPrincipal {
+      id
+      titulo
+      url
+    }
+    imagenSecundaria {
+      id
+      titulo
+      url
+    }
+    fecha
+    hora
+    fechaInicial
+    horaInicial
+    fechaFinal
+    horaFinal
+    descuento
+  }
+}
+    `;
+export type UpdateFeriaMutationFn = Apollo.MutationFunction<UpdateFeriaMutation, UpdateFeriaMutationVariables>;
+
+/**
+ * __useUpdateFeriaMutation__
+ *
+ * To run a mutation, you first call `useUpdateFeriaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFeriaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFeriaMutation, { data, loading, error }] = useUpdateFeriaMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateFeriaMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFeriaMutation, UpdateFeriaMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFeriaMutation, UpdateFeriaMutationVariables>(UpdateFeriaDocument, options);
+      }
+export type UpdateFeriaMutationHookResult = ReturnType<typeof useUpdateFeriaMutation>;
+export type UpdateFeriaMutationResult = Apollo.MutationResult<UpdateFeriaMutation>;
+export type UpdateFeriaMutationOptions = Apollo.BaseMutationOptions<UpdateFeriaMutation, UpdateFeriaMutationVariables>;
 export const GetAllButacasDocument = gql`
     query GetAllButacas($tendido: String!) {
   GetAllButacas(tendido: $tendido) {
