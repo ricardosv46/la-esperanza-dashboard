@@ -1,3 +1,4 @@
+import { Imagen } from '../components/shared/ModalImages'
 import {
   InputMaybe,
   useGetFeriaQuery,
@@ -10,15 +11,15 @@ export interface IUpdateFeria {
   descripcionCorta: string
   descripcionLarga: string
   terminosCondiciones: string
-  imagenPrincipal: number
-  imagenSecundaria: number
+  imagenPrincipal: Imagen
+  imagenSecundaria?: Imagen
   fecha: string
   hora: string
   fechaInicial: string
   horaInicial: string
   fechaFinal: string
   horaFinal: string
-  descuento: number
+  descuento: string
 }
 
 const useFeria = () => {

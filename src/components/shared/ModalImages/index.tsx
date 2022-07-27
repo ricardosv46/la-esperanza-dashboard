@@ -28,32 +28,38 @@ import { CheckIcon } from '@chakra-ui/icons'
 import { FocusableElement } from '@chakra-ui/utils'
 
 import UploadFiles from '../UploadFiles'
+import useAllImagenes from '../../../services/useAllImagenes'
+
 import {
-  Imagenes,
   useGetAllImagenesQuery,
   useCreateImagenMutation,
   useDeleteImagenMutation
 } from '../../../generated/graphql'
 
+export interface Imagen {
+  id?: string | null | undefined
+  titulo?: string | null | undefined
+  url?: string | null | undefined
+}
+
 interface Props {
   isOpen: boolean
   onClose: () => void
-  onSelect?: (imagen: Imagenes) => void
+  onSelect?: (imagen: Imagen) => void
 }
 
 const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
   const toast = useToast()
   const [createImage] = useCreateImagenMutation()
   const [deleteImage, { loading: deleteLoading }] = useDeleteImagenMutation()
-  const { data, refetch } = useGetAllImagenesQuery({
-    variables: { estado: '' }
-  })
+  const { db: data, refetch } = useAllImagenes({ pagina: 1, numeroPagina: 90 })
+  console.log(data)
 
   const cancelRef = useRef<HTMLButtonElement>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [openAlert, setOpenAlert] = useState(false)
   const [isUploadImage, setIsUploadImage] = useState(false)
-  const [selectedImage, setSelectedImage] = useState<Imagenes | null>(null)
+  const [selectedImage, setSelectedImage] = useState<Imagen | null>(null)
 
   const handleUpload = async (files: File[]) => {
     let hasError = false
@@ -191,7 +197,7 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
                 templateColumns="repeat(auto-fit, minmax(200px, 1fr))"
               >
                 {data &&
-                  data.GetAllImagenes?.map((image) => {
+                  data?.map((image) => {
                     const isActive = selectedImage?.id === image.id
 
                     return (

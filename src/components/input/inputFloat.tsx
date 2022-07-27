@@ -11,11 +11,12 @@ import { ChangeEvent, ReactElement, useState } from 'react'
 import { IconEye } from '../../icons/IconEye'
 import { IconEyeSlash } from '../../icons/IconEyeSlash'
 import { isEmpty } from '../../utils/isEmpty'
+import { Imagen } from '../shared/ModalImages'
 
 interface IProps {
   label?: string
   name?: string
-  value: string | number
+  value: string | number | Imagen
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   type?: string
   errorMessage?: string

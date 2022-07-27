@@ -6,19 +6,17 @@ import {
   Flex,
   Grid,
   Heading,
-  Spinner,
   Text,
-  Toast,
   useToast
 } from '@chakra-ui/react'
-import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import InputFloat from '../../../components/input/inputFloat'
 // import useForm from '../../../hooks/useForm'
 import useFeria, { IUpdateFeria } from '../../../services/useFeria'
 import useForm from '../../../hooks/useForm'
-import { toast } from 'react-toastify'
-// import InputImage from '../../../components/input/InputImage'
+import InputImage from '../../../components/input/InputImage'
+import { useState } from 'react'
+import { Imagen } from '../../../components/shared/ModalImages'
 
 const initialState: IUpdateFeria = {
   descuento: '',
@@ -32,11 +30,15 @@ const initialState: IUpdateFeria = {
   horaInicial: '',
   terminosCondiciones: '',
   titulo: '',
-  feriaId: ''
+  feriaId: '',
+  imagenPrincipal: '',
+  imagenSecundaria: ''
 }
 const EditarAbonado = () => {
   const { state: detalle } = useLocation() as any
   const { updateFeria } = useFeria()
+  const [imagenPrincipal, setImagenPrincipal] = useState<Imagen>()
+  // const [imagenSecundaria, setImagenSecundaria] = useState<Imagen>()
   const navigate = useNavigate()
   console.log({ detalle })
   const toast = useToast()
@@ -53,65 +55,13 @@ const EditarAbonado = () => {
   initialState.horaInicial = detalle.abonados.horaInicial
   initialState.terminosCondiciones = detalle.abonados.terminosCondiciones
   initialState.feriaId = detalle.abonados.feriaId
-
+  initialState.imagenPrincipal = detalle.abonados.imagenPrincipal
+  initialState.imagenSecundaria = detalle.abonados.imagenSecundaria
   const { values, ...form } = useForm({
     initialValues: initialState
     // validate: validacion
   })
-
-  // const generatedTotal = (items: number, itemporpage: number) => {
-  //   const n = Math.ceil(items / itemporpage)
-  //   return Array(n)
-  //     .fill(null)
-  //     .map((_, i) => i + 1)
-  // }
-
-  /*  const handleUpdateEstado = (id: string, estado: string) => {
-     updateEstadoProducto({
-       productoId: id,
-       estado: estado === 'Activado' ? 'Desactivado' : 'Activado'
-     }).then((res) => {
-       if (res?.ok) {
-         toast({
-           title: 'Estado Actualizado Correctamente',
-           position: 'top-right',
-           isClosable: true,
-           status: 'success'
-         })
-       } else {
-         toast({
-           title: res?.error,
-           position: 'top-right',
-           isClosable: true,
-           status: 'error'
-         })
-       }
-     })
-   }
-  */
-  /*   const handleUpdateDestacado = (id: string, destacado: string) => {
-      updateDestacadoProducto({
-        productoId: id,
-        destacado: destacado === 'Activado' ? 'Desactivado' : 'Activado'
-      }).then((res) => {
-        if (res?.ok) {
-          toast({
-            title: 'Destacado Actualizado Correctamente',
-            position: 'top-right',
-            isClosable: true,
-            status: 'success'
-          })
-        } else {
-          toast({
-            title: res?.error,
-            position: 'top-right',
-            isClosable: true,
-            status: 'error'
-          })
-        }
-      })
-    } */
-
+  console.log(values.imagenSecundaria)
   const handleSubmit = async () => {
     const { ...rest } = values
     updateFeria(rest).then((res) => {
@@ -159,7 +109,7 @@ const EditarAbonado = () => {
         <Box maxWidth={'full'}>
           <Grid
             mt={5}
-            templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(3, 1fr)' }}
+            templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' }}
             gap={6}
           >
             <InputFloat
@@ -245,8 +195,20 @@ const EditarAbonado = () => {
               // name="terminosCondiciones"
               // value={terminosCondiciones}
               // onChange={onChange}
+
               {...form.inputProps('terminosCondiciones')}
             />
+            <InputImage
+              value={values.imagenPrincipal}
+              onChange={setImagenPrincipal}
+              label=" Imagen Principal"
+              // {...form.inputProps('imagenPrincipal')}
+            />
+            {/* <InputImage
+              // value={values.imagenSecundaria}
+              // onChange={setImagenSecundaria}
+              label="Imagen Secundaria"
+            /> */}
             <Box></Box>
             {/* <InputImage
               // value={imagenPrincipal}
