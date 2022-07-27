@@ -531,6 +531,13 @@ export type CreateImagenMutationVariables = Exact<{
 
 export type CreateImagenMutation = { __typename?: 'Mutation', CreateImagen: string };
 
+export type DeleteEventoMutationVariables = Exact<{
+  eventoId: Scalars['Int'];
+}>;
+
+
+export type DeleteEventoMutation = { __typename?: 'Mutation', DeleteEvento?: string | null };
+
 export type DeleteImagenMutationVariables = Exact<{
   id: Scalars['Int'];
 }>;
@@ -545,12 +552,40 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', Login?: { __typename?: 'User', id?: string | null, email?: string | null, tipoUsuario?: number | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, apiToken?: string | null } | null };
 
+export type UpdateEstadoEventoMutationVariables = Exact<{
+  input: UpdateEstadoEventoInput;
+}>;
+
+
+export type UpdateEstadoEventoMutation = { __typename?: 'Mutation', UpdateEstadoEvento?: { __typename?: 'Evento', eventoId?: string | null, slug?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, direccion?: string | null, ubicacion?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, estado?: string | null, feriaId?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
+
+export type UpdateEventoMutationVariables = Exact<{
+  input: EventoInput;
+}>;
+
+
+export type UpdateEventoMutation = { __typename?: 'Mutation', UpdateEvento?: { __typename?: 'Evento', eventoId?: string | null, slug?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, direccion?: string | null, ubicacion?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, estado?: string | null, feriaId?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
+
 export type UpdateFeriaMutationVariables = Exact<{
   input: FeriaInput;
 }>;
 
 
 export type UpdateFeriaMutation = { __typename?: 'Mutation', UpdateFeria?: { __typename?: 'Feria', feriaId?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, descuento?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null, imagenSecundaria?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
+
+export type UpdatePrecioMutationVariables = Exact<{
+  input?: InputMaybe<ButacaInput>;
+}>;
+
+
+export type UpdatePrecioMutation = { __typename?: 'Mutation', UpdatePrecio: { __typename?: 'Butaca', butacaId?: string | null, tendido?: string | null, codigo?: string | null, cantidad?: number | null, precio?: number | null } };
+
+export type UpdatePrecioReferencialMutationVariables = Exact<{
+  input: ReferencialInput;
+}>;
+
+
+export type UpdatePrecioReferencialMutation = { __typename?: 'Mutation', UpdatePrecioReferencial?: { __typename?: 'Referencial', referenciaId?: string | null, tendido?: string | null, titulo?: string | null, precio?: number | null } | null };
 
 export type GetAllButacasQueryVariables = Exact<{
   tendido: Scalars['String'];
@@ -678,6 +713,37 @@ export function useCreateImagenMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateImagenMutationHookResult = ReturnType<typeof useCreateImagenMutation>;
 export type CreateImagenMutationResult = Apollo.MutationResult<CreateImagenMutation>;
 export type CreateImagenMutationOptions = Apollo.BaseMutationOptions<CreateImagenMutation, CreateImagenMutationVariables>;
+export const DeleteEventoDocument = gql`
+    mutation DeleteEvento($eventoId: Int!) {
+  DeleteEvento(eventoId: $eventoId)
+}
+    `;
+export type DeleteEventoMutationFn = Apollo.MutationFunction<DeleteEventoMutation, DeleteEventoMutationVariables>;
+
+/**
+ * __useDeleteEventoMutation__
+ *
+ * To run a mutation, you first call `useDeleteEventoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteEventoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteEventoMutation, { data, loading, error }] = useDeleteEventoMutation({
+ *   variables: {
+ *      eventoId: // value for 'eventoId'
+ *   },
+ * });
+ */
+export function useDeleteEventoMutation(baseOptions?: Apollo.MutationHookOptions<DeleteEventoMutation, DeleteEventoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteEventoMutation, DeleteEventoMutationVariables>(DeleteEventoDocument, options);
+      }
+export type DeleteEventoMutationHookResult = ReturnType<typeof useDeleteEventoMutation>;
+export type DeleteEventoMutationResult = Apollo.MutationResult<DeleteEventoMutation>;
+export type DeleteEventoMutationOptions = Apollo.BaseMutationOptions<DeleteEventoMutation, DeleteEventoMutationVariables>;
 export const DeleteImagenDocument = gql`
     mutation DeleteImagen($id: Int!) {
   DeleteImagen(id: $id)
@@ -750,6 +816,111 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const UpdateEstadoEventoDocument = gql`
+    mutation UpdateEstadoEvento($input: UpdateEstadoEventoInput!) {
+  UpdateEstadoEvento(input: $input) {
+    eventoId
+    slug
+    titulo
+    descripcionCorta
+    descripcionLarga
+    terminosCondiciones
+    direccion
+    ubicacion
+    fecha
+    hora
+    imagenPrincipal {
+      id
+      titulo
+      url
+    }
+    fechaInicial
+    horaInicial
+    fechaFinal
+    estado
+    feriaId
+  }
+}
+    `;
+export type UpdateEstadoEventoMutationFn = Apollo.MutationFunction<UpdateEstadoEventoMutation, UpdateEstadoEventoMutationVariables>;
+
+/**
+ * __useUpdateEstadoEventoMutation__
+ *
+ * To run a mutation, you first call `useUpdateEstadoEventoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEstadoEventoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEstadoEventoMutation, { data, loading, error }] = useUpdateEstadoEventoMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateEstadoEventoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateEstadoEventoMutation, UpdateEstadoEventoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateEstadoEventoMutation, UpdateEstadoEventoMutationVariables>(UpdateEstadoEventoDocument, options);
+      }
+export type UpdateEstadoEventoMutationHookResult = ReturnType<typeof useUpdateEstadoEventoMutation>;
+export type UpdateEstadoEventoMutationResult = Apollo.MutationResult<UpdateEstadoEventoMutation>;
+export type UpdateEstadoEventoMutationOptions = Apollo.BaseMutationOptions<UpdateEstadoEventoMutation, UpdateEstadoEventoMutationVariables>;
+export const UpdateEventoDocument = gql`
+    mutation UpdateEvento($input: EventoInput!) {
+  UpdateEvento(input: $input) {
+    eventoId
+    slug
+    titulo
+    descripcionCorta
+    descripcionLarga
+    terminosCondiciones
+    direccion
+    ubicacion
+    fecha
+    hora
+    imagenPrincipal {
+      id
+      titulo
+      url
+    }
+    fechaInicial
+    horaInicial
+    fechaFinal
+    horaFinal
+    estado
+    feriaId
+  }
+}
+    `;
+export type UpdateEventoMutationFn = Apollo.MutationFunction<UpdateEventoMutation, UpdateEventoMutationVariables>;
+
+/**
+ * __useUpdateEventoMutation__
+ *
+ * To run a mutation, you first call `useUpdateEventoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEventoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEventoMutation, { data, loading, error }] = useUpdateEventoMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateEventoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateEventoMutation, UpdateEventoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateEventoMutation, UpdateEventoMutationVariables>(UpdateEventoDocument, options);
+      }
+export type UpdateEventoMutationHookResult = ReturnType<typeof useUpdateEventoMutation>;
+export type UpdateEventoMutationResult = Apollo.MutationResult<UpdateEventoMutation>;
+export type UpdateEventoMutationOptions = Apollo.BaseMutationOptions<UpdateEventoMutation, UpdateEventoMutationVariables>;
 export const UpdateFeriaDocument = gql`
     mutation UpdateFeria($input: FeriaInput!) {
   UpdateFeria(input: $input) {
@@ -804,6 +975,79 @@ export function useUpdateFeriaMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UpdateFeriaMutationHookResult = ReturnType<typeof useUpdateFeriaMutation>;
 export type UpdateFeriaMutationResult = Apollo.MutationResult<UpdateFeriaMutation>;
 export type UpdateFeriaMutationOptions = Apollo.BaseMutationOptions<UpdateFeriaMutation, UpdateFeriaMutationVariables>;
+export const UpdatePrecioDocument = gql`
+    mutation UpdatePrecio($input: ButacaInput) {
+  UpdatePrecio(input: $input) {
+    butacaId
+    tendido
+    codigo
+    cantidad
+    precio
+  }
+}
+    `;
+export type UpdatePrecioMutationFn = Apollo.MutationFunction<UpdatePrecioMutation, UpdatePrecioMutationVariables>;
+
+/**
+ * __useUpdatePrecioMutation__
+ *
+ * To run a mutation, you first call `useUpdatePrecioMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePrecioMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePrecioMutation, { data, loading, error }] = useUpdatePrecioMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdatePrecioMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePrecioMutation, UpdatePrecioMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdatePrecioMutation, UpdatePrecioMutationVariables>(UpdatePrecioDocument, options);
+      }
+export type UpdatePrecioMutationHookResult = ReturnType<typeof useUpdatePrecioMutation>;
+export type UpdatePrecioMutationResult = Apollo.MutationResult<UpdatePrecioMutation>;
+export type UpdatePrecioMutationOptions = Apollo.BaseMutationOptions<UpdatePrecioMutation, UpdatePrecioMutationVariables>;
+export const UpdatePrecioReferencialDocument = gql`
+    mutation UpdatePrecioReferencial($input: ReferencialInput!) {
+  UpdatePrecioReferencial(input: $input) {
+    referenciaId
+    tendido
+    titulo
+    precio
+  }
+}
+    `;
+export type UpdatePrecioReferencialMutationFn = Apollo.MutationFunction<UpdatePrecioReferencialMutation, UpdatePrecioReferencialMutationVariables>;
+
+/**
+ * __useUpdatePrecioReferencialMutation__
+ *
+ * To run a mutation, you first call `useUpdatePrecioReferencialMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePrecioReferencialMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePrecioReferencialMutation, { data, loading, error }] = useUpdatePrecioReferencialMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdatePrecioReferencialMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePrecioReferencialMutation, UpdatePrecioReferencialMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdatePrecioReferencialMutation, UpdatePrecioReferencialMutationVariables>(UpdatePrecioReferencialDocument, options);
+      }
+export type UpdatePrecioReferencialMutationHookResult = ReturnType<typeof useUpdatePrecioReferencialMutation>;
+export type UpdatePrecioReferencialMutationResult = Apollo.MutationResult<UpdatePrecioReferencialMutation>;
+export type UpdatePrecioReferencialMutationOptions = Apollo.BaseMutationOptions<UpdatePrecioReferencialMutation, UpdatePrecioReferencialMutationVariables>;
 export const GetAllButacasDocument = gql`
     query GetAllButacas($tendido: String!) {
   GetAllButacas(tendido: $tendido) {
