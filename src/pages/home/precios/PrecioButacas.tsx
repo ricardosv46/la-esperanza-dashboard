@@ -15,17 +15,52 @@ import {
   Td,
   Image,
   Switch,
-  IconButton
+  IconButton,
+  useToast
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import InputFloat from '../../../components/input/inputFloat'
+import ModalDelete from '../../../components/modal/ModalDelete'
+import ModalUpdateEstadoPedido from '../../../components/modal/ModalUpdateEstadoPedido'
+import useForm from '../../../hooks/useForm'
+import useToggle from '../../../hooks/useToggle'
 import useButacas from '../../../services/useButacas'
 // import { useNavigate } from 'react-router-dom'
-
+const initialState = {
+  precio: 0,
+  butacaId: 0
+}
 const PrecioButacas = () => {
-  // const navigate = useNavigate()
-  const { db: butacas } = useButacas({ tendido: 'T2S' })
+  const toast = useToast()
+  const [valueInput, setValueInput] = useState('')
+  const { isOpen, onOpen, onClose } = useToggle()
+  const { db: butacas, updatePrecioButaca } = useButacas({ tendido: 'T2B' })
   console.log(butacas)
-  // pedidos.map((item) => console.log(item.Usuario?.apellidos))
+  // initialState.precio = valueInput
+  // initialState.butacaId = evento.butacaId
+  const { values, ...form } = useForm({
+    initialValues: initialState
+  })
+  const handleUpdatePrecioButaca = (butacaId: number, precio: number) => {
+    updatePrecioButaca(butacaId, precio).then((res) => {
+      if (res?.ok) {
+        toast({
+          title: 'Precio actualizado Correctamente',
+          position: 'top-right',
+          isClosable: true,
+          status: 'success'
+        })
+      } else {
+        toast({
+          title: 'Precio actualizado Inrrectamente',
+          position: 'top-right',
+          isClosable: true,
+          status: 'error'
+        })
+      }
+    })
+  }
   return (
     <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>
@@ -85,14 +120,11 @@ const PrecioButacas = () => {
                     <Flex justifyContent="center" alignItems="center" gap={5}>
                       <IconButton
                         aria-label="editar"
-                        // onClick={() =>
-                        //   navigate(
-                        //     `/home/edit-product/${producto.productoId}`,
-                        //     {
-                        //       state: { producto }
-                        //     }
-                        //   )
-                        // }
+                        onClick={() => {
+                          onOpen()
+                          values.precio = Number(butaca?.precio)
+                          values.butacaId = Number(butaca?.butacaId)
+                        }}
                       >
                         <EditIcon w={5} h={5} />
                       </IconButton>
@@ -107,13 +139,21 @@ const PrecioButacas = () => {
 
         {/* <Pagination state={state} setstate={setstate} paginas={paginas} /> */}
       </Flex>
-      {/* <ModalDelete
+      <ModalUpdateEstadoPedido
         isOpen={isOpen}
-        onClick={handleDelete}
         onClose={onClose}
-        header="Eliminar Blog"
-        body="¿Estas seguro que deseas eliminar este blog?"
-      /> */}
+        header="Actualizar Precio"
+        onClick={() => handleUpdatePrecioButaca(values.butacaId, values.precio)}
+      >
+        <Box>
+          <InputFloat
+            type="number"
+            label="Precio Butaca"
+            // value={Number(values.precio)}
+            {...form.inputProps('precio')}
+          />
+        </Box>
+      </ModalUpdateEstadoPedido>
     </Container>
   )
 }

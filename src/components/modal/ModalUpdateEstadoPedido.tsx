@@ -15,40 +15,32 @@ interface IModal {
   onClose: () => void
   onClick: () => void
   header: string
-  body: string | ReactElement
-  nombreBotton?: string
-  colorBoton?: string | number
+  children: ReactElement
 }
 
-const ModalDelete = ({
-  isOpen,
-  onClick,
-  onClose,
-  body,
-  header,
-  nombreBotton = 'Eliminar',
-  colorBoton = 'red'
-}: IModal) => {
+const ModalUpdateEstadoPedido = ({ isOpen, onClick, onClose, header, children }: IModal) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{header}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>{body}</ModalBody>
+        <ModalBody>
+          {children}
+        </ModalBody>
 
         <ModalFooter>
           <Button mr={3} onClick={onClose}>
             Cancelar
           </Button>
           <Button
-            colorScheme={colorBoton}
+            colorScheme='red'
             onClick={() => {
               onClick()
               onClose()
             }}
           >
-            {nombreBotton}
+            Actualizar
           </Button>
         </ModalFooter>
       </ModalContent>
@@ -56,4 +48,4 @@ const ModalDelete = ({
   )
 }
 
-export default ModalDelete
+export default ModalUpdateEstadoPedido

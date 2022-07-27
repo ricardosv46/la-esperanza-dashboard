@@ -17,10 +17,7 @@ const useButacas = ({ tendido }: { tendido: string }) => {
 
   const [UpdatePrecioMutation] = useUpdatePrecioMutation()
 
-  const updatePrecioButaca = async (
-    butacaId: InputMaybe<string> | undefined,
-    precio: number
-  ) => {
+  const updatePrecioButaca = async (butacaId: string, precio: number) => {
     try {
       const res = await UpdatePrecioMutation({
         variables: {

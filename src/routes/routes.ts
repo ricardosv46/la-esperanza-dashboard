@@ -16,6 +16,9 @@ const CrearEvento = lazy(() => import('../pages/home/eventos/CrearEvento'))
 const EditarEvento = lazy(() => import('../pages/home/eventos/EditarEvento'))
 const Precios = lazy(() => import('../pages/home/precios/Precio'))
 const PrecioButacas = lazy(() => import('../pages/home/precios/PrecioButacas'))
+const EditarPrecioButacas = lazy(
+  () => import('../pages/home/precios/EditarPrecioButacas')
+)
 const PrecioReferencial = lazy(
   () => import('../pages/home/precios/PrecioReferencia')
 )
@@ -148,6 +151,14 @@ export const homeRoutes: Route[] = [
           to: '/home/butaca',
           component: PrecioButacas,
           render: true
+        },
+        {
+          icon: IconOptions,
+          name: 'Editar precio Butacas',
+          path: 'editar-precio-butaca/:id',
+          to: '/home/editar-precio-butaca',
+          component: EditarPrecioButacas,
+          render: false
         },
         {
           icon: IconFile,

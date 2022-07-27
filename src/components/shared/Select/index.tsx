@@ -26,21 +26,22 @@ interface ISelectData {
 }
 
 const Option = ({ onClick, label, desc }: OptionProps) => (
-  <chakra.button type='button' onClick={onClick} textAlign='left'>
+  <chakra.button type="button" onClick={onClick} textAlign="left">
     <Flex
       p={2}
-      w='full'
-      pos='relative'
-      align='center'
-      borderLeftWidth='4px'
-      borderLeftColor='transparent'
-      transition='background 150ms linear'
-      _hover={{ borderLeftColor: 'primary.500', bg: 'primary.50' }}>
-      <Flex align='center' w='full'>
-        <Box mx='8px' mt='-4px'>
-          <Text fontWeight='semibold'>{label}</Text>
-          <Box w='full' mt='-4px'>
-            <Text fontSize='12px' color='gray.500' textTransform='none'>
+      w="full"
+      pos="relative"
+      align="center"
+      borderLeftWidth="4px"
+      borderLeftColor="transparent"
+      transition="background 150ms linear"
+      _hover={{ borderLeftColor: 'primary.500', bg: 'primary.50' }}
+    >
+      <Flex align="center" w="full">
+        <Box mx="8px" mt="-4px">
+          <Text fontWeight="semibold">{label}</Text>
+          <Box w="full" mt="-4px">
+            <Text fontSize="12px" color="gray.500" textTransform="none">
               {desc}
             </Text>
           </Box>
@@ -50,7 +51,13 @@ const Option = ({ onClick, label, desc }: OptionProps) => (
   </chakra.button>
 )
 
-const Select = ({ selectOptions, label, setValue, innerValue, setInnerValue }: ISelectData) => {
+const Select = ({
+  selectOptions,
+  label,
+  setValue,
+  innerValue,
+  setInnerValue
+}: ISelectData) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const filterOptions = useMemo(() => {
@@ -71,8 +78,8 @@ const Select = ({ selectOptions, label, setValue, innerValue, setInnerValue }: I
   }
 
   return (
-    <Box w='full'>
-      <Box h='60px' w='full' pos='relative'>
+    <Box w="full">
+      <Box h="60px" w="full" pos="relative">
         <InputFloat
           value={innerValue}
           onChange={handleChange}
@@ -80,9 +87,9 @@ const Select = ({ selectOptions, label, setValue, innerValue, setInnerValue }: I
           rightElement={
             <IconButton
               zIndex={1}
-              variant='ghost'
-              colorScheme='primary'
-              aria-label='Abrir select'
+              variant="ghost"
+              colorScheme="primary"
+              aria-label="Abrir select"
               icon={<Icon as={ChevronDownIcon} />}
               onClick={() => setIsOpen((prev) => !prev)}
             />
@@ -90,18 +97,23 @@ const Select = ({ selectOptions, label, setValue, innerValue, setInnerValue }: I
         />
 
         <Box
-          w='full'
-          bg='white'
-          top='105%'
+          w="full"
+          bg="white"
+          top="105%"
           zIndex={40}
-          shadow='base'
-          pos='absolute'
-          rounded='base'
-          overflowY='auto'
-          maxH={isOpen ? '300px' : '0'}>
-          <Flex flexDir='column' w='full'>
+          shadow="base"
+          pos="absolute"
+          rounded="base"
+          overflowY="auto"
+          maxH={isOpen ? '300px' : '0'}
+        >
+          <Flex flexDir="column" w="full">
             {filterOptions.map((data) => (
-              <Option {...data} key={data.value} onClick={() => handleSelect(data)} />
+              <Option
+                {...data}
+                key={data.value}
+                onClick={() => handleSelect(data)}
+              />
             ))}
           </Flex>
         </Box>
