@@ -62,6 +62,7 @@ const EditarAbonado = () => {
     // validate: validacion
   })
   console.log(values.imagenSecundaria)
+
   const handleSubmit = async () => {
     const { ...rest } = values
     updateFeria(rest).then((res) => {

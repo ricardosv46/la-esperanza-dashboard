@@ -13,6 +13,8 @@ const Abonado = lazy(() => import('../pages/home/abonado/Abonado'))
 const EditarAbonado = lazy(() => import('../pages/home/abonado/EditarAbonado'))
 const Eventos = lazy(() => import('../pages/home/eventos/Eventos'))
 const CrearEvento = lazy(() => import('../pages/home/eventos/CrearEvento'))
+const EditarEvento = lazy(() => import('../pages/home/eventos/EditarEvento'))
+
 const Precios = lazy(() => import('../pages/home/precios/Precio'))
 const PrecioButacas = lazy(() => import('../pages/home/precios/PrecioButacas'))
 const PrecioReferencial = lazy(
@@ -117,8 +119,16 @@ export const homeRoutes: Route[] = [
           name: 'Crear-evento',
           to: '/home/crear-evento',
           path: 'crear-evento',
-          component: CrearEvento,
-          render: false
+          render: false,
+          component: CrearEvento
+        },
+        {
+          icon: IconUser,
+          name: 'Editar-evento',
+          to: '/home/editar-evento',
+          path: 'editar-evento',
+          render: false,
+          component: EditarEvento
         }
       ]
     }

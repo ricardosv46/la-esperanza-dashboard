@@ -11,23 +11,20 @@ interface IEventos {
   feriaId: number
   estado?: string | null
 }
-interface ICrearEvento {
-  slug: string
+export interface ICrearEvento {
   titulo: string
   descripcionCorta: string
   descripcionLarga: string
   terminosCondiciones: string
   direccion: string
   ubicacion: string
-  fecha: Date
+  fecha: Date | string
   hora: string
   imagenPrincipal: number
-  fechaInicial: Date
+  fechaInicial: Date | string
   horaInicial: string
-  fechaFinal: Date
+  fechaFinal: Date | string
   horaFinal: string
-  estado: string
-  feriaId: number
 }
 interface IUpdateEvento {
   titulo: string
@@ -46,7 +43,7 @@ interface IUpdateEvento {
   eventoId: InputMaybe<string> | undefined
 }
 
-const useAllPedidos = ({ feriaId, estado }: IEventos) => {
+const useEventos = ({ feriaId, estado }: IEventos) => {
   const { data, loading, refetch } = useGetAllEventosQuery({
     fetchPolicy: 'network-only',
     variables: {
@@ -181,15 +178,15 @@ const useAllPedidos = ({ feriaId, estado }: IEventos) => {
   const [UpdateEstadoEventoMutation] = useUpdateEstadoEventoMutation()
 
   const updateEstadoEvento = async (
-    eventoId: InputMaybe<string>,
-    estado: string
+    eventoId: InputMaybe<string> | string | undefined,
+    estado: string | InputMaybe<string> | undefined
   ) => {
     try {
       const res = await UpdateEstadoEventoMutation({
         variables: {
           input: {
             eventoId,
-            estado
+            estado: estado === 'Activado' ? 'Desactivado' : 'Activado'
           }
         }
       })
@@ -217,4 +214,4 @@ const useAllPedidos = ({ feriaId, estado }: IEventos) => {
   }
 }
 
-export default useAllPedidos
+export default useEventos

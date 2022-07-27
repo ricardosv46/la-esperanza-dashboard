@@ -15,15 +15,45 @@ import {
   Td,
   IconButton,
   Switch,
-  Spinner
+  Spinner,
+  useToast
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
-import useAllEventos from '../../../services/useAllEventos'
+import { InputMaybe } from '../../../generated/graphql'
+import useEventos from '../../../services/useEventos'
 
 const Eventos = () => {
   const navigate = useNavigate()
-  const { db: eventos, loading } = useAllEventos({ feriaId: 1, estado: null })
+  const {
+    db: eventos,
+    loading,
+    updateEstadoEvento
+  } = useEventos({ feriaId: 1, estado: null })
   console.log(eventos)
+  const toast = useToast()
+
+  const handleUpdateEstado = async (
+    eventoId: InputMaybe<string> | string | undefined,
+    estado: InputMaybe<string> | string | undefined
+  ) => {
+    updateEstadoEvento(eventoId, estado).then((res) => {
+      if (res?.ok) {
+        toast({
+          title: 'Estado Actualizado Correctamente',
+          position: 'top-right',
+          isClosable: true,
+          status: 'success'
+        })
+      } else {
+        toast({
+          title: 'Hubo un error',
+          position: 'top-right',
+          isClosable: true,
+          status: 'error'
+        })
+      }
+    })
+  }
   return (
     <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>
@@ -45,7 +75,7 @@ const Eventos = () => {
             colorScheme="primary"
             variant="solid"
             leftIcon={<AddIcon />}
-            onClick={() => navigate('/home/create-evento')}
+            onClick={() => navigate('/home/crear-evento')}
           >
             <Text lineHeight={0}>Crear Evento</Text>
           </Button>
@@ -92,12 +122,12 @@ const Eventos = () => {
                         colorScheme="primary"
                         size="lg"
                         isChecked={evento.estado === 'Activado' && true}
-                        // onChange={() =>
-                        //   handleUpdateEstado(
-                        //     banco?.bancoId ?? '',
-                        //     banco.estado ?? ''
-                        //   )
-                        // }
+                        onChange={
+                          () =>
+                            handleUpdateEstado(evento.eventoId, evento.estado)
+                          // banco?.bancoId ?? '',
+                          // banco.estado ?? ''
+                        }
                       />
                     </Td>
                     <Td>{evento.fecha}</Td>
