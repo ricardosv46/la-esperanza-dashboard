@@ -18,12 +18,12 @@ import {
   IconButton
 } from '@chakra-ui/react'
 import React from 'react'
-import useAllButacas from '../../../services/useAllButacas'
+import useButacas from '../../../services/useButacas'
 // import { useNavigate } from 'react-router-dom'
 
 const PrecioButacas = () => {
   // const navigate = useNavigate()
-  const { db: butacas } = useAllButacas({ tendido: 'T2S' })
+  const { db: butacas } = useButacas({ tendido: 'T2S' })
   console.log(butacas)
   // pedidos.map((item) => console.log(item.Usuario?.apellidos))
   return (

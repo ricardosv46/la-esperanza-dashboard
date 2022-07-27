@@ -4,7 +4,7 @@ import {
   useUpdatePrecioMutation
 } from '../generated/graphql'
 
-const useAllButacas = ({ tendido }: { tendido: string }) => {
+const useButacas = ({ tendido }: { tendido: string }) => {
   const { data, loading, refetch } = useGetAllButacasQuery({
     fetchPolicy: 'network-only',
     variables: {
@@ -48,4 +48,4 @@ const useAllButacas = ({ tendido }: { tendido: string }) => {
   }
 }
 
-export default useAllButacas
+export default useButacas
