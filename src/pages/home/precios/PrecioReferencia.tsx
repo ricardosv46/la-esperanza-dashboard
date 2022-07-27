@@ -1,11 +1,10 @@
-import { AddIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { EditIcon } from '@chakra-ui/icons'
 import {
   Box,
   Container,
   Flex,
   Heading,
   Text,
-  Button,
   TableContainer,
   Table,
   Thead,
@@ -13,19 +12,50 @@ import {
   Th,
   Tbody,
   Td,
-  Image,
-  Switch,
-  IconButton
+  IconButton,
+  useToast
 } from '@chakra-ui/react'
 import React from 'react'
+import InputFloat from '../../../components/input/inputFloat'
+import ModalUpdateEstadoPedido from '../../../components/modal/ModalUpdateEstadoPedido'
+import useForm from '../../../hooks/useForm'
+import useToggle from '../../../hooks/useToggle'
 import usePreciosPreferencial from '../../../services/usePreciosPreferencial'
 // import { useNavigate } from 'react-router-dom'
-
+const initialState = {
+  precio: 0,
+  referenciaId: ''
+}
 const PrecioReferencial = () => {
-  // const navigate = useNavigate()
-  const { db: precios } = usePreciosPreferencial()
+  const toast = useToast()
+  const { db: precios, updatePrecioReferencial } = usePreciosPreferencial()
   console.log(precios)
-  // pedidos.map((item) => console.log(item.Usuario?.apellidos))
+  const { isOpen, onOpen, onClose } = useToggle()
+  const { values, ...form } = useForm({
+    initialValues: initialState
+  })
+  const handleUpdatePrecioReferencial = (
+    referenciaId: number | string,
+    precio: number
+  ) => {
+    updatePrecioReferencial(referenciaId, precio).then((res) => {
+      if (res?.ok) {
+        toast({
+          title: 'Precio actualizado Correctamente',
+          position: 'top-right',
+          isClosable: true,
+          status: 'success'
+        })
+      } else {
+        toast({
+          title: 'Precio actualizado Inrrectamente',
+          position: 'top-right',
+          isClosable: true,
+          status: 'error'
+        })
+      }
+    })
+  }
   return (
     <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>
@@ -85,14 +115,11 @@ const PrecioReferencial = () => {
                     <Flex justifyContent="center" alignItems="center" gap={5}>
                       <IconButton
                         aria-label="editar"
-                        // onClick={() =>
-                        //   navigate(
-                        //     `/home/edit-product/${producto.productoId}`,
-                        //     {
-                        //       state: { producto }
-                        //     }
-                        //   )
-                        // }
+                        onClick={() => {
+                          onOpen()
+                          values.precio = Number(precio?.precio)
+                          values.referenciaId = Number(precio?.referenciaId)
+                        }}
                       >
                         <EditIcon w={5} h={5} />
                       </IconButton>
@@ -107,13 +134,23 @@ const PrecioReferencial = () => {
 
         {/* <Pagination state={state} setstate={setstate} paginas={paginas} /> */}
       </Flex>
-      {/* <ModalDelete
+      <ModalUpdateEstadoPedido
         isOpen={isOpen}
-        onClick={handleDelete}
         onClose={onClose}
-        header="Eliminar Blog"
-        body="¿Estas seguro que deseas eliminar este blog?"
-      /> */}
+        header="Actualizar Precio"
+        onClick={() =>
+          handleUpdatePrecioReferencial(values.referenciaId, values.precio)
+        }
+      >
+        <Box>
+          <InputFloat
+            type="number"
+            label="Precio Referencial"
+            // value={Number(values.precio)}
+            {...form.inputProps('precio')}
+          />
+        </Box>
+      </ModalUpdateEstadoPedido>
     </Container>
   )
 }

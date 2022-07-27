@@ -1,11 +1,10 @@
-import { AddIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { EditIcon } from '@chakra-ui/icons'
 import {
   Box,
   Container,
   Flex,
   Heading,
   Text,
-  Button,
   TableContainer,
   Table,
   Thead,
@@ -13,15 +12,11 @@ import {
   Th,
   Tbody,
   Td,
-  Image,
-  Switch,
   IconButton,
   useToast
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import InputFloat from '../../../components/input/inputFloat'
-import ModalDelete from '../../../components/modal/ModalDelete'
 import ModalUpdateEstadoPedido from '../../../components/modal/ModalUpdateEstadoPedido'
 import useForm from '../../../hooks/useForm'
 import useToggle from '../../../hooks/useToggle'
@@ -29,11 +24,10 @@ import useButacas from '../../../services/useButacas'
 // import { useNavigate } from 'react-router-dom'
 const initialState = {
   precio: 0,
-  butacaId: 0
+  butacaId: ''
 }
 const PrecioButacas = () => {
   const toast = useToast()
-  const [valueInput, setValueInput] = useState('')
   const { isOpen, onOpen, onClose } = useToggle()
   const { db: butacas, updatePrecioButaca } = useButacas({ tendido: 'T2B' })
   console.log(butacas)
@@ -42,7 +36,10 @@ const PrecioButacas = () => {
   const { values, ...form } = useForm({
     initialValues: initialState
   })
-  const handleUpdatePrecioButaca = (butacaId: number, precio: number) => {
+  const handleUpdatePrecioButaca = (
+    butacaId: number | string,
+    precio: number
+  ) => {
     updatePrecioButaca(butacaId, precio).then((res) => {
       if (res?.ok) {
         toast({
