@@ -1,11 +1,10 @@
-import { AddIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+import { EditIcon } from '@chakra-ui/icons'
 import {
   Box,
   Container,
   Flex,
   Heading,
   Text,
-  Button,
   TableContainer,
   Table,
   Thead,

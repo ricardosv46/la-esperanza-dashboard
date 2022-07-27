@@ -96,15 +96,6 @@ const PrecioButacas = () => {
                       >
                         <EditIcon w={5} h={5} />
                       </IconButton>
-                      <IconButton
-                        aria-label="eliminar"
-                        // onClick={() => {
-                        //   onOpen()
-                        //   setSelectId(producto?.productoId)
-                        // }}
-                      >
-                        <DeleteIcon w={5} h={5} />
-                      </IconButton>
                     </Flex>
                   </Td>
                 </Tr>

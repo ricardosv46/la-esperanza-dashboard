@@ -1,65 +1,11 @@
 import { ChevronLeftIcon } from '@chakra-ui/icons'
-import { Box, Container, Flex, Heading, Spinner, Text } from '@chakra-ui/react'
+import { Box, Container, Flex, Heading, Text } from '@chakra-ui/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const DetallePedido = () => {
   const { state: detalle } = useLocation() as any
   const navigation = useNavigate()
   console.log(detalle)
-
-  // const generatedTotal = (items: number, itemporpage: number) => {
-  //   const n = Math.ceil(items / itemporpage)
-  //   return Array(n)
-  //     .fill(null)
-  //     .map((_, i) => i + 1)
-  // }
-
-  /*  const handleUpdateEstado = (id: string, estado: string) => {
-     updateEstadoProducto({
-       productoId: id,
-       estado: estado === 'Activado' ? 'Desactivado' : 'Activado'
-     }).then((res) => {
-       if (res?.ok) {
-         toast({
-           title: 'Estado Actualizado Correctamente',
-           position: 'top-right',
-           isClosable: true,
-           status: 'success'
-         })
-       } else {
-         toast({
-           title: res?.error,
-           position: 'top-right',
-           isClosable: true,
-           status: 'error'
-         })
-       }
-     })
-   }
-  */
-  /*   const handleUpdateDestacado = (id: string, destacado: string) => {
-      updateDestacadoProducto({
-        productoId: id,
-        destacado: destacado === 'Activado' ? 'Desactivado' : 'Activado'
-      }).then((res) => {
-        if (res?.ok) {
-          toast({
-            title: 'Destacado Actualizado Correctamente',
-            position: 'top-right',
-            isClosable: true,
-            status: 'success'
-          })
-        } else {
-          toast({
-            title: res?.error,
-            position: 'top-right',
-            isClosable: true,
-            status: 'error'
-          })
-        }
-      })
-    } */
-  // const handleSubmit = () => {}
   return (
     <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>

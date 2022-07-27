@@ -15,8 +15,8 @@ import InputFloat from '../../../components/input/inputFloat'
 import useFeria, { IUpdateFeria } from '../../../services/useFeria'
 import useForm from '../../../hooks/useForm'
 import InputImage from '../../../components/input/InputImage'
-import { useState } from 'react'
-import { Imagen } from '../../../components/shared/ModalImages'
+// import { useState } from 'react'
+// import { Imagen } from '../../../components/shared/ModalImages'
 
 const initialState: IUpdateFeria = {
   descuento: '',
@@ -30,14 +30,14 @@ const initialState: IUpdateFeria = {
   horaInicial: '',
   terminosCondiciones: '',
   titulo: '',
-  feriaId: '',
-  imagenPrincipal: '',
-  imagenSecundaria: ''
+  feriaId: ''
+  // imagenPrincipal: '',
+  // imagenSecundaria: ''
 }
 const EditarAbonado = () => {
   const { state: detalle } = useLocation() as any
   const { updateFeria } = useFeria()
-  const [imagenPrincipal, setImagenPrincipal] = useState<Imagen>()
+  // const [imagenPrincipal, setImagenPrincipal] = useState<Imagen>()
   // const [imagenSecundaria, setImagenSecundaria] = useState<Imagen>()
   const navigate = useNavigate()
   console.log({ detalle })
@@ -200,7 +200,7 @@ const EditarAbonado = () => {
             />
             <InputImage
               value={values.imagenPrincipal}
-              onChange={setImagenPrincipal}
+              // onChange={setImagenPrincipal}
               label=" Imagen Principal"
               // {...form.inputProps('imagenPrincipal')}
             />

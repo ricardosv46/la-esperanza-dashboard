@@ -1,11 +1,10 @@
-import { AddIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons'
+
 import {
   Box,
   Container,
   Flex,
   Heading,
   Text,
-  Button,
   TableContainer,
   Table,
   Thead,
@@ -13,17 +12,10 @@ import {
   Th,
   Tbody,
   Td,
-  Image,
-  Switch,
   IconButton,
   Spinner
 } from '@chakra-ui/react'
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import BtnDestacado from '../../../components/Buttons/BtnDestacado'
-import ModalDelete from '../../../components/modal/ModalDelete'
-import Pagination from '../../../components/pagination'
-import IconDetalle from '../../../icons/IconDetalle'
 import IconEyeD from '../../../icons/IconEyeD'
 import useAllPedidos from '../../../services/useAllPedidos'
 

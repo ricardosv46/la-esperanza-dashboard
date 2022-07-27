@@ -5,6 +5,7 @@ const usePrecio = () => {
     fetchPolicy: 'network-only'
   })
   const db = data?.GetAllPrecioReferencial ?? []
+
   return {
     db,
     loading,

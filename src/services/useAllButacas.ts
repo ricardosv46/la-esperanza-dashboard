@@ -8,6 +8,8 @@ const useAllButacas = ({ tendido }: { tendido: string }) => {
     }
   })
   const db = data?.GetAllButacas?.data ?? []
+
+  // ACTUALIZAR PRECIO BUTACA
   return {
     db,
     loading,
