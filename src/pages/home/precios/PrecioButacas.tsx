@@ -15,7 +15,6 @@ import {
   IconButton,
   useToast
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
 import InputFloat from '../../../components/input/inputFloat'
 import ModalUpdateEstadoPedido from '../../../components/modal/ModalUpdateEstadoPedido'
 import useForm from '../../../hooks/useForm'
@@ -36,10 +35,7 @@ const PrecioButacas = () => {
   const { values, ...form } = useForm({
     initialValues: initialState
   })
-  const handleUpdatePrecioButaca = (
-    butacaId: number | string,
-    precio: number
-  ) => {
+  const handleUpdatePrecioButaca = (butacaId: string, precio: number) => {
     updatePrecioButaca(butacaId, precio).then((res) => {
       if (res?.ok) {
         toast({
@@ -120,7 +116,7 @@ const PrecioButacas = () => {
                         onClick={() => {
                           onOpen()
                           values.precio = Number(butaca?.precio)
-                          values.butacaId = Number(butaca?.butacaId)
+                          values.butacaId = String(butaca?.butacaId)
                         }}
                       >
                         <EditIcon w={5} h={5} />

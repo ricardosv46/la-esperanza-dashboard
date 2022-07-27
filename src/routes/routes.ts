@@ -8,6 +8,9 @@ import { Route } from '../interfaces'
 
 // import EditCategoryProduct from '../pages/home/products/categorys/EditCategoryProduct'
 const Imagenes = lazy(() => import('../pages/home/imagenes/Imagenes'))
+const Suscriptores = lazy(
+  () => import('../pages/home/suscriptores/Suscriptores')
+)
 const Pedidos = lazy(() => import('../pages/home/pedidos/Pedidos'))
 const Abonado = lazy(() => import('../pages/home/abonado/Abonado'))
 const EditarAbonado = lazy(() => import('../pages/home/abonado/EditarAbonado'))
@@ -62,6 +65,17 @@ export const homeRoutes: Route[] = [
     path: 'imagenes',
     to: '/home/imagenes',
     component: Imagenes,
+    subMenu: {
+      value: false,
+      paths: []
+    }
+  },
+  {
+    icon: IconFile,
+    name: 'Suscriptores',
+    path: 'suscriptores',
+    to: '/home/suscriptores',
+    component: Suscriptores,
     subMenu: {
       value: false,
       paths: []

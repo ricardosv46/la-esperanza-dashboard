@@ -195,6 +195,12 @@ export type GetAllPedidos = {
   numeroTotal?: Maybe<Scalars['Int']>;
 };
 
+export type GetAllSuscriptores = {
+  __typename?: 'GetAllSuscriptores';
+  data?: Maybe<Array<Maybe<Suscriptor>>>;
+  numeroTotal?: Maybe<Scalars['Int']>;
+};
+
 export type Imagen = {
   __typename?: 'Imagen';
   id?: Maybe<Scalars['ID']>;
@@ -214,6 +220,7 @@ export type Mutation = {
   CreateImagen: Scalars['String'];
   CreatePedido: Pedido;
   CreatePedidoAbonado: Pedido;
+  CreateSuscriptor?: Maybe<Suscriptor>;
   CreateUsuario: User;
   DeleteEvento?: Maybe<Scalars['String']>;
   DeleteImagen: Scalars['String'];
@@ -256,6 +263,11 @@ export type MutationCreatePedidoAbonadoArgs = {
   input1: PedidoInput;
   input2?: InputMaybe<Array<DetallePedidoInput>>;
   input3?: InputMaybe<UserInput>;
+};
+
+
+export type MutationCreateSuscriptorArgs = {
+  input: SuscriptorInput;
 };
 
 
@@ -408,6 +420,7 @@ export type Query = {
   GetAllImagenes?: Maybe<GetAllImagenes>;
   GetAllPedidos?: Maybe<GetAllPedidos>;
   GetAllPrecioReferencial?: Maybe<Array<Maybe<Referencial>>>;
+  GetAllSuscriptores?: Maybe<GetAllSuscriptores>;
   GetEventoSlug?: Maybe<Evento>;
   GetFeria?: Maybe<Feria>;
 };
@@ -453,6 +466,12 @@ export type QueryGetAllPedidosArgs = {
 };
 
 
+export type QueryGetAllSuscriptoresArgs = {
+  numeroPagina?: InputMaybe<Scalars['Int']>;
+  pagina?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryGetEventoSlugArgs = {
   slug?: InputMaybe<Scalars['String']>;
 };
@@ -477,6 +496,18 @@ export enum SortOrder {
   /** Sort records in descending order. */
   Desc = 'DESC'
 }
+
+export type Suscriptor = {
+  __typename?: 'Suscriptor';
+  email?: Maybe<Scalars['String']>;
+  nombres?: Maybe<Scalars['String']>;
+  suscriptorId?: Maybe<Scalars['ID']>;
+};
+
+export type SuscriptorInput = {
+  email?: InputMaybe<Scalars['String']>;
+  nombres?: InputMaybe<Scalars['String']>;
+};
 
 /** Specify if you want to include or exclude trashed results from a query. */
 export enum Trashed {
@@ -617,6 +648,14 @@ export type GetAllPedidosQueryVariables = Exact<{
 
 
 export type GetAllPedidosQuery = { __typename?: 'Query', GetAllPedidos?: { __typename?: 'GetAllPedidos', numeroTotal?: number | null, data?: Array<{ __typename?: 'Pedido', pedidoId?: string | null, tipoComprobante?: string | null, numeroComprobante?: string | null, precioTotal?: number | null, fechaPedido?: any | null, usuarioId?: number | null, Usuario?: { __typename?: 'User', id?: string | null, tipoUsuario?: number | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, email?: string | null, apiToken?: string | null } | null, DetallePedido?: Array<{ __typename?: 'DetallePedido', detallePedidoId?: string | null, tendido?: string | null, codigo?: string | null, asiento?: string | null, precio?: number | null, eventoId?: number | null, feriaId?: number | null, pedidoId?: number | null }> | null }> | null } | null };
+
+export type GetAllSuscriptoresQueryVariables = Exact<{
+  pagina?: InputMaybe<Scalars['Int']>;
+  numeroPagina?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetAllSuscriptoresQuery = { __typename?: 'Query', GetAllSuscriptores?: { __typename?: 'GetAllSuscriptores', numeroTotal?: number | null, data?: Array<{ __typename?: 'Suscriptor', suscriptorId?: string | null, nombres?: string | null, email?: string | null } | null> | null } | null };
 
 export type GetFeriaQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1254,6 +1293,47 @@ export function useGetAllPedidosLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetAllPedidosQueryHookResult = ReturnType<typeof useGetAllPedidosQuery>;
 export type GetAllPedidosLazyQueryHookResult = ReturnType<typeof useGetAllPedidosLazyQuery>;
 export type GetAllPedidosQueryResult = Apollo.QueryResult<GetAllPedidosQuery, GetAllPedidosQueryVariables>;
+export const GetAllSuscriptoresDocument = gql`
+    query GetAllSuscriptores($pagina: Int, $numeroPagina: Int) {
+  GetAllSuscriptores(pagina: $pagina, numeroPagina: $numeroPagina) {
+    numeroTotal
+    data {
+      suscriptorId
+      nombres
+      email
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllSuscriptoresQuery__
+ *
+ * To run a query within a React component, call `useGetAllSuscriptoresQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllSuscriptoresQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllSuscriptoresQuery({
+ *   variables: {
+ *      pagina: // value for 'pagina'
+ *      numeroPagina: // value for 'numeroPagina'
+ *   },
+ * });
+ */
+export function useGetAllSuscriptoresQuery(baseOptions?: Apollo.QueryHookOptions<GetAllSuscriptoresQuery, GetAllSuscriptoresQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllSuscriptoresQuery, GetAllSuscriptoresQueryVariables>(GetAllSuscriptoresDocument, options);
+      }
+export function useGetAllSuscriptoresLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllSuscriptoresQuery, GetAllSuscriptoresQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllSuscriptoresQuery, GetAllSuscriptoresQueryVariables>(GetAllSuscriptoresDocument, options);
+        }
+export type GetAllSuscriptoresQueryHookResult = ReturnType<typeof useGetAllSuscriptoresQuery>;
+export type GetAllSuscriptoresLazyQueryHookResult = ReturnType<typeof useGetAllSuscriptoresLazyQuery>;
+export type GetAllSuscriptoresQueryResult = Apollo.QueryResult<GetAllSuscriptoresQuery, GetAllSuscriptoresQueryVariables>;
 export const GetFeriaDocument = gql`
     query GetFeria {
   GetFeria {

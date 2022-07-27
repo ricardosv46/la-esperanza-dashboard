@@ -18,6 +18,7 @@ import {
 import React from 'react'
 import InputFloat from '../../../components/input/inputFloat'
 import ModalUpdateEstadoPedido from '../../../components/modal/ModalUpdateEstadoPedido'
+import { InputMaybe } from '../../../generated/graphql'
 import useForm from '../../../hooks/useForm'
 import useToggle from '../../../hooks/useToggle'
 import usePreciosPreferencial from '../../../services/usePreciosPreferencial'
@@ -35,7 +36,7 @@ const PrecioReferencial = () => {
     initialValues: initialState
   })
   const handleUpdatePrecioReferencial = (
-    referenciaId: number | string,
+    referenciaId: InputMaybe<string> | undefined,
     precio: number
   ) => {
     updatePrecioReferencial(referenciaId, precio).then((res) => {
@@ -118,7 +119,7 @@ const PrecioReferencial = () => {
                         onClick={() => {
                           onOpen()
                           values.precio = Number(precio?.precio)
-                          values.referenciaId = Number(precio?.referenciaId)
+                          values.referenciaId = String(precio?.referenciaId)
                         }}
                       >
                         <EditIcon w={5} h={5} />
