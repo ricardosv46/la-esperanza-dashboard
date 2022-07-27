@@ -93,7 +93,7 @@ const validation = ({
 }
 
 const CrearEvento = () => {
-  const navigation = useNavigate()
+  const navigate = useNavigate()
   const toast = useToast()
   const { values, ...form } = useForm({
     initialValues: initialState,
@@ -135,7 +135,7 @@ const CrearEvento = () => {
                 bg="primary.500"
                 rounded="full"
                 cursor={'pointer'}
-                // onClick={() => navigate(-1)}
+                onClick={() => navigate(-1)}
               >
                 <ChevronLeftIcon color={'white'} />
               </Flex>

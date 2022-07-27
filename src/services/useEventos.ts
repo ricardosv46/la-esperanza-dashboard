@@ -26,7 +26,7 @@ export interface ICrearEvento {
   fechaFinal: Date | string
   horaFinal: string
 }
-interface IUpdateEvento {
+export interface IUpdateEvento {
   titulo: string
   descripcionCorta: string
   descripcionLarga: string
@@ -154,7 +154,7 @@ const useEventos = ({ feriaId, estado }: IEventos) => {
   // ELIMINAR EVENTO
   const [DeleteEventoMutation] = useDeleteEventoMutation()
 
-  const deleteEvento = async (id: number) => {
+  const deleteEvento = async (id: number | null | undefined) => {
     try {
       await DeleteEventoMutation({
         variables: {

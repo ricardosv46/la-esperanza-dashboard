@@ -30,9 +30,9 @@ const initialState: IUpdateFeria = {
   horaInicial: '',
   terminosCondiciones: '',
   titulo: '',
-  feriaId: ''
-  // imagenPrincipal: '',
-  // imagenSecundaria: ''
+  feriaId: '',
+  imagenPrincipal: 84,
+  imagenSecundaria: 0
 }
 const EditarAbonado = () => {
   const { state: detalle } = useLocation() as any
@@ -55,8 +55,8 @@ const EditarAbonado = () => {
   initialState.horaInicial = detalle.abonados.horaInicial
   initialState.terminosCondiciones = detalle.abonados.terminosCondiciones
   initialState.feriaId = detalle.abonados.feriaId
-  initialState.imagenPrincipal = detalle.abonados.imagenPrincipal
-  initialState.imagenSecundaria = detalle.abonados.imagenSecundaria
+  // initialState.imagenPrincipal = detalle.abonados.imagenPrincipal
+  // initialState.imagenSecundaria = detalle.abonados.imagenSecundaria
   const { values, ...form } = useForm({
     initialValues: initialState
     // validate: validacion
@@ -200,10 +200,10 @@ const EditarAbonado = () => {
               {...form.inputProps('terminosCondiciones')}
             />
             <InputImage
-              value={values.imagenPrincipal}
+              // value={values.imagenPrincipal}
               // onChange={setImagenPrincipal}
               label=" Imagen Principal"
-              // {...form.inputProps('imagenPrincipal')}
+              {...form.inputProps('imagenPrincipal')}
             />
             {/* <InputImage
               // value={values.imagenSecundaria}

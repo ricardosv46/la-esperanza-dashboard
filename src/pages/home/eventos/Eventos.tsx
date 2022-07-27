@@ -27,7 +27,8 @@ const Eventos = () => {
   const {
     db: eventos,
     loading,
-    updateEstadoEvento
+    updateEstadoEvento,
+    deleteEvento
   } = useEventos({ feriaId: 1, estado: null })
   console.log(eventos)
   const toast = useToast()
@@ -47,6 +48,25 @@ const Eventos = () => {
       } else {
         toast({
           title: 'Hubo un error',
+          position: 'top-right',
+          isClosable: true,
+          status: 'error'
+        })
+      }
+    })
+  }
+  const handleDeleteEvento = (eventoId: number) => {
+    deleteEvento(eventoId).then((res) => {
+      if (res?.ok) {
+        toast({
+          title: 'Evento eliminado Correctamente',
+          position: 'top-right',
+          isClosable: true,
+          status: 'success'
+        })
+      } else {
+        toast({
+          title: 'Evento eliminado Correctamente',
           position: 'top-right',
           isClosable: true,
           status: 'error'
@@ -136,23 +156,19 @@ const Eventos = () => {
                       <Flex justifyContent="center" alignItems="center" gap={5}>
                         <IconButton
                           aria-label="editar"
-                          // onClick={() =>
-                          //   navigate(
-                          //     `/home/edit-product/${producto.productoId}`,
-                          //     {
-                          //       state: { producto }
-                          //     }
-                          //   )
-                          // }
+                          onClick={() =>
+                            navigate(`/home/editar-evento/${evento.eventoId}`, {
+                              state: { evento }
+                            })
+                          }
                         >
                           <EditIcon w={5} h={5} />
                         </IconButton>
                         <IconButton
                           aria-label="eliminar"
-                          // onClick={() => {
-                          //   onOpen()
-                          //   setSelectId(producto?.productoId)
-                          // }}
+                          onClick={() => {
+                            handleDeleteEvento(Number(evento.eventoId))
+                          }}
                         >
                           <DeleteIcon w={5} h={5} />
                         </IconButton>
