@@ -1,6 +1,6 @@
 import { useGetAllPrecioReferencialQuery } from '../generated/graphql'
 
-const usePrecio = () => {
+const usePreciosPreferencial = () => {
   const { data, loading, refetch } = useGetAllPrecioReferencialQuery({
     fetchPolicy: 'network-only'
   })
@@ -13,4 +13,4 @@ const usePrecio = () => {
   }
 }
 
-export default usePrecio
+export default usePreciosPreferencial

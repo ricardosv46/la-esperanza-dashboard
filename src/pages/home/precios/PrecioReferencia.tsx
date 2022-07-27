@@ -18,13 +18,12 @@ import {
   IconButton
 } from '@chakra-ui/react'
 import React from 'react'
+import usePreciosPreferencial from '../../../services/usePreciosPreferencial'
 // import { useNavigate } from 'react-router-dom'
-
-import usePrecio from '../../../services/usePrecios'
 
 const PrecioReferencial = () => {
   // const navigate = useNavigate()
-  const { db: precios } = usePrecio()
+  const { db: precios } = usePreciosPreferencial()
   console.log(precios)
   // pedidos.map((item) => console.log(item.Usuario?.apellidos))
   return (
