@@ -29,17 +29,6 @@ const DetallePedido = () => {
         </Box>
 
         <Box maxWidth={'full'}>
-          {/* {loadingUpdateVistoPedido ? (
-            <Flex justifyContent="center" alignItems="center" h={'xl'}>
-              <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="primary.500"
-                size="xl"
-              />
-            </Flex>
-          ) : ( */}
           <>
             <Box p={'20px'} rounded={'2xl'} shadow={'2xl'}>
               <Flex pt={2} pb={3} direction="row" justifyContent="center">

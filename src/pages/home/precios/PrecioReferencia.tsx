@@ -13,7 +13,8 @@ import {
   Tbody,
   Td,
   IconButton,
-  useToast
+  useToast,
+  Spinner
 } from '@chakra-ui/react'
 import React from 'react'
 import InputFloat from '../../../components/input/inputFloat'
@@ -29,7 +30,11 @@ const initialState = {
 }
 const PrecioReferencial = () => {
   const toast = useToast()
-  const { db: precios, updatePrecioReferencial } = usePreciosPreferencial()
+  const {
+    db: precios,
+    updatePrecioReferencial,
+    loading
+  } = usePreciosPreferencial()
   console.log(precios)
   const { isOpen, onOpen, onClose } = useToggle()
   const { values, ...form } = useForm({
@@ -73,17 +78,8 @@ const PrecioReferencial = () => {
             Desde aquí podrás visualizar la información de todos los precios.
           </Text>
         </Box>
-        <Flex justifyContent="flex-end" alignItems="center" mt={5}>
-          {/* <Button
-            colorScheme="primary"
-            variant="solid"
-            leftIcon={<AddIcon />}
-            onClick={() => navigate('/home/create-product')}
-          >
-            <Text lineHeight={0}>Crear Pedido</Text>
-          </Button> */}
-        </Flex>
-        {/* {loading ? (
+        <Flex justifyContent="flex-end" alignItems="center" mt={5}></Flex>
+        {loading ? (
           <Flex justifyContent="center" alignItems="center" h={'xl'}>
             <Spinner
               thickness="4px"
@@ -93,45 +89,45 @@ const PrecioReferencial = () => {
               size="xl"
             />
           </Flex>
-        ) : ( */}
-        <TableContainer mt={10}>
-          <Table colorScheme="gray">
-            <Thead fontWeight={'black'}>
-              <Tr>
-                <Th color="gray.400">Titulo</Th>
-                <Th color="gray.400">Precio</Th>
+        ) : (
+          <TableContainer mt={10}>
+            <Table colorScheme="gray">
+              <Thead fontWeight={'black'}>
+                <Tr>
+                  <Th color="gray.400">Titulo</Th>
+                  <Th color="gray.400">Precio</Th>
 
-                <Th textAlign="center" color="gray.400">
-                  Acciones
-                </Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {precios.map((precio) => (
-                <Tr key={precio?.referenciaId}>
-                  <Td>{precio?.titulo}</Td>
-                  <Td>{precio?.precio}</Td>
-
-                  <Td>
-                    <Flex justifyContent="center" alignItems="center" gap={5}>
-                      <IconButton
-                        aria-label="editar"
-                        onClick={() => {
-                          onOpen()
-                          values.precio = Number(precio?.precio)
-                          values.referenciaId = String(precio?.referenciaId)
-                        }}
-                      >
-                        <EditIcon w={5} h={5} />
-                      </IconButton>
-                    </Flex>
-                  </Td>
+                  <Th textAlign="center" color="gray.400">
+                    Acciones
+                  </Th>
                 </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-        {/* )} */}
+              </Thead>
+              <Tbody>
+                {precios.map((precio) => (
+                  <Tr key={precio?.referenciaId}>
+                    <Td>{precio?.titulo}</Td>
+                    <Td>{precio?.precio}</Td>
+
+                    <Td>
+                      <Flex justifyContent="center" alignItems="center" gap={5}>
+                        <IconButton
+                          aria-label="editar"
+                          onClick={() => {
+                            onOpen()
+                            values.precio = Number(precio?.precio)
+                            values.referenciaId = String(precio?.referenciaId)
+                          }}
+                        >
+                          <EditIcon w={5} h={5} />
+                        </IconButton>
+                      </Flex>
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        )}
 
         {/* <Pagination state={state} setstate={setstate} paginas={paginas} /> */}
       </Flex>

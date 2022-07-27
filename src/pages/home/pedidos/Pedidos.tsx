@@ -1,4 +1,3 @@
-
 import {
   Box,
   Container,
@@ -104,13 +103,6 @@ const Pedidos = () => {
 
         {/* <Pagination state={state} setstate={setstate} paginas={paginas} /> */}
       </Flex>
-      {/* <ModalDelete
-        isOpen={isOpen}
-        onClick={handleDelete}
-        onClose={onClose}
-        header="Eliminar Blog"
-        body="¿Estas seguro que deseas eliminar este blog?"
-      /> */}
     </Container>
   )
 }
