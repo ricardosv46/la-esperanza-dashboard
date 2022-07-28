@@ -20,7 +20,7 @@ interface IProps {
 
 const Pagination = ({ state, setstate, paginas }: IProps) => {
   const { pagina, numeroPagina } = state
-
+  console.log(paginas.length)
   const increment = () => {
     if (paginas.length === pagina) return
     setstate({ ...state, pagina: pagina + 1 })
