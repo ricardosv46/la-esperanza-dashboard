@@ -109,6 +109,7 @@ const EditarAbonado = () => {
               bg="primary.500"
               rounded="full"
               cursor={'pointer'}
+              _dark={{ bg: '#F0AC42', color: 'primary.500' }}
               onClick={() => navigate(-1)}
             >
               <ChevronLeftIcon color={'white'} />
@@ -141,7 +142,7 @@ const EditarAbonado = () => {
               type="text"
               label="Descuento (%)"
               {...form.inputProps('descuento')}
-              pattern="[0-9]{0,3}"
+              pattern="^[0-9]?[0-9]$"
               onChange={(e) => {
                 e.target.validity.valid &&
                   form.setField('descuento', e.target.value)
@@ -219,6 +220,7 @@ const EditarAbonado = () => {
           py={7}
           colorScheme="primary"
           onClick={handleSubmit}
+          _dark={{ bg: '#F0AC42' }}
         >
           <Text fontWeight="bold" fontSize="xl">
             Actualizar Categoria
