@@ -15,13 +15,11 @@ const useSuscriptores = ({ pagina, numeroPagina }: ISuscriptores) => {
   })
   const db = data?.GetAllSuscriptores?.data ?? []
   const nTotal = data?.GetAllSuscriptores?.numeroTotal ?? 0
-  const datos = data?.GetAllSuscriptores
   return {
     db,
     loading,
     refetch,
-    nTotal,
-    datos
+    nTotal
   }
 }
 

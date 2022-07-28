@@ -1,4 +1,4 @@
-import { Container, Flex, Heading, Image, Text } from '@chakra-ui/react'
+import { Container, Flex, Heading, Image, Link, Text } from '@chakra-ui/react'
 
 import Welcome from '../../assets/imgs/welcome.png'
 
@@ -47,31 +47,20 @@ const WelcomePage = () => {
         fontSize="3xl"
         textAlign="center"
       >
-        <Flex
-          w={60}
-          h={36}
-          px={10}
-          cursor="pointer"
-          // bg="gray.300"
-          rounded="lg"
-          alignItems="center"
-          justifyContent="center"
-          bg="primary.500"
-        >
-          <Text color="#F0AC42">Visitar Tienda</Text>
-        </Flex>
-        <Flex
-          w={60}
-          h={36}
-          px={10}
-          cursor="pointer"
-          bg="primary.500"
-          rounded="lg"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Text color="#F0AC42">Productos Registrados</Text>
-        </Flex>
+        <Link href="https://laesperanza.plazaticket.com/">
+          <Flex
+            w={80}
+            h={36}
+            px={10}
+            cursor="pointer"
+            bg="primary.500"
+            rounded="lg"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Text color="#F0AC42">Visita nuesta pagina</Text>
+          </Flex>
+        </Link>
       </Flex>
     </Container>
   )

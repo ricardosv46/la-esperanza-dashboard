@@ -16,8 +16,10 @@ import {
   useToast,
   Spinner
 } from '@chakra-ui/react'
+import { useState } from 'react'
 import InputFloat from '../../../components/input/inputFloat'
 import ModalUpdateEstadoPedido from '../../../components/modal/ModalUpdateEstadoPedido'
+import Select from '../../../components/shared/Select'
 import useForm from '../../../hooks/useForm'
 import useToggle from '../../../hooks/useToggle'
 import useButacas from '../../../services/useButacas'
@@ -28,11 +30,13 @@ const initialState = {
 const PrecioButacas = () => {
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useToggle()
+  const [innerValue, setInnerValue] = useState<string>('')
+  const [selectValue, setSelectValue] = useState<number>(0)
   const {
     db: butacas,
     updatePrecioButaca,
     loading
-  } = useButacas({ tendido: 'T2B' })
+  } = useButacas({ tendido: '' })
   console.log(butacas)
   const { values, ...form } = useForm({
     initialValues: initialState
@@ -84,43 +88,50 @@ const PrecioButacas = () => {
             />
           </Flex>
         ) : (
-          <TableContainer mt={10}>
-            <Table colorScheme="gray">
-              <Thead fontWeight={'black'}>
-                <Tr>
-                  <Th color="gray.400">Codigo del tendido</Th>
-                  <Th color="gray.400">precio</Th>
+          <>
+            {/* <Select innerValue={innerValue} setInnerValue={setInnerValue} /> */}
+            <TableContainer mt={10}>
+              <Table colorScheme="gray">
+                <Thead fontWeight={'black'}>
+                  <Tr>
+                    <Th color="gray.400">Codigo</Th>
+                    <Th color="gray.400">precio</Th>
 
-                  <Th textAlign="center" color="gray.400">
-                    Acciones
-                  </Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {butacas.map((butaca) => (
-                  <Tr key={butaca?.butacaId}>
-                    <Td>{butaca?.tendido}</Td>
-                    <Td>{butaca?.precio}</Td>
-
-                    <Td>
-                      <Flex justifyContent="center" alignItems="center" gap={5}>
-                        <IconButton
-                          aria-label="editar"
-                          onClick={() => {
-                            onOpen()
-                            values.precio = Number(butaca?.precio)
-                            values.butacaId = String(butaca?.butacaId)
-                          }}
-                        >
-                          <EditIcon w={5} h={5} />
-                        </IconButton>
-                      </Flex>
-                    </Td>
+                    <Th textAlign="center" color="gray.400">
+                      Acciones
+                    </Th>
                   </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
+                </Thead>
+                <Tbody>
+                  {butacas.map((butaca) => (
+                    <Tr key={butaca?.butacaId}>
+                      <Td>{butaca?.codigo}</Td>
+                      <Td>{butaca?.precio}</Td>
+
+                      <Td>
+                        <Flex
+                          justifyContent="center"
+                          alignItems="center"
+                          gap={5}
+                        >
+                          <IconButton
+                            aria-label="editar"
+                            onClick={() => {
+                              onOpen()
+                              values.precio = Number(butaca?.precio)
+                              values.butacaId = String(butaca?.butacaId)
+                            }}
+                          >
+                            <EditIcon w={5} h={5} />
+                          </IconButton>
+                        </Flex>
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </>
         )}
 
         {/* <Pagination state={state} setstate={setstate} paginas={paginas} /> */}

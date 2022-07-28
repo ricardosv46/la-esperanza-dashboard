@@ -166,7 +166,7 @@ export const homeRoutes: Route[] = [
 
         {
           icon: IconFile,
-          name: 'Precio de Referecial',
+          name: 'Precio Referecial',
           path: 'referencial',
           to: '/home/referencial',
           component: PrecioReferencial,

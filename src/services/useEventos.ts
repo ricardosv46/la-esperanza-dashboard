@@ -1,4 +1,4 @@
-import { Imagen } from '../components/shared/ModalImages'
+// import { Imagen } from '../components/shared/ModalImages'
 import {
   InputMaybe,
   useCreateEventoMutation,
@@ -19,12 +19,12 @@ export interface ICrearEvento {
   terminosCondiciones: string
   direccion: string
   ubicacion: string
-  fecha: Date | string
-  hora: string
-  imagenPrincipal: Imagen
-  fechaInicial: Date | string
+  fecha: string | undefined
+  hora: string | undefined
+  imagenPrincipal: InputMaybe<number> | undefined
+  fechaInicial: string | undefined
   horaInicial: string
-  fechaFinal: Date | string
+  fechaFinal: string | undefined
   horaFinal: string
 }
 export interface IUpdateEvento {
@@ -36,12 +36,12 @@ export interface IUpdateEvento {
   ubicacion: string
   fecha: string
   hora: string
-  imagenPrincipal: Imagen | undefined
+  imagenPrincipal: InputMaybe<number> | undefined
   fechaInicial: string
   horaInicial: string
   fechaFinal: string
   horaFinal: string
-  eventoId: number | string
+  eventoId: InputMaybe<string> | undefined
 }
 
 const useEventos = ({ feriaId, estado }: IEventos) => {
@@ -155,7 +155,7 @@ const useEventos = ({ feriaId, estado }: IEventos) => {
   // ELIMINAR EVENTO
   const [DeleteEventoMutation] = useDeleteEventoMutation()
 
-  const deleteEvento = async (id: number | null | undefined) => {
+  const deleteEvento = async (id: number) => {
     try {
       await DeleteEventoMutation({
         variables: {

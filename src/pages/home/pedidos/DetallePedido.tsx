@@ -1,5 +1,19 @@
 import { ChevronLeftIcon } from '@chakra-ui/icons'
-import { Box, Container, Flex, Heading, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Table,
+  TableContainer,
+  Text,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td
+} from '@chakra-ui/react'
+import {} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const DetallePedido = () => {
@@ -30,7 +44,7 @@ const DetallePedido = () => {
 
         <Box maxWidth={'full'}>
           <>
-            <Box p={'20px'} rounded={'2xl'} shadow={'2xl'}>
+            <Box p={'20px'} rounded={'2xl'} shadow={'xl'}>
               <Flex pt={2} pb={3} direction="row" justifyContent="center">
                 <Text fontSize="lg" color={'gray.500'}>
                   RESÚMEN DE PEDIDO
@@ -77,7 +91,7 @@ const DetallePedido = () => {
                 justifyContent="space-between"
               >
                 <Text fontSize="lg" color={'gray.500'}>
-                  Precio de Envio
+                  Numero de Comprobante
                 </Text>
                 <Text color="black" fontWeight={'normal'} fontSize="xl">
                   {detalle.numeroComprobante}
@@ -118,20 +132,33 @@ const DetallePedido = () => {
           {/* )} */}
         </Box>
       </Flex>
-      {/* <Flex justifyContent="center" py={14}>
-        <Button
-          type="button"
-          w={96}
-          py={7}
-          colorScheme="primary"
-          onClick={handleSubmit}
-          disabled={isDisable}
-        >
-          <Text fontWeight="bold" fontSize="xl">
-            Emiti Ticket
-          </Text>
-        </Button>
-      </Flex> */}
+      <TableContainer mt={10} shadow={'xl'}>
+        <Table colorScheme="gray">
+          <Thead fontWeight={'black'}>
+            <Tr>
+              <Th color="gray.400">Codigo</Th>
+              <Th color="gray.400">Asiento</Th>
+              <Th color="gray.400">Precio</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {detalle.DetallePedido.map(
+              (pedido: {
+                codigo: string
+                asiento: string
+                precio: number
+                detallePedidoId: string
+              }) => (
+                <Tr key={pedido.detallePedidoId}>
+                  <Td>{pedido.codigo}</Td>
+                  <Td>{pedido.asiento}</Td>
+                  <Td>{pedido.precio}</Td>
+                </Tr>
+              )
+            )}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </Container>
   )
 }
