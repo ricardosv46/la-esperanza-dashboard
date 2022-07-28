@@ -27,7 +27,7 @@ const initialState: ICrearEvento = {
   ubicacion: '',
   fecha: '',
   hora: '',
-  imagenPrincipal: '',
+  imagenPrincipal: {},
   fechaInicial: '',
   horaInicial: '',
   fechaFinal: '',
@@ -150,6 +150,13 @@ const CrearEvento = () => {
           </Box>
 
           <Box maxWidth={'full'}>
+            <Grid mt={5} templateColumns={{ base: 'repeat(1, 1fr)' }} gap={6}>
+              <InputFloat
+                type="text"
+                label="Titulo"
+                {...form.inputProps('titulo')}
+              />
+            </Grid>
             <Grid
               mt={5}
               templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' }}
@@ -157,119 +164,70 @@ const CrearEvento = () => {
             >
               <InputFloat
                 type="text"
-                label="Titulo"
-                {...form.inputProps('titulo')}
-              />
-
-              <InputFloat
-                type="date"
-                label="Fecha"
-                // name={fecha}
-                // value={fecha}
-                // onChange={onChange}
-                {...form.inputProps('fecha')}
-              />
-              <InputFloat
-                type="text"
-                label="Descripción Corta"
-                // name="descripcionCorta"
-                {...form.inputProps('descripcionCorta')}
-              />
-              <InputFloat
-                type="text"
-                label="Descripción Larga"
-                // name="descripcionLarga"
-                // value={descripcionLarga}
-                // onChange={onChange}
-                {...form.inputProps('descripcionLarga')}
-              />
-
-              <InputFloat
-                type="text"
                 label="Direccion"
-                // name="fechaInicial"
-                // value={fechaInicial}
-                // onChange={onChange}
                 {...form.inputProps('direccion')}
               />
               <InputFloat
                 type="text"
                 label="Ubicacion"
-                // name="fechaInicial"
-                // value={fechaInicial}
-                // onChange={onChange}
                 {...form.inputProps('ubicacion')}
               />
               <InputFloat
                 type="date"
+                label="Fecha"
+                {...form.inputProps('fecha')}
+              />
+              <InputFloat
+                type="text"
+                label="Hora"
+                {...form.inputProps('hora')}
+              />
+              <InputFloat
+                type="date"
                 label="Fecha Inicial"
-                // name="fechaInicial"
-                // value={fechaInicial}
-                // onChange={onChange}
                 {...form.inputProps('fechaInicial')}
               />
               <InputFloat
                 type="date"
                 label="Fecha Final"
-                // name="fechaFinal"
-                // value={fechaFinal}
-                // onChange={onChange}
                 {...form.inputProps('fechaFinal')}
               />
               <InputFloat
                 type="text"
-                label="Hora"
-                // name="hora"
-                // value={hora}
-                // onChange={onChange}
-                {...form.inputProps('hora')}
-              />
-              <InputFloat
-                type="text"
                 label="Hora Inicial"
-                // name="horaInicial"
-                // value={horaInicial}
-                // onChange={onChange}
                 {...form.inputProps('horaInicial')}
               />
               <InputFloat
                 type="text"
                 label="Hora Final"
-                // name="horaFinal"
-                // value={horaFinal}
-                // onChange={onChange}
                 {...form.inputProps('horaFinal')}
+              />
+            </Grid>
+            <Grid mt={5} templateColumns={{ base: 'repeat(1, 1fr)' }} gap={6}>
+              <InputFloat
+                type="text"
+                label="Descripción Corta"
+                {...form.inputProps('descripcionCorta')}
+                h={'150px'}
+              />
+
+              <InputFloat
+                type="text"
+                label="Descripción Larga"
+                {...form.inputProps('descripcionLarga')}
+                h={'150px'}
               />
               <InputFloat
                 type="text"
                 label="Terminos Condiciones"
-                // name="terminosCondiciones"
-                // value={terminosCondiciones}
-                // onChange={onChange}
-
                 {...form.inputProps('terminosCondiciones')}
+                h={'200px'}
               />
               <InputImage
                 label=" Imagen Principal"
                 onChange={(img) => setImagenPrincipal(img)}
                 value={imagenPrincipal}
               />
-              {/* <InputImage
-              // value={values.imagenSecundaria}
-              // onChange={setImagenSecundaria}
-              label="Imagen Secundaria"
-            /> */}
-              <Box></Box>
-              {/* <InputImage
-              // value={imagenPrincipal}
-              // onChange={setImagenPrincipal}
-              label=" Imagen Principal"
-            />
-            <InputImage
-              // value={imagenSecundaria}
-              // onChange={setImagenSecundaria}
-              label=" Imagen Secundaria"
-            /> */}
             </Grid>
           </Box>
         </Flex>
