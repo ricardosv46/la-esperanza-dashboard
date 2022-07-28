@@ -23,8 +23,7 @@ const Suscriptores = () => {
     pagina: 1,
     numeroPagina: 10
   })
-  const { db: suscriptores, loading, nTotal, datos } = useSuscriptores(state)
-  console.log(datos)
+  const { db: suscriptores, loading, nTotal } = useSuscriptores(state)
   const generatedTotal = (items: number, itemporpage: number) => {
     const n = Math.ceil(items / itemporpage)
     return Array(n)

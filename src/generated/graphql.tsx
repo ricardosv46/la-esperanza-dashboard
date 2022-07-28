@@ -619,7 +619,7 @@ export type UpdatePrecioReferencialMutationVariables = Exact<{
 export type UpdatePrecioReferencialMutation = { __typename?: 'Mutation', UpdatePrecioReferencial?: { __typename?: 'Referencial', referenciaId?: string | null, tendido?: string | null, titulo?: string | null, precio?: number | null } | null };
 
 export type GetAllButacasQueryVariables = Exact<{
-  tendido: Scalars['String'];
+  tendido?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -639,7 +639,7 @@ export type GetAllImagenesQueryVariables = Exact<{
 }>;
 
 
-export type GetAllImagenesQuery = { __typename?: 'Query', GetAllImagenes?: { __typename?: 'GetAllImagenes', data?: Array<{ __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null }> | null } | null };
+export type GetAllImagenesQuery = { __typename?: 'Query', GetAllImagenes?: { __typename?: 'GetAllImagenes', numeroTotal?: number | null, data?: Array<{ __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null }> | null } | null };
 
 export type GetAllPedidosQueryVariables = Exact<{
   pagina: Scalars['Int'];
@@ -1088,7 +1088,7 @@ export type UpdatePrecioReferencialMutationHookResult = ReturnType<typeof useUpd
 export type UpdatePrecioReferencialMutationResult = Apollo.MutationResult<UpdatePrecioReferencialMutation>;
 export type UpdatePrecioReferencialMutationOptions = Apollo.BaseMutationOptions<UpdatePrecioReferencialMutation, UpdatePrecioReferencialMutationVariables>;
 export const GetAllButacasDocument = gql`
-    query GetAllButacas($tendido: String!) {
+    query GetAllButacas($tendido: String) {
   GetAllButacas(tendido: $tendido) {
     numeroTotal
     data {
@@ -1118,7 +1118,7 @@ export const GetAllButacasDocument = gql`
  *   },
  * });
  */
-export function useGetAllButacasQuery(baseOptions: Apollo.QueryHookOptions<GetAllButacasQuery, GetAllButacasQueryVariables>) {
+export function useGetAllButacasQuery(baseOptions?: Apollo.QueryHookOptions<GetAllButacasQuery, GetAllButacasQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetAllButacasQuery, GetAllButacasQueryVariables>(GetAllButacasDocument, options);
       }
@@ -1191,6 +1191,7 @@ export type GetAllEventosQueryResult = Apollo.QueryResult<GetAllEventosQuery, Ge
 export const GetAllImagenesDocument = gql`
     query GetAllImagenes($pagina: Int, $numeroPagina: Int) {
   GetAllImagenes(pagina: $pagina, numeroPagina: $numeroPagina) {
+    numeroTotal
     data {
       id
       titulo

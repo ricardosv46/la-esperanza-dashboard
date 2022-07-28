@@ -22,6 +22,8 @@ interface IProps {
   errorMessage?: string
   maxLength?: number
   rightElement?: ReactElement
+  h?: string
+  pattern?: string
 }
 
 const ShowPassword = ({ show }: { show: boolean }) => (
@@ -36,15 +38,18 @@ const InputFloat = ({
   onChange,
   errorMessage,
   rightElement,
-  maxLength
+  maxLength,
+  h = '60px',
+  pattern
 }: IProps) => {
   const [show, setShow] = useState(false)
   return (
     <FormControl
+      className="Soy yo"
       position="relative"
       bg={'gray.100'}
       _dark={{ backgroundColor: 'gray.700' }}
-      h={'60px'}
+      h={h}
       roundedTop={'md'}
       isInvalid={errorMessage === undefined ? false : !isEmpty(errorMessage)}
     >
@@ -63,6 +68,7 @@ const InputFloat = ({
         border={'none'}
         roundedTop={'md'}
         borderBottom={'2px'}
+        pattern={pattern}
         pt={5}
         px={3}
         value={value}

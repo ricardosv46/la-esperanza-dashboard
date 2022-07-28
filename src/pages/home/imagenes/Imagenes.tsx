@@ -16,21 +16,37 @@ import {
 import UploadFiles from '../../../components/shared/UploadFiles'
 import useAllImagenes from '../../../services/useAllImagenes'
 import { useCreateImagenMutation } from '../../../generated/graphql'
+import Pagination from '../../../components/pagination'
 
 const ImagesPage = () => {
   const toast = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const [isUploadImage, setIsUploadImage] = useState(false)
+  const [state, setstate] = useState({
+    pagina: 1,
+    numeroPagina: 10
+  })
 
   const {
     db: imagenes,
     loading,
     refetch,
+    nTotal,
     datos
     // handleUpload,
     // hasError
-  } = useAllImagenes({ pagina: 1, numeroPagina: 10 })
+  } = useAllImagenes(state)
+
+  const generatedTotal = (items: number, itemporpage: number) => {
+    const n = Math.ceil(items / itemporpage)
+    return Array(n)
+      .fill(null)
+      .map((_, i) => i + 1)
+  }
   console.log(datos)
+  const paginas = generatedTotal(nTotal, state.numeroPagina)
+
+  console.log(state.numeroPagina, { nTotal }, { paginas })
   const [createImage] = useCreateImagenMutation()
   const handleUpload = async (files: File[]) => {
     let hasError = false
@@ -141,6 +157,7 @@ const ImagesPage = () => {
       {isUploadImage && (
         <UploadFiles isLoading={isLoading} onUpload={handleUpload} />
       )}
+      <Pagination state={state} setstate={setstate} paginas={paginas} />
     </Container>
   )
 }

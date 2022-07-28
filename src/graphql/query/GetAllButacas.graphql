@@ -1,12 +1,12 @@
-query GetAllButacas($tendido:String!){
-  GetAllButacas(tendido:$tendido){
+query GetAllButacas($tendido: String) {
+  GetAllButacas(tendido: $tendido) {
     numeroTotal
-    data{
+    data {
       butacaId
       tendido
       codigo
       cantidad
       precio
     }
-    }
   }
+}
