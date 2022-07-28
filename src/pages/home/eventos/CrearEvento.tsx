@@ -140,6 +140,7 @@ const CrearEvento = () => {
                 rounded="full"
                 cursor={'pointer'}
                 onClick={() => navigate(-1)}
+                _dark={{ bg: '#F0AC42', color: 'primary.500' }}
               >
                 <ChevronLeftIcon color={'white'} />
               </Flex>
@@ -237,6 +238,7 @@ const CrearEvento = () => {
             w={96}
             py={7}
             colorScheme="primary"
+            _dark={{ bg: '#F0AC42' }}
             // onClick={handleSubmit}
             // disabled={isDisable}
           >

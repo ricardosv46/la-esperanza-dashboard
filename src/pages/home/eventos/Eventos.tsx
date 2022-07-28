@@ -93,6 +93,7 @@ const Eventos = () => {
         <Flex justifyContent="flex-end" alignItems="center" mt={5}>
           <Button
             colorScheme="primary"
+            _dark={{ bg: '#F0AC42' }}
             variant="solid"
             leftIcon={<AddIcon />}
             onClick={() => navigate('/home/crear-evento')}

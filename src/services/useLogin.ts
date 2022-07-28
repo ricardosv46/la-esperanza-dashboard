@@ -24,6 +24,7 @@ export const useLogin = () => {
       if (res.data?.Login?.apiToken) {
         localStorage.setItem('token', res.data?.Login?.apiToken)
         localStorage.setItem('user', JSON.stringify(res.data?.Login))
+        localStorage.setItem('nombre', JSON.stringify(res.data?.Login.nombres))
         return { ok: true, data: res.data?.Login }
       }
     } catch (error: any) {

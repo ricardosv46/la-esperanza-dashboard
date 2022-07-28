@@ -63,6 +63,7 @@ const InputFloat = ({
         autoComplete="none"
         _invalid={{ borderBottomColor: 'red.400' }}
         _valid={{ borderBottomColor: 'primary.500' }}
+        _dark={{ borderBottomColor: '#F0AC42' }}
         w="full"
         h="full"
         border={'none'}
@@ -82,6 +83,7 @@ const InputFloat = ({
       />
       <FormLabel
         htmlFor={name}
+        _dark={{ color: '#F0AC42' }}
         color={
           (errorMessage === undefined ? false : !isEmpty(errorMessage))
             ? 'red.400'

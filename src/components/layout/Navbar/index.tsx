@@ -26,6 +26,7 @@ const Navbar = () => {
             colorScheme="primary"
             aria-label="Abrir menu"
             icon={<Icon as={IconBars} />}
+            _dark={{ bg: '#F0AC42' }}
           />
         </Flex>
       </Flex>

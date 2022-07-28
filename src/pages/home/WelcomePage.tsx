@@ -1,8 +1,10 @@
 import { Container, Flex, Heading, Image, Link, Text } from '@chakra-ui/react'
 
-import Welcome from '../../assets/imgs/welcome.png'
+import Welcome from '../../assets/imgs/welcome2.png'
 
 const WelcomePage = () => {
+  const nombre = JSON.parse(localStorage.getItem('nombre')!)
+  console.log(nombre)
   return (
     <Container p={10} /* _dark={{ bg: 'gray.700' }} h="full" */>
       <Flex
@@ -12,16 +14,19 @@ const WelcomePage = () => {
         justifyContent="space-between"
         bg="primary.500"
         rounded="lg"
+        _dark={{ bg: '#F0AC42' }}
       >
         <Flex color="" flexDirection="column" gap={5} fontWeight="semibold">
-          <Heading color="#F0AC42">Bienvenido Rich!</Heading>
+          <Heading color="#F0AC42" _dark={{ color: 'primary.500' }}>
+            Bienvenido {nombre}!
+          </Heading>
           <Text color="white">
             Desde el panel de administración podrás,agregar,modificar,eliminar
             información referente atu tienda.
           </Text>
           <Text color="white">
             Recuerda que si tienes algún problema o duda puedes contactarnos a{' '}
-            <Text as="span" color="#F0AC42">
+            <Text as="span" color="#F0AC42" _dark={{ color: 'primary.500' }}>
               soporte@softaki.com
             </Text>
           </Text>
@@ -47,7 +52,12 @@ const WelcomePage = () => {
         fontSize="3xl"
         textAlign="center"
       >
-        <Link href="https://laesperanza.plazaticket.com/">
+        <Link
+          href="https://laesperanza.plazaticket.com/"
+          _hover={{
+            textDecoration: 'none'
+          }}
+        >
           <Flex
             w={80}
             h={36}
@@ -57,8 +67,11 @@ const WelcomePage = () => {
             rounded="lg"
             alignItems="center"
             justifyContent="center"
+            _dark={{ bg: '#F0AC42' }}
           >
-            <Text color="#F0AC42">Visita nuesta pagina</Text>
+            <Text color="#F0AC42" _dark={{ color: 'primary.500' }}>
+              Visita nuesta pagina
+            </Text>
           </Flex>
         </Link>
       </Flex>

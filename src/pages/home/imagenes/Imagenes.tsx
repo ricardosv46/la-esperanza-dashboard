@@ -100,6 +100,7 @@ const ImagesPage = () => {
       <Flex justify="flex-end" mb={{ base: 3, md: 8 }}>
         <Button
           colorScheme="primary"
+          _dark={{ bg: '#F0AC42' }}
           w={{ base: 'full', md: 'max' }}
           onClick={() => {
             refetch()

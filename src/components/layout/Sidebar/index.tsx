@@ -73,11 +73,12 @@ const Sidebar = ({ onClose, mobile }: Props) => {
             lineHeight="28px"
             color="primary.600"
             fontWeight="semibold"
+            _dark={{ color: 'white' }}
           >
             Metriks Digital Solutions
           </Text>
 
-          <Text fontSize="12px" color="primary.500">
+          <Text fontSize="12px" color="primary.500" _dark={{ color: 'white' }}>
             Último acceso: 13/07/2021 - 10:30
           </Text>
         </Box>
@@ -112,6 +113,7 @@ const Sidebar = ({ onClose, mobile }: Props) => {
           w="full"
           leftIcon={<LogoutIcon />}
           onClick={logout}
+          _dark={{ bg: '#F0AC42' }}
         >
           <Text lineHeight={0}>Cerrar Sesión</Text>
         </Button>

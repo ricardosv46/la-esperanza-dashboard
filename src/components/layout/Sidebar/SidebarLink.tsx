@@ -19,39 +19,39 @@ const SidebarLink = ({ icon, name, to, onClick, subMenu }: Props) => {
         to={to}
         px={8}
         py={4}
-        cursor='pointer'
-        rounded='lg'
-        align='center'
+        cursor="pointer"
+        rounded="lg"
+        align="center"
         onClick={() => {
           if (subMenu.value === false && typeof onClick === 'function') {
             onClick()
           }
           setIsOpen(!isOpen)
         }}
-        justifyContent='space-between'
-        transition='all 250ms linear'
+        justifyContent="space-between"
+        transition="all 250ms linear"
         bg={!subMenu.value && match ? 'white' : 'transparent'}
         color={match ? 'primary.500' : 'gray.400'}
         _hover={{ bg: 'white', color: 'primary.500' }}
         _dark={{ bg: match ? 'gray.700' : 'transparent' }}
       >
-        <Flex alignItems='center'>
-          <Flex w='25px'>
+        <Flex alignItems="center">
+          <Flex w="25px">
             <Icon as={icon} />
           </Flex>
 
-          <Text fontSize='16px' fontWeight='semibold'>
+          <Text fontSize="16px" fontWeight="semibold">
             {name}
           </Text>
         </Flex>
         {subMenu.value && (
           <Flex
-            transition='all'
-            transitionDuration='0.5s'
-            transitionTimingFunction='ease-in-out'
+            transition="all"
+            transitionDuration="0.5s"
+            transitionTimingFunction="ease-in-out"
             transform={isOpen ? 'rotate(90deg)' : 'rotate(270deg)'}
-            justifyContent='center'
-            alignItems='center'
+            justifyContent="center"
+            alignItems="center"
           >
             <ChevronLeftIcon />
           </Flex>

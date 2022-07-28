@@ -52,7 +52,13 @@ const InputImage = ({ label, ...props }: Props) => {
         >
           {!hasImage && (
             <>
-              <Center rounded="full" w={50} h={50} bg="primary.500">
+              <Center
+                rounded="full"
+                w={50}
+                h={50}
+                bg="primary.500"
+                _dark={{ bg: '#F0AC42' }}
+              >
                 <Icon as={AddIcon} color="black" />
               </Center>
               <Text color="slategray" fontWeight="semibold" pt={2}>
