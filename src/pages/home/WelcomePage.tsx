@@ -8,73 +8,69 @@ const WelcomePage = () => {
       <Flex
         px={{ base: 4, md: 12 }}
         py={8}
-        alignItems='center'
-        justifyContent='space-between'
-        bg='gray.300'
-        rounded='lg'
+        alignItems="center"
+        justifyContent="space-between"
+        bg="primary.500"
+        rounded="lg"
       >
-        <Flex
-          color='gray.700'
-          flexDirection='column'
-          gap={5}
-          fontWeight='semibold'
-        >
-          <Heading>Bienvenido Rich!</Heading>
-          <Text>
+        <Flex color="" flexDirection="column" gap={5} fontWeight="semibold">
+          <Heading color="#F0AC42">Bienvenido Rich!</Heading>
+          <Text color="white">
             Desde el panel de administración podrás,agregar,modificar,eliminar
             información referente atu tienda.
           </Text>
-          <Text>
+          <Text color="white">
             Recuerda que si tienes algún problema o duda puedes contactarnos a{' '}
-            <Text as='span' color='red.500'>
+            <Text as="span" color="#F0AC42">
               soporte@softaki.com
             </Text>
           </Text>
-          <Text fontWeight='bold'>
+          <Text fontWeight="bold" color="white">
             Estamos felices de ser tus aliados en el crecimiento de tu negocio.
           </Text>
         </Flex>
         <Image
           display={{ base: 'none', lg: 'block' }}
-          boxSize='200px'
+          boxSize="200px"
           src={Welcome}
-          alt='welcome'
+          alt="welcome"
         />
       </Flex>
       <Flex
         flexDirection={{ base: 'column', sm: 'row' }}
-        alignItems='center'
+        alignItems="center"
         mt={10}
         gap={10}
-        justifyContent='center'
-        color='gray.700'
-        fontWeight='bold'
-        fontSize='3xl'
-        textAlign='center'
+        justifyContent="center"
+        color="gray.700"
+        fontWeight="bold"
+        fontSize="3xl"
+        textAlign="center"
       >
         <Flex
           w={60}
           h={36}
           px={10}
-          cursor='pointer'
-          bg='gray.300'
-          rounded='lg'
-          alignItems='center'
-          justifyContent='center'
+          cursor="pointer"
+          // bg="gray.300"
+          rounded="lg"
+          alignItems="center"
+          justifyContent="center"
+          bg="primary.500"
         >
-          <Text>Visitar Tienda</Text>
+          <Text color="#F0AC42">Visitar Tienda</Text>
         </Flex>
         <Flex
           w={60}
           h={36}
           px={10}
-          cursor='pointer'
-          bg='gray.300'
-          rounded='lg'
-          alignItems='center'
-          justifyContent='center'
+          cursor="pointer"
+          bg="primary.500"
+          rounded="lg"
+          alignItems="center"
+          justifyContent="center"
         >
-          <Text>Productos Registrados</Text>
+          <Text color="#F0AC42">Productos Registrados</Text>
         </Flex>
       </Flex>
     </Container>

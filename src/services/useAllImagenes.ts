@@ -17,6 +17,7 @@ const useAllImagenes = ({ pagina, numeroPagina }: IImagenes) => {
     }
   })
   const db = data?.GetAllImagenes?.data ?? []
+  const datos = data?.GetAllImagenes
   const [createImage] = useCreateImagenMutation()
   let hasError
   const handleUpload = async (files: File[]) => {
@@ -37,7 +38,8 @@ const useAllImagenes = ({ pagina, numeroPagina }: IImagenes) => {
     loading,
     refetch,
     handleUpload,
-    hasError
+    hasError,
+    datos
   }
 }
 

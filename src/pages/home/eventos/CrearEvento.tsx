@@ -9,10 +9,11 @@ import {
   Text,
   useToast
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InputFloat from '../../../components/input/inputFloat'
 import InputImage from '../../../components/input/InputImage'
+import { Imagen } from '../../../components/shared/ModalImages'
 import useForm, { FormError } from '../../../hooks/useForm'
 import useEventos, { ICrearEvento } from '../../../services/useEventos'
 import { isEmpty } from '../../../utils/isEmpty'
@@ -26,7 +27,7 @@ const initialState: ICrearEvento = {
   ubicacion: '',
   fecha: '',
   hora: '',
-  imagenPrincipal: 86,
+  imagenPrincipal: '',
   fechaInicial: '',
   horaInicial: '',
   fechaFinal: '',
@@ -95,6 +96,8 @@ const validation = ({
 const CrearEvento = () => {
   const navigate = useNavigate()
   const toast = useToast()
+  const [imagenPrincipal, setImagenPrincipal] = useState<Imagen>({})
+  initialState.imagenPrincipal = imagenPrincipal
   const { values, ...form } = useForm({
     initialValues: initialState,
     validate: validation
@@ -103,6 +106,7 @@ const CrearEvento = () => {
 
   const handleSubmit = () => {
     const { ...rest } = values
+    rest.imagenPrincipal = values?.imagenPrincipal?.id
     createEvento(rest).then((res) => {
       if (res?.ok) {
         toast({
@@ -119,7 +123,7 @@ const CrearEvento = () => {
           status: 'error'
         })
       }
-      navigation(-1)
+      navigate(-1)
     })
   }
   return (
@@ -140,7 +144,7 @@ const CrearEvento = () => {
                 <ChevronLeftIcon color={'white'} />
               </Flex>
               <Heading as="h1" fontSize={22}>
-                Actualizar Categoria
+                Crear Evento
               </Heading>
             </Flex>
           </Box>
@@ -246,10 +250,9 @@ const CrearEvento = () => {
                 {...form.inputProps('terminosCondiciones')}
               />
               <InputImage
-                // value={values.imagenPrincipal}
-                // onChange={setImagenPrincipal}
                 label=" Imagen Principal"
-                // {...form.inputProps('imagenPrincipal')}
+                onChange={(img) => setImagenPrincipal(img)}
+                value={imagenPrincipal}
               />
               {/* <InputImage
               // value={values.imagenSecundaria}

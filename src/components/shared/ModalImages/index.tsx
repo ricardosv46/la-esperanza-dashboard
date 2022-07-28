@@ -37,7 +37,7 @@ import {
 } from '../../../generated/graphql'
 
 export interface Imagen {
-  id?: string | null | undefined
+  id?: string | null | undefined | number
   titulo?: string | null | undefined
   url?: string | null | undefined
 }
@@ -100,7 +100,7 @@ const ModalImage = ({ isOpen, onClose, onSelect }: Props) => {
     let hasError = false
 
     try {
-      await deleteImage({ variables: { deleteImagenId: +selectedImage?.id! } })
+      await deleteImage({ variables: { id: +selectedImage?.id! } })
     } catch (error) {
       hasError = true
       console.log('Error al subir imagenes: ', error)

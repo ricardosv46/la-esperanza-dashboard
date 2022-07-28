@@ -13,15 +13,25 @@ import {
   Td,
   Spinner
 } from '@chakra-ui/react'
+import { useState } from 'react'
+import Pagination from '../../../components/pagination'
 
 import useSuscriptores from '../../../services/useSuscriptores'
 
 const Suscriptores = () => {
-  const { db: suscriptores, loading } = useSuscriptores({
+  const [state, setstate] = useState({
     pagina: 1,
     numeroPagina: 10
   })
-  console.log(suscriptores)
+  const { db: suscriptores, loading, nTotal, datos } = useSuscriptores(state)
+  console.log(datos)
+  const generatedTotal = (items: number, itemporpage: number) => {
+    const n = Math.ceil(items / itemporpage)
+    return Array(n)
+      .fill(null)
+      .map((_, i) => i + 1)
+  }
+  const paginas = generatedTotal(nTotal, state.numeroPagina)
   return (
     <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>
@@ -91,7 +101,7 @@ const Suscriptores = () => {
           </TableContainer>
         )}
 
-        {/* <Pagination state={state} setstate={setstate} paginas={paginas} /> */}
+        <Pagination state={state} setstate={setstate} paginas={paginas} />
       </Flex>
     </Container>
   )

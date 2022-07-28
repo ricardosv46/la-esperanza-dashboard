@@ -15,11 +15,13 @@ import InputFloat from '../../../components/input/inputFloat'
 import useFeria, { IUpdateFeria } from '../../../services/useFeria'
 import useForm from '../../../hooks/useForm'
 import InputImage from '../../../components/input/InputImage'
+import { useEffect, useState } from 'react'
+import { Imagen } from '../../../components/shared/ModalImages'
 // import { useState } from 'react'
 // import { Imagen } from '../../../components/shared/ModalImages'
 
 const initialState: IUpdateFeria = {
-  descuento: '',
+  descuento: 0,
   descripcionCorta: '',
   descripcionLarga: '',
   fecha: '',
@@ -31,18 +33,18 @@ const initialState: IUpdateFeria = {
   terminosCondiciones: '',
   titulo: '',
   feriaId: '',
-  imagenPrincipal: 84,
+  imagenPrincipal: {},
   imagenSecundaria: 0
 }
 const EditarAbonado = () => {
   const { state: detalle } = useLocation() as any
   const { updateFeria } = useFeria()
-  // const [imagenPrincipal, setImagenPrincipal] = useState<Imagen>()
+  const [imagenPrincipal, setImagenPrincipal] = useState<Imagen>({})
   // const [imagenSecundaria, setImagenSecundaria] = useState<Imagen>()
   const navigate = useNavigate()
   console.log({ detalle })
   const toast = useToast()
-
+  console.log(imagenPrincipal)
   initialState.titulo = detalle.abonados.titulo
   initialState.descuento = detalle.abonados.descuento
   initialState.descripcionCorta = detalle.abonados.descripcionCorta
@@ -55,16 +57,17 @@ const EditarAbonado = () => {
   initialState.horaInicial = detalle.abonados.horaInicial
   initialState.terminosCondiciones = detalle.abonados.terminosCondiciones
   initialState.feriaId = detalle.abonados.feriaId
-  // initialState.imagenPrincipal = detalle.abonados.imagenPrincipal
+  initialState.imagenPrincipal = imagenPrincipal
   // initialState.imagenSecundaria = detalle.abonados.imagenSecundaria
+  // console.log(imagenPrincipal)
   const { values, ...form } = useForm({
     initialValues: initialState
     // validate: validacion
   })
-  console.log(values.imagenSecundaria)
 
   const handleSubmit = async () => {
     const { ...rest } = values
+    rest.imagenPrincipal = values.imagenPrincipal?.id
     updateFeria(rest).then((res) => {
       if (res?.ok) {
         toast({
@@ -84,6 +87,15 @@ const EditarAbonado = () => {
       navigate(-1)
     })
   }
+  useEffect(() => {
+    if (detalle) {
+      setImagenPrincipal({
+        id: detalle.abonados.imagenPrincipal.id ?? '',
+        url: detalle.abonados.imagenPrincipal.url ?? '',
+        titulo: detalle.abonados.imagenPrincipal.titulo ?? ''
+      })
+    }
+  }, [detalle])
 
   return (
     <Container maxWidth="1930px" p={'10'}>
@@ -102,7 +114,7 @@ const EditarAbonado = () => {
               <ChevronLeftIcon color={'white'} />
             </Flex>
             <Heading as="h1" fontSize={22}>
-              Actualizar Categoria
+              Actualizar Abonado
             </Heading>
           </Flex>
         </Box>
@@ -122,105 +134,56 @@ const EditarAbonado = () => {
             <InputFloat
               type="text"
               label="Fecha"
-              // name={fecha}
-              // value={fecha}
-              // onChange={onChange}
               {...form.inputProps('fecha')}
             />
             <InputFloat
               type="text"
               label="Descripción Corta"
-              // name="descripcionCorta"
               {...form.inputProps('descripcionCorta')}
             />
             <InputFloat
               type="text"
               label="Descripción Larga"
-              // name="descripcionLarga"
-              // value={descripcionLarga}
-              // onChange={onChange}
               {...form.inputProps('descripcionLarga')}
             />
             <InputFloat
               type="text"
               label="Descuento"
-              // name="descuento"
-              // value={detalle.abonados.descuento}
-              // onChange={onChange}
               {...form.inputProps('descuento')}
             />
 
             <InputFloat
               type="text"
               label="Fecha Inicial"
-              // name="fechaInicial"
-              // value={fechaInicial}
-              // onChange={onChange}
               {...form.inputProps('fechaInicial')}
             />
             <InputFloat
               type="text"
               label="Fecha Final"
-              // name="fechaFinal"
-              // value={fechaFinal}
-              // onChange={onChange}
               {...form.inputProps('fechaFinal')}
             />
-            <InputFloat
-              type="text"
-              label="Hora"
-              // name="hora"
-              // value={hora}
-              // onChange={onChange}
-              {...form.inputProps('hora')}
-            />
+            <InputFloat type="text" label="Hora" {...form.inputProps('hora')} />
             <InputFloat
               type="text"
               label="Hora Inicial"
-              // name="horaInicial"
-              // value={horaInicial}
-              // onChange={onChange}
               {...form.inputProps('horaInicial')}
             />
             <InputFloat
               type="text"
               label="Hora Final"
-              // name="horaFinal"
-              // value={horaFinal}
-              // onChange={onChange}
               {...form.inputProps('horaFinal')}
             />
             <InputFloat
               type="text"
               label="Terminos Condiciones"
-              // name="terminosCondiciones"
-              // value={terminosCondiciones}
-              // onChange={onChange}
-
               {...form.inputProps('terminosCondiciones')}
             />
             <InputImage
-              // value={values.imagenPrincipal}
-              // onChange={setImagenPrincipal}
               label=" Imagen Principal"
-              {...form.inputProps('imagenPrincipal')}
+              onChange={(img) => setImagenPrincipal(img)}
+              value={imagenPrincipal}
             />
-            {/* <InputImage
-              // value={values.imagenSecundaria}
-              // onChange={setImagenSecundaria}
-              label="Imagen Secundaria"
-            /> */}
             <Box></Box>
-            {/* <InputImage
-              // value={imagenPrincipal}
-              // onChange={setImagenPrincipal}
-              label=" Imagen Principal"
-            />
-            <InputImage
-              // value={imagenSecundaria}
-              // onChange={setImagenSecundaria}
-              label=" Imagen Secundaria"
-            /> */}
           </Grid>
         </Box>
       </Flex>
@@ -231,7 +194,6 @@ const EditarAbonado = () => {
           py={7}
           colorScheme="primary"
           onClick={handleSubmit}
-          // disabled={isDisable}
         >
           <Text fontWeight="bold" fontSize="xl">
             Actualizar Categoria

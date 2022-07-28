@@ -16,6 +16,8 @@ import useForm, { FormError } from '../../../hooks/useForm'
 import InputImage from '../../../components/input/InputImage'
 import useEventos, { IUpdateEvento } from '../../../services/useEventos'
 import { isEmpty } from '../../../utils/isEmpty'
+import { useEffect, useState } from 'react'
+import { Imagen } from '../../../components/shared/ModalImages'
 // import { useState } from 'react'
 // import { Imagen } from '../../../components/shared/ModalImages'
 
@@ -28,7 +30,7 @@ const initialState: IUpdateEvento = {
   ubicacion: '',
   fecha: '',
   hora: '',
-  imagenPrincipal: '',
+  imagenPrincipal: {},
   fechaInicial: '',
   horaInicial: '',
   fechaFinal: '',
@@ -94,6 +96,7 @@ const validation = ({
   return error
 }
 const EditarEvento = () => {
+  const [imagenPrincipal, setImagenPrincipal] = useState<Imagen>({})
   const { state: eventos } = useLocation() as any
   const evento = eventos.evento
   const { updateEvento } = useEventos({ feriaId: 1, estado: null })
@@ -111,7 +114,7 @@ const EditarEvento = () => {
   initialState.horaFinal = evento.horaFinal
   initialState.horaInicial = evento.horaInicial
   initialState.terminosCondiciones = evento.terminosCondiciones
-  // initialState.imagenPrincipal = evento.imagenPrincipal
+  initialState.imagenPrincipal = imagenPrincipal
   initialState.direccion = evento.direccion
   initialState.ubicacion = evento.ubicacion
   initialState.eventoId = evento.eventoId
@@ -123,6 +126,7 @@ const EditarEvento = () => {
 
   const handleSubmit = async () => {
     const { ...rest } = values
+    rest.imagenPrincipal = values.imagenPrincipal?.id
     updateEvento(rest).then((res) => {
       if (res?.ok) {
         toast({
@@ -142,7 +146,15 @@ const EditarEvento = () => {
       navigate(-1)
     })
   }
-
+  useEffect(() => {
+    if (evento) {
+      setImagenPrincipal({
+        id: evento.imagenPrincipal.id ?? '',
+        url: evento.imagenPrincipal.url ?? '',
+        titulo: evento.imagenPrincipal.titulo ?? ''
+      })
+    }
+  }, [evento])
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Container maxWidth="1930px" p={'10'}>
@@ -161,7 +173,7 @@ const EditarEvento = () => {
                 <ChevronLeftIcon color={'white'} />
               </Flex>
               <Heading as="h1" fontSize={22}>
-                Actualizar Categoria
+                Actualizar Evento
               </Heading>
             </Flex>
           </Box>
@@ -267,10 +279,9 @@ const EditarEvento = () => {
                 {...form.inputProps('terminosCondiciones')}
               />
               <InputImage
-                value={values.imagenPrincipal}
-                // onChange={setImagenPrincipal}
                 label=" Imagen Principal"
-                // {...form.inputProps('imagenPrincipal')}
+                onChange={(img) => setImagenPrincipal(img)}
+                value={imagenPrincipal}
               />
               {/* <InputImage
               // value={values.imagenSecundaria}

@@ -107,7 +107,7 @@ const Sidebar = ({ onClose, mobile }: Props) => {
         p={5}
       >
         <Button
-          colorScheme="red"
+          colorScheme="primary"
           _focus={{ boxShadow: 'none' }}
           w="full"
           leftIcon={<LogoutIcon />}

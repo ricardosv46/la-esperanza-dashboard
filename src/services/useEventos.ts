@@ -1,3 +1,4 @@
+import { Imagen } from '../components/shared/ModalImages'
 import {
   InputMaybe,
   useCreateEventoMutation,
@@ -20,7 +21,7 @@ export interface ICrearEvento {
   ubicacion: string
   fecha: Date | string
   hora: string
-  imagenPrincipal: number
+  imagenPrincipal: Imagen
   fechaInicial: Date | string
   horaInicial: string
   fechaFinal: Date | string
@@ -35,12 +36,12 @@ export interface IUpdateEvento {
   ubicacion: string
   fecha: string
   hora: string
-  imagenPrincipal: InputMaybe<number> | undefined
+  imagenPrincipal: Imagen | undefined
   fechaInicial: string
   horaInicial: string
   fechaFinal: string
   horaFinal: string
-  eventoId: InputMaybe<string> | undefined
+  eventoId: number | string
 }
 
 const useEventos = ({ feriaId, estado }: IEventos) => {

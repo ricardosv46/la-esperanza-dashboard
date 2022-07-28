@@ -25,11 +25,12 @@ const ImagesPage = () => {
   const {
     db: imagenes,
     loading,
-    refetch
+    refetch,
+    datos
     // handleUpload,
     // hasError
-  } = useAllImagenes({ pagina: 1, numeroPagina: 500 })
-  console.log(imagenes)
+  } = useAllImagenes({ pagina: 1, numeroPagina: 10 })
+  console.log(datos)
   const [createImage] = useCreateImagenMutation()
   const handleUpload = async (files: File[]) => {
     let hasError = false

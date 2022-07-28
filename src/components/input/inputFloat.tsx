@@ -16,7 +16,7 @@ import { Imagen } from '../shared/ModalImages'
 interface IProps {
   label?: string
   name?: string
-  value: string | number | Imagen
+  value: string | number | Imagen | Date
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   type?: string
   errorMessage?: string
