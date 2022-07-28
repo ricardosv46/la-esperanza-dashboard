@@ -120,6 +120,13 @@ const EditarAbonado = () => {
         </Box>
 
         <Box maxWidth={'full'}>
+          {/* <Grid mt={5} templateColumns={{ base: 'repeat(1, 1fr)' }} gap={6}>
+            <InputFloat
+              type="text"
+              label="Titulo"
+              {...form.inputProps('titulo')}
+            />
+          </Grid> */}
           <Grid
             mt={5}
             templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' }}
@@ -130,28 +137,22 @@ const EditarAbonado = () => {
               label="Titulo"
               {...form.inputProps('titulo')}
             />
-
+            <InputFloat
+              type="text"
+              label="Descuento (%)"
+              {...form.inputProps('descuento')}
+              pattern="[0-9]{0,3}"
+              onChange={(e) => {
+                e.target.validity.valid &&
+                  form.setField('descuento', e.target.value)
+              }}
+            />
             <InputFloat
               type="text"
               label="Fecha"
               {...form.inputProps('fecha')}
             />
-            <InputFloat
-              type="text"
-              label="Descripción Corta"
-              {...form.inputProps('descripcionCorta')}
-            />
-            <InputFloat
-              type="text"
-              label="Descripción Larga"
-              {...form.inputProps('descripcionLarga')}
-            />
-            <InputFloat
-              type="text"
-              label="Descuento"
-              {...form.inputProps('descuento')}
-            />
-
+            <InputFloat type="text" label="Hora" {...form.inputProps('hora')} />
             <InputFloat
               type="text"
               label="Fecha Inicial"
@@ -162,7 +163,6 @@ const EditarAbonado = () => {
               label="Fecha Final"
               {...form.inputProps('fechaFinal')}
             />
-            <InputFloat type="text" label="Hora" {...form.inputProps('hora')} />
             <InputFloat
               type="text"
               label="Hora Inicial"
@@ -173,17 +173,42 @@ const EditarAbonado = () => {
               label="Hora Final"
               {...form.inputProps('horaFinal')}
             />
+          </Grid>
+          <Grid mt={5} templateColumns={{ base: 'repeat(1, 1fr)' }} gap={6}>
+            <InputFloat
+              type="text"
+              label="Descripción Corta"
+              {...form.inputProps('descripcionCorta')}
+              h="150px"
+            />
+            <InputFloat
+              type="text"
+              label="Descripción Larga"
+              {...form.inputProps('descripcionLarga')}
+              h="150px"
+            />
             <InputFloat
               type="text"
               label="Terminos Condiciones"
               {...form.inputProps('terminosCondiciones')}
+              h="200px"
+            />
+          </Grid>
+          <Grid
+            mt={5}
+            templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' }}
+            gap={6}
+          >
+            <InputImage
+              label=" Imagen Principal"
+              onChange={(img) => setImagenPrincipal(img)}
+              value={imagenPrincipal}
             />
             <InputImage
               label=" Imagen Principal"
               onChange={(img) => setImagenPrincipal(img)}
               value={imagenPrincipal}
             />
-            <Box></Box>
           </Grid>
         </Box>
       </Flex>
