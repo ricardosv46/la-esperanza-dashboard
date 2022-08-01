@@ -34,7 +34,7 @@ const useForm = <T extends object>({ validate, initialValues }: Props<T>) => {
   const setField = useCallback(
     (
       nameOrCallback: keyof T | ((values: T) => Partial<T>),
-      value?: string | number
+      value?: string 
     ) => {
       if (typeof nameOrCallback === 'function') {
         const _values = nameOrCallback(state)

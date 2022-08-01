@@ -16,7 +16,7 @@ import { Imagen } from '../shared/ModalImages'
 interface IProps {
   label?: string
   name?: string
-  value: string | number | Imagen | Date
+  value: string | number
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   type?: string
   errorMessage?: string
@@ -40,7 +40,8 @@ const InputFloat = ({
   rightElement,
   maxLength,
   h = '60px',
-  pattern
+  pattern,
+  ...props
 }: IProps) => {
   const [show, setShow] = useState(false)
   return (
@@ -74,7 +75,7 @@ const InputFloat = ({
         px={3}
         value={value}
         onChange={onChange}
-        borderBottomColor={value?.length !== 0 ? 'primary.500' : 'gray.300'}
+        borderBottomColor={value?.toString?.length !== 0 ? 'primary.500' : 'gray.300'}
         _hover={{ boxShadow: 'none' }}
         _focus={{
           boxShadow: '0 0 0 1px #00B593',
@@ -93,10 +94,10 @@ const InputFloat = ({
         zIndex={1}
         transition={'all 0.3s'}
         _focus={{ top: 1, left: 3, fontSize: 'sm' }}
-        top={type === 'date' || type === 'time' || value?.length !== 0 ? 1 : 19}
-        left={type === 'date' || type === 'time' || value?.length !== 0 ? 3 : 3}
+        top={type === 'date' || type === 'time' || value?.toString?.length !== 0 ? 1 : 19}
+        left={type === 'date' || type === 'time' || value?.toString?.length !== 0 ? 3 : 3}
         fontSize={
-          type === 'date' || type === 'time' || value?.length !== 0
+          type === 'date' || type === 'time' || value?.toString?.length !== 0
             ? 'sm'
             : 'md'
         }

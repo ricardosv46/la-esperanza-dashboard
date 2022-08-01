@@ -12,13 +12,35 @@ import {
 import { useLocation, useNavigate } from 'react-router-dom'
 import InputFloat from '../../../components/input/inputFloat'
 // import useForm from '../../../hooks/useForm'
-import useFeria, { IUpdateFeria } from '../../../services/useFeria'
+import useFeria from '../../../services/useFeria'
 import useForm from '../../../hooks/useForm'
 import InputImage from '../../../components/input/InputImage'
 import { useEffect, useState } from 'react'
-import { Imagen } from '../../../components/shared/ModalImages'
 // import { useState } from 'react'
 // import { Imagen } from '../../../components/shared/ModalImages'
+
+
+export interface Imagen {
+  id?: string  | null | undefined 
+  titulo?: string | null | undefined
+  url?: string | null | undefined
+}
+
+export interface IUpdateFeria {
+  feriaId:string
+  titulo: string
+  descripcionCorta: string
+  descripcionLarga: string
+  terminosCondiciones: string
+  fecha: string
+  hora: string
+  fechaInicial: string
+  horaInicial: string
+  fechaFinal: string
+  horaFinal: string
+  descuento: number
+}
+
 
 const initialState: IUpdateFeria = {
   descuento: 0,
@@ -33,14 +55,12 @@ const initialState: IUpdateFeria = {
   terminosCondiciones: '',
   titulo: '',
   feriaId: '',
-  imagenPrincipal: {},
-  imagenSecundaria: 0
 }
 const EditarAbonado = () => {
   const { state: detalle } = useLocation() as any
   const { updateFeria } = useFeria()
   const [imagenPrincipal, setImagenPrincipal] = useState<Imagen>({})
-  // const [imagenSecundaria, setImagenSecundaria] = useState<Imagen>()
+  const [imagenSecundaria, setImagenSecundaria] = useState<Imagen>({})
   const navigate = useNavigate()
   console.log({ detalle })
   const toast = useToast()
@@ -57,7 +77,7 @@ const EditarAbonado = () => {
   initialState.horaInicial = detalle.abonados.horaInicial
   initialState.terminosCondiciones = detalle.abonados.terminosCondiciones
   initialState.feriaId = detalle.abonados.feriaId
-  initialState.imagenPrincipal = imagenPrincipal
+  // initialState.imagenPrincipal = detalle.imagenPrincipal
   // initialState.imagenSecundaria = detalle.abonados.imagenSecundaria
   // console.log(imagenPrincipal)
   const { values, ...form } = useForm({
@@ -67,8 +87,8 @@ const EditarAbonado = () => {
 
   const handleSubmit = async () => {
     const { ...rest } = values
-    rest.imagenPrincipal = values.imagenPrincipal?.id
-    updateFeria(rest).then((res) => {
+    // rest.imagenPrincipal = values.imagenPrincipal?.id
+    updateFeria({...rest,imagenPrincipal:Number(imagenPrincipal.id),imagenSecundaria:Number(imagenSecundaria.id)}).then((res) => {
       if (res?.ok) {
         toast({
           title: 'Abonado Actualizado Correctamente',
@@ -137,6 +157,8 @@ const EditarAbonado = () => {
               type="text"
               label="Titulo"
               {...form.inputProps('titulo')}
+              
+              // {...form.inputProps('titulo')}
             />
             <InputFloat
               type="text"
