@@ -37,7 +37,7 @@ import {
 } from '../../../generated/graphql'
 
 export interface Imagen {
-  id?: number | null | undefined 
+  id?: string | null | undefined 
   titulo?: string | null | undefined
   url?: string | null | undefined
 }

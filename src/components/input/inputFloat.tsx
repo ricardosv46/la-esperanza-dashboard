@@ -16,7 +16,7 @@ import { Imagen } from '../shared/ModalImages'
 interface IProps {
   label?: string
   name?: string
-  value: string | number
+  value: string  | number
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   type?: string
   errorMessage?: string
@@ -43,6 +43,9 @@ const InputFloat = ({
   pattern,
   ...props
 }: IProps) => {
+
+  const values = value.toString()
+
   const [show, setShow] = useState(false)
   return (
     <FormControl
@@ -94,10 +97,10 @@ const InputFloat = ({
         zIndex={1}
         transition={'all 0.3s'}
         _focus={{ top: 1, left: 3, fontSize: 'sm' }}
-        top={type === 'date' || type === 'time' || value?.toString?.length !== 0 ? 1 : 19}
-        left={type === 'date' || type === 'time' || value?.toString?.length !== 0 ? 3 : 3}
+        top={type === 'date' || type === 'time' || values?.length > 0 ? 1 : 19}
+        left={type === 'date' || type === 'time' || values?.length > 0 ? 3 : 3}
         fontSize={
-          type === 'date' || type === 'time' || value?.toString?.length !== 0
+          type === 'date' || type === 'time' || values?.length > 0
             ? 'sm'
             : 'md'
         }
