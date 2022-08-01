@@ -19,15 +19,14 @@ import { useEffect, useState } from 'react'
 // import { useState } from 'react'
 // import { Imagen } from '../../../components/shared/ModalImages'
 
-
 export interface Imagen {
-  id?: string  | null | undefined 
+  id?: string | null | undefined
   titulo?: string | null | undefined
   url?: string | null | undefined
 }
 
 export interface IUpdateFeria {
-  feriaId:string
+  feriaId: string
   titulo: string
   descripcionCorta: string
   descripcionLarga: string
@@ -41,7 +40,6 @@ export interface IUpdateFeria {
   descuento: number
 }
 
-
 const initialState: IUpdateFeria = {
   descuento: 0,
   descripcionCorta: '',
@@ -54,7 +52,7 @@ const initialState: IUpdateFeria = {
   horaInicial: '',
   terminosCondiciones: '',
   titulo: '',
-  feriaId: '',
+  feriaId: ''
 }
 const EditarAbonado = () => {
   const { state: detalle } = useLocation() as any
@@ -88,7 +86,11 @@ const EditarAbonado = () => {
   const handleSubmit = async () => {
     const { ...rest } = values
     // rest.imagenPrincipal = values.imagenPrincipal?.id
-    updateFeria({...rest,imagenPrincipal:Number(imagenPrincipal.id),imagenSecundaria:Number(imagenSecundaria.id)}).then((res) => {
+    updateFeria({
+      ...rest,
+      imagenPrincipal: Number(imagenPrincipal.id),
+      imagenSecundaria: Number(imagenSecundaria.id)
+    }).then((res) => {
       if (res?.ok) {
         toast({
           title: 'Abonado Actualizado Correctamente',
@@ -113,6 +115,11 @@ const EditarAbonado = () => {
         id: detalle.abonados.imagenPrincipal.id ?? '',
         url: detalle.abonados.imagenPrincipal.url ?? '',
         titulo: detalle.abonados.imagenPrincipal.titulo ?? ''
+      })
+      setImagenSecundaria({
+        id: detalle.abonados.imagenSecundaria.id ?? '',
+        url: detalle.abonados.imagenSecundaria.url ?? '',
+        titulo: detalle.abonados.imagenSecundaria.titulo ?? ''
       })
     }
   }, [detalle])
@@ -157,7 +164,6 @@ const EditarAbonado = () => {
               type="text"
               label="Titulo"
               {...form.inputProps('titulo')}
-              
               // {...form.inputProps('titulo')}
             />
             <InputFloat
@@ -171,28 +177,28 @@ const EditarAbonado = () => {
               }}
             />
             <InputFloat
-              type="text"
+              type="date"
               label="Fecha"
               {...form.inputProps('fecha')}
             />
-            <InputFloat type="text" label="Hora" {...form.inputProps('hora')} />
+            <InputFloat type="time" label="Hora" {...form.inputProps('hora')} />
             <InputFloat
-              type="text"
+              type="date"
               label="Fecha Inicial"
               {...form.inputProps('fechaInicial')}
             />
             <InputFloat
-              type="text"
+              type="date"
               label="Fecha Final"
               {...form.inputProps('fechaFinal')}
             />
             <InputFloat
-              type="text"
+              type="time"
               label="Hora Inicial"
               {...form.inputProps('horaInicial')}
             />
             <InputFloat
-              type="text"
+              type="time"
               label="Hora Final"
               {...form.inputProps('horaFinal')}
             />
@@ -228,9 +234,9 @@ const EditarAbonado = () => {
               value={imagenPrincipal}
             />
             <InputImage
-              label=" Imagen Principal"
-              onChange={(img) => setImagenPrincipal(img)}
-              value={imagenPrincipal}
+              label=" Imagen Secundaria"
+              onChange={(img) => setImagenSecundaria(img)}
+              value={imagenSecundaria}
             />
           </Grid>
         </Box>
