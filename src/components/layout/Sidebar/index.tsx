@@ -61,7 +61,7 @@ const Sidebar = ({ onClose, mobile }: Props) => {
             )}
           </Flex>
 
-          <Flex justify="space-between" mb={2}>
+          {/* <Flex justify="space-between" mb={2}>
             <Text fontSize="14px" fontWeight="medium">
               RUT: 96.669.520-K
             </Text>
@@ -80,7 +80,7 @@ const Sidebar = ({ onClose, mobile }: Props) => {
 
           <Text fontSize="12px" color="primary.500" _dark={{ color: 'white' }}>
             Último acceso: 13/07/2021 - 10:30
-          </Text>
+          </Text> */}
         </Box>
         <Stack px={3}>
           <SidebarLink

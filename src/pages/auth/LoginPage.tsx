@@ -96,12 +96,12 @@ const LoginPage = () => {
           <Text fontSize={{ base: '2xl', lg: '4xl' }} fontWeight="bold">
             Inicia sesión
           </Text>
-          <Text color="primary.500" pt={5} fontWeight="semibold">
+          {/* <Text color="primary.500" pt={5} fontWeight="semibold">
             Si eres nuevo por aquí regístrate ahora{' '}
             <Link as={RouterLink} color="primary.700" to="/auth/create-account">
               Crear cuenta
             </Link>
-          </Text>
+          </Text> */}
 
           <Flex
             py={10}
@@ -147,9 +147,9 @@ const LoginPage = () => {
               Recordarme
             </Checkbox>
 
-            <Link as={RouterLink} to="/auth/change-password">
+            {/* <Link as={RouterLink} to="/auth/change-password">
               Recuperar contraseña
-            </Link>
+            </Link> */}
           </Flex>
         </Box>
       </Flex>
@@ -181,10 +181,10 @@ const LoginPage = () => {
           position="relative"
         >
           <Heading as="h2" fontSize="6xl" color="white">
-            Factoring Digital
+            Panel Administrativo
           </Heading>
           <Heading as="h2" fontSize="6xl" color="primary.500">
-            Metriks
+            La Esperanza
           </Heading>
         </Flex>
       </Box>

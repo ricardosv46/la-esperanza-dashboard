@@ -25,10 +25,10 @@ const WelcomePage = () => {
             información referente atu tienda.
           </Text>
           <Text color="white">
-            Recuerda que si tienes algún problema o duda puedes contactarnos a{' '}
-            <Text as="span" color="#F0AC42" _dark={{ color: 'primary.500' }}>
+            Recuerda que si tienes algún problema o duda puedes contactarnos.{' '}
+            {/* <Text as="span" color="#F0AC42" _dark={{ color: 'primary.500' }}>
               soporte@softaki.com
-            </Text>
+            </Text> */}
           </Text>
           <Text fontWeight="bold" color="white">
             Estamos felices de ser tus aliados en el crecimiento de tu negocio.
