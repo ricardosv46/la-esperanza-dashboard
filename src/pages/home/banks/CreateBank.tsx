@@ -6,62 +6,62 @@ import {
   Flex,
   Grid,
   Heading,
-  Text,
-  useToast
+  Text
+  // useToast
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import InputFloat from '../../../components/input/inputFloat'
+// import InputFloat from '../../../components/input/inputFloat'
 import InputImage from '../../../components/input/InputImage'
-import useForm from '../../../hooks/useFormOld'
-import { Imagenes } from '../../../generated/graphql'
-import { useBancos } from '../../../services/useBancos'
+// import useForm from '../../../hooks/useFormOld'
+// import { Imagenes } from '../../../generated/graphql'
+// import { useBancos } from '../../../services/useBancos'
 
 const CreateBanks = () => {
-  const [isDisable, setIsDisable] = useState(true)
-  const [imgPrincipal, setImgPrincipal] = useState<Imagenes>({})
-  const { crearBanco } = useBancos()
+  // const [isDisable, setIsDisable] = useState(true)
+  // const [imgPrincipal, setImgPrincipal] = useState<Imagenes>({})
+  // const { crearBanco } = useBancos()
   const navigate = useNavigate()
-  const toast = useToast()
+  // const toast = useToast()
 
-  const { titulo, numeroCuenta, onChange, reset } = useForm({
-    titulo: '',
-    numeroCuenta: ''
-  })
+  // const { titulo, numeroCuenta, onChange, reset } = useForm({
+  //   titulo: '',
+  //   numeroCuenta: ''
+  // })
 
-  const handleSubmit = async () => {
-    crearBanco({
-      titulo,
-      numeroCuenta,
-      imagenPrincipal: parseInt(imgPrincipal.id ?? '')
-    }).then((resp) => {
-      if (resp?.ok) {
-        toast({
-          title: 'Banco creado correctamente',
-          position: 'top-right',
-          isClosable: true,
-          status: 'success'
-        })
-        reset()
-        navigate('/home/bancos')
-      } else {
-        toast({
-          title: resp?.error,
-          position: 'top-right',
-          isClosable: true,
-          status: 'error'
-        })
-      }
-    })
-  }
+  // const handleSubmit = async () => {
+  //   crearBanco({
+  //     titulo,
+  //     numeroCuenta
+  //     // imagenPrincipal: parseInt(imgPrincipal.id ?? '')
+  //   }).then((resp) => {
+  //     if (resp?.ok) {
+  //       toast({
+  //         title: 'Banco creado correctamente',
+  //         position: 'top-right',
+  //         isClosable: true,
+  //         status: 'success'
+  //       })
+  //       reset()
+  //       navigate('/home/bancos')
+  //     } else {
+  //       toast({
+  //         title: resp?.error,
+  //         position: 'top-right',
+  //         isClosable: true,
+  //         status: 'error'
+  //       })
+  //     }
+  //   })
+  // }
 
-  useEffect(() => {
-    if ([titulo.trim(), numeroCuenta.trim()].includes('')) {
-      setIsDisable(true)
-    } else {
-      setIsDisable(false)
-    }
-  }, [titulo, numeroCuenta])
+  // useEffect(() => {
+  //   if ([titulo.trim(), numeroCuenta.trim()].includes('')) {
+  //     setIsDisable(true)
+  //   } else {
+  //     setIsDisable(false)
+  //   }
+  // }, [titulo, numeroCuenta])
 
   return (
     <Container maxWidth="1930px" p={'10'}>
@@ -91,27 +91,27 @@ const CreateBanks = () => {
             templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' }}
             gap={6}
           >
-            <InputFloat
+            {/* <InputFloat
               type="text"
               label="Titulo"
               name="titulo"
-              value={titulo}
-              onChange={onChange}
-            />
+              // value={titulo}
+              // onChange={onChange}
+            /> */}
 
-            <InputFloat
+            {/* <InputFloat
               type="text"
               label="N° Cuenta"
               name="numeroCuenta"
-              value={numeroCuenta}
-              onChange={onChange}
-            />
+              // value={numeroCuenta}
+              // onChange={onChange}
+            /> */}
           </Grid>
           <Box marginTop="2rem">
             <InputImage
               label=" Imagen Principal"
-              onChange={(img) => setImgPrincipal(img)}
-              value={imgPrincipal}
+              // onChange={(img) => setImgPrincipal(img)}
+              // value={imgPrincipal}
             />
           </Box>
         </Box>
@@ -122,8 +122,8 @@ const CreateBanks = () => {
           w={96}
           py={7}
           colorScheme="primary"
-          onClick={handleSubmit}
-          disabled={isDisable}
+          // onClick={handleSubmit}
+          // disabled={isDisable}
         >
           <Text fontWeight="bold" fontSize="xl">
             Crear Banco

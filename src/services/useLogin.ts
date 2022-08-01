@@ -4,9 +4,9 @@ interface IUseLogin {
   email: string
   password: string
 }
-interface IRecoveryPasword {
-  email: string
-}
+// interface IRecoveryPasword {
+//   email: string
+// }
 // Obtenemos todas las categorias
 export const useLogin = () => {
   const [LoginUsuario, { loading: loadingLogin }] = useLoginMutation()

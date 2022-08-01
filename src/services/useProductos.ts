@@ -1,226 +1,228 @@
-import {
-  useCreateProductoMutation,
-  useDeleteProductoMutation,
-  useGetAllProductosQuery,
-  useUpdateDestacadoProductoMutation,
-  useUpdateEstadoProductoMutation,
-  useUpdateProductoMutation
-} from '../generated/graphql'
+export const useProductos = () => {}
 
-interface ICreateProducto {
-  titulo: string
-  descripcionCorta: string
-  descripcionLarga: string
-  precioReal: number
-  precioOferta: number
-  stockMinimo: number
-  stockReal: number
-  imagenPrincipal: number
-  imagenSecundaria: number
-  galeria: [string]
-  keywords: string
-  categoriaProductoId: number
-}
+// import {
+//   useCreateProductoMutation,
+//   useDeleteProductoMutation,
+//   useGetAllProductosQuery,
+//   useUpdateDestacadoProductoMutation,
+//   useUpdateEstadoProductoMutation,
+//   useUpdateProductoMutation
+// } from '../generated/graphql'
 
-interface IUpdateProducto {
-  productoId: string,
-  titulo: string,
-  descripcionCorta: string,
-  descripcionLarga: string,
-  precioReal: number,
-  precioOferta: number,
-  stockMinimo: number,
-  stockReal: number,
-  imagenPrincipal: number,
-  imagenSecundaria: number,
-  galeria: [string],
-  keywords: string,
-  categoriaProductoId: number
-}
+// interface ICreateProducto {
+//   titulo: string
+//   descripcionCorta: string
+//   descripcionLarga: string
+//   precioReal: number
+//   precioOferta: number
+//   stockMinimo: number
+//   stockReal: number
+//   imagenPrincipal: number
+//   imagenSecundaria: number
+//   galeria: [string]
+//   keywords: string
+//   categoriaProductoId: number
+// }
 
-export interface IUpdateEstadoProducto {
-  productoId: string
-  estado: string
-}
+// interface IUpdateProducto {
+//   productoId: string,
+//   titulo: string,
+//   descripcionCorta: string,
+//   descripcionLarga: string,
+//   precioReal: number,
+//   precioOferta: number,
+//   stockMinimo: number,
+//   stockReal: number,
+//   imagenPrincipal: number,
+//   imagenSecundaria: number,
+//   galeria: [string],
+//   keywords: string,
+//   categoriaProductoId: number
+// }
 
-export interface IUpdateDestacadoProducto {
-  productoId: string
-  destacado: string
-}
+// export interface IUpdateEstadoProducto {
+//   productoId: string
+//   estado: string
+// }
 
-export interface IDeleteProducto {
-  productoId: number
-}
+// export interface IUpdateDestacadoProducto {
+//   productoId: string
+//   destacado: string
+// }
 
-export const useProductos = (
-  input = { pagina: 1, estado: '', numeroPagina: 10 }
-) => {
-  const { data, loading, refetch } = useGetAllProductosQuery({
-    fetchPolicy: 'network-only',
-    variables: {
-      ...input
-    }
-  })
+// export interface IDeleteProducto {
+//   productoId: number
+// }
 
-  const db = data?.GetAllProductos?.data ?? []
-  const nTotal = data?.GetAllProductos?.numeroTotal ?? 0
+// export const useProductos = (
+//   input = { pagina: 1, estado: '', numeroPagina: 10 }
+// ) => {
+//   const { data, loading, refetch } = useGetAllProductosQuery({
+//     fetchPolicy: 'network-only',
+//     variables: {
+//       ...input
+//     }
+//   })
 
-  const [CreateProducto, { loading: loadingCreate }] = useCreateProductoMutation()
+//   const db = data?.GetAllProductos?.data ?? []
+//   const nTotal = data?.GetAllProductos?.numeroTotal ?? 0
 
-  const createProducto = async ({
-    titulo,
-    descripcionCorta,
-    descripcionLarga,
-    precioReal,
-    precioOferta,
-    stockMinimo,
-    stockReal,
-    imagenPrincipal,
-    imagenSecundaria,
-    galeria,
-    keywords,
-    categoriaProductoId
-  }: ICreateProducto) => {
-    try {
-      await CreateProducto({
-        variables: {
-          input: {
-            titulo,
-            descripcionCorta,
-            descripcionLarga,
-            precioReal,
-            precioOferta,
-            stockMinimo,
-            stockReal,
-            imagenPrincipal,
-            imagenSecundaria,
-            galeria,
-            keywords,
-            categoriaProductoId
-          }
-        }
-      })
-      refetch()
-      return { ok: true }
-    } catch (error: any) {
-      return { ok: false, error: 'Error no se pudo crear el producto' }
-    }
-  }
+//   const [CreateProducto, { loading: loadingCreate }] = useCreateProductoMutation()
 
-  const [UpdateProducto, { loading: loadingUpdate }] = useUpdateProductoMutation()
+//   const createProducto = async ({
+//     titulo,
+//     descripcionCorta,
+//     descripcionLarga,
+//     precioReal,
+//     precioOferta,
+//     stockMinimo,
+//     stockReal,
+//     imagenPrincipal,
+//     imagenSecundaria,
+//     galeria,
+//     keywords,
+//     categoriaProductoId
+//   }: ICreateProducto) => {
+//     try {
+//       await CreateProducto({
+//         variables: {
+//           input: {
+//             titulo,
+//             descripcionCorta,
+//             descripcionLarga,
+//             precioReal,
+//             precioOferta,
+//             stockMinimo,
+//             stockReal,
+//             imagenPrincipal,
+//             imagenSecundaria,
+//             galeria,
+//             keywords,
+//             categoriaProductoId
+//           }
+//         }
+//       })
+//       refetch()
+//       return { ok: true }
+//     } catch (error: any) {
+//       return { ok: false, error: 'Error no se pudo crear el producto' }
+//     }
+//   }
 
-  const updateProducto = async ({
-    productoId,
-    titulo,
-    descripcionCorta,
-    descripcionLarga,
-    precioReal,
-    precioOferta,
-    stockMinimo,
-    stockReal,
-    imagenPrincipal,
-    imagenSecundaria,
-    galeria,
-    keywords,
-    categoriaProductoId
-  }: IUpdateProducto) => {
-    try {
-      await UpdateProducto({
-        variables: {
-          input: {
-            productoId,
-            titulo,
-            descripcionCorta,
-            descripcionLarga,
-            precioReal,
-            precioOferta,
-            stockMinimo,
-            stockReal,
-            imagenPrincipal,
-            imagenSecundaria,
-            galeria,
-            keywords,
-            categoriaProductoId
-          }
-        }
-      })
-      refetch()
-      return { ok: true }
-    } catch (error: any) {
-      return { ok: false, error: 'Error no se pudo actualizar el producto' }
-    }
-  }
+//   const [UpdateProducto, { loading: loadingUpdate }] = useUpdateProductoMutation()
 
-  const [UpdateDestacadoProducto, { loading: loadingUpdateDestacado }] = useUpdateDestacadoProductoMutation()
+//   const updateProducto = async ({
+//     productoId,
+//     titulo,
+//     descripcionCorta,
+//     descripcionLarga,
+//     precioReal,
+//     precioOferta,
+//     stockMinimo,
+//     stockReal,
+//     imagenPrincipal,
+//     imagenSecundaria,
+//     galeria,
+//     keywords,
+//     categoriaProductoId
+//   }: IUpdateProducto) => {
+//     try {
+//       await UpdateProducto({
+//         variables: {
+//           input: {
+//             productoId,
+//             titulo,
+//             descripcionCorta,
+//             descripcionLarga,
+//             precioReal,
+//             precioOferta,
+//             stockMinimo,
+//             stockReal,
+//             imagenPrincipal,
+//             imagenSecundaria,
+//             galeria,
+//             keywords,
+//             categoriaProductoId
+//           }
+//         }
+//       })
+//       refetch()
+//       return { ok: true }
+//     } catch (error: any) {
+//       return { ok: false, error: 'Error no se pudo actualizar el producto' }
+//     }
+//   }
 
-  const updateDestacadoProducto = async ({
-    productoId,
-    destacado
-  }: IUpdateDestacadoProducto) => {
-    try {
-      await UpdateDestacadoProducto({
-        variables: {
-          input: {
-            productoId,
-            destacado
-          }
-        }
-      })
-      refetch()
-      return { ok: true }
-    } catch (error: any) {
-      return { ok: false, error: 'Error no se pudo actualizar el destacado' }
-    }
-  }
+//   const [UpdateDestacadoProducto, { loading: loadingUpdateDestacado }] = useUpdateDestacadoProductoMutation()
 
-  const [UpdateEstadoProducto, { loading: loadingUpdateEstado }] = useUpdateEstadoProductoMutation()
+//   const updateDestacadoProducto = async ({
+//     productoId,
+//     destacado
+//   }: IUpdateDestacadoProducto) => {
+//     try {
+//       await UpdateDestacadoProducto({
+//         variables: {
+//           input: {
+//             productoId,
+//             destacado
+//           }
+//         }
+//       })
+//       refetch()
+//       return { ok: true }
+//     } catch (error: any) {
+//       return { ok: false, error: 'Error no se pudo actualizar el destacado' }
+//     }
+//   }
 
-  const updateEstadoProducto = async ({ productoId, estado }: IUpdateEstadoProducto) => {
-    try {
-      await UpdateEstadoProducto({
-        variables: {
-          input: {
-            productoId,
-            estado
-          }
-        }
-      })
-      refetch()
-      return { ok: true }
-    } catch (error: any) {
-      return { ok: false, error: 'Error no se pudo actualizar el estado' }
-    }
-  }
+//   const [UpdateEstadoProducto, { loading: loadingUpdateEstado }] = useUpdateEstadoProductoMutation()
 
-  const [DeleteProducto, { loading: loadingDelete }] = useDeleteProductoMutation()
+//   const updateEstadoProducto = async ({ productoId, estado }: IUpdateEstadoProducto) => {
+//     try {
+//       await UpdateEstadoProducto({
+//         variables: {
+//           input: {
+//             productoId,
+//             estado
+//           }
+//         }
+//       })
+//       refetch()
+//       return { ok: true }
+//     } catch (error: any) {
+//       return { ok: false, error: 'Error no se pudo actualizar el estado' }
+//     }
+//   }
 
-  const deleteProducto = async ({ productoId }: IDeleteProducto) => {
-    try {
-      await DeleteProducto({
-        variables: {
-          productoId
-        }
-      })
-      refetch()
-      return { ok: true }
-    } catch (error: any) {
-      return { ok: false, error: 'Error no se pudo eliminar el Producto' }
-    }
-  }
+//   const [DeleteProducto, { loading: loadingDelete }] = useDeleteProductoMutation()
 
-  return {
-    loading,
-    db,
-    nTotal,
-    createProducto,
-    loadingCreate,
-    deleteProducto,
-    loadingDelete,
-    updateEstadoProducto,
-    loadingUpdateEstado,
-    updateDestacadoProducto,
-    loadingUpdateDestacado,
-    updateProducto,
-    loadingUpdate
-  }
-}
+//   const deleteProducto = async ({ productoId }: IDeleteProducto) => {
+//     try {
+//       await DeleteProducto({
+//         variables: {
+//           productoId
+//         }
+//       })
+//       refetch()
+//       return { ok: true }
+//     } catch (error: any) {
+//       return { ok: false, error: 'Error no se pudo eliminar el Producto' }
+//     }
+//   }
+
+//   return {
+//     loading,
+//     db,
+//     nTotal,
+//     createProducto,
+//     loadingCreate,
+//     deleteProducto,
+//     loadingDelete,
+//     updateEstadoProducto,
+//     loadingUpdateEstado,
+//     updateDestacadoProducto,
+//     loadingUpdateDestacado,
+//     updateProducto,
+//     loadingUpdate
+//   }
+// }

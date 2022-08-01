@@ -14,13 +14,33 @@ import InputFloat from '../../../components/input/inputFloat'
 // import useForm from '../../../hooks/useForm'
 import useForm, { FormError } from '../../../hooks/useForm'
 import InputImage from '../../../components/input/InputImage'
-import useEventos, { IUpdateEvento } from '../../../services/useEventos'
+import useEventos from '../../../services/useEventos'
 import { isEmpty } from '../../../utils/isEmpty'
 import { useEffect, useState } from 'react'
-import { Imagen } from '../../../components/shared/ModalImages'
+// import { Imagen } from '../../../components/shared/ModalImages'
 // import { useState } from 'react'
 // import { Imagen } from '../../../components/shared/ModalImages'
+export interface Imagen {
+  id?: string | null | undefined
+  titulo?: string | null | undefined
+  url?: string | null | undefined
+}
 
+export interface IUpdateEvento {
+  titulo: string
+  descripcionCorta: string
+  descripcionLarga: string
+  terminosCondiciones: string
+  direccion: string
+  ubicacion: string
+  fecha: string
+  hora: string
+  fechaInicial: string
+  horaInicial: string
+  fechaFinal: string
+  horaFinal: string
+  eventoId: string
+}
 const initialState: IUpdateEvento = {
   titulo: '',
   descripcionCorta: '',
@@ -30,7 +50,7 @@ const initialState: IUpdateEvento = {
   ubicacion: '',
   fecha: '',
   hora: '',
-  imagenPrincipal: {},
+  // imagenPrincipal: {},
   fechaInicial: '',
   horaInicial: '',
   fechaFinal: '',
@@ -46,7 +66,7 @@ const validation = ({
   ubicacion,
   fecha,
   hora,
-  imagenPrincipal,
+  // imagenPrincipal,
   fechaInicial,
   horaInicial,
   fechaFinal,
@@ -114,7 +134,7 @@ const EditarEvento = () => {
   initialState.horaFinal = evento.horaFinal
   initialState.horaInicial = evento.horaInicial
   initialState.terminosCondiciones = evento.terminosCondiciones
-  initialState.imagenPrincipal = imagenPrincipal
+  // initialState.imagenPrincipal = imagenPrincipal
   initialState.direccion = evento.direccion
   initialState.ubicacion = evento.ubicacion
   initialState.eventoId = evento.eventoId
@@ -126,25 +146,27 @@ const EditarEvento = () => {
 
   const handleSubmit = async () => {
     const { ...rest } = values
-    rest.imagenPrincipal = values.imagenPrincipal?.id
-    updateEvento(rest).then((res) => {
-      if (res?.ok) {
-        toast({
-          title: 'Evento actualizar Correctamente',
-          position: 'top-right',
-          isClosable: true,
-          status: 'success'
-        })
-      } else {
-        toast({
-          title: 'Evento actualizar Inrrectamente',
-          position: 'top-right',
-          isClosable: true,
-          status: 'error'
-        })
+    // rest.imagenPrincipal = values.imagenPrincipal?.id
+    updateEvento({ ...rest, imagenPrincipal: Number(imagenPrincipal.id) }).then(
+      (res) => {
+        if (res?.ok) {
+          toast({
+            title: 'Evento actualizar Correctamente',
+            position: 'top-right',
+            isClosable: true,
+            status: 'success'
+          })
+        } else {
+          toast({
+            title: 'Evento actualizar Inrrectamente',
+            position: 'top-right',
+            isClosable: true,
+            status: 'error'
+          })
+        }
+        navigate(-1)
       }
-      navigate(-1)
-    })
+    )
   }
   useEffect(() => {
     if (evento) {

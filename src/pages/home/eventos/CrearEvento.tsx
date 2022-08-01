@@ -13,10 +13,32 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InputFloat from '../../../components/input/inputFloat'
 import InputImage from '../../../components/input/InputImage'
-import { Imagen } from '../../../components/shared/ModalImages'
+// import { Imagen } from '../../../components/shared/ModalImages'
 import useForm, { FormError } from '../../../hooks/useForm'
-import useEventos, { ICrearEvento } from '../../../services/useEventos'
+import useEventos from '../../../services/useEventos'
+// import useEventos, { ICrearEvento } from '../../../services/useEventos'
 import { isEmpty } from '../../../utils/isEmpty'
+
+export interface Imagen {
+  id?: string | null | undefined
+  titulo?: string | null | undefined
+  url?: string | null | undefined
+}
+
+export interface ICrearEvento {
+  titulo: string
+  descripcionCorta: string
+  descripcionLarga: string
+  terminosCondiciones: string
+  direccion: string
+  ubicacion: string
+  fecha: string
+  hora: string
+  fechaInicial: string
+  horaInicial: string
+  fechaFinal: string
+  horaFinal: string
+}
 
 const initialState: ICrearEvento = {
   titulo: '',
@@ -27,7 +49,7 @@ const initialState: ICrearEvento = {
   ubicacion: '',
   fecha: '',
   hora: '',
-  imagenPrincipal: {},
+  // imagenPrincipal: {},
   fechaInicial: '',
   horaInicial: '',
   fechaFinal: '',
@@ -43,7 +65,7 @@ const validation = ({
   ubicacion,
   fecha,
   hora,
-  imagenPrincipal,
+  // imagenPrincipal,
   fechaInicial,
   horaInicial,
   fechaFinal,
@@ -97,7 +119,7 @@ const CrearEvento = () => {
   const navigate = useNavigate()
   const toast = useToast()
   const [imagenPrincipal, setImagenPrincipal] = useState<Imagen>({})
-  initialState.imagenPrincipal = imagenPrincipal
+  // initialState.imagenPrincipal = imagenPrincipal
   const { values, ...form } = useForm({
     initialValues: initialState,
     validate: validation
@@ -106,25 +128,27 @@ const CrearEvento = () => {
 
   const handleSubmit = () => {
     const { ...rest } = values
-    rest.imagenPrincipal = values?.imagenPrincipal?.id
-    createEvento(rest).then((res) => {
-      if (res?.ok) {
-        toast({
-          title: 'Evento creado Correctamente',
-          position: 'top-right',
-          isClosable: true,
-          status: 'success'
-        })
-      } else {
-        toast({
-          title: 'Evento creado Inrrectamente',
-          position: 'top-right',
-          isClosable: true,
-          status: 'error'
-        })
+    // rest.imagenPrincipal = values?.imagenPrincipal?.id
+    createEvento({ ...rest, imagenPrincipal: Number(imagenPrincipal.id) }).then(
+      (res) => {
+        if (res?.ok) {
+          toast({
+            title: 'Evento creado Correctamente',
+            position: 'top-right',
+            isClosable: true,
+            status: 'success'
+          })
+        } else {
+          toast({
+            title: 'Evento creado Inrrectamente',
+            position: 'top-right',
+            isClosable: true,
+            status: 'error'
+          })
+        }
+        navigate(-1)
       }
-      navigate(-1)
-    })
+    )
   }
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>

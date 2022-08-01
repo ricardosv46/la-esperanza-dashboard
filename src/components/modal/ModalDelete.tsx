@@ -26,9 +26,9 @@ const ModalDelete = ({
   onClose,
   body,
   header,
-  nombreBotton = 'Eliminar',
-  colorBoton = 'red'
-}: IModal) => {
+  nombreBotton = 'Eliminar'
+}: // colorBoton = 'red'
+IModal) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
@@ -42,7 +42,7 @@ const ModalDelete = ({
             Cancelar
           </Button>
           <Button
-            colorScheme={colorBoton}
+            colorScheme="red"
             onClick={() => {
               onClick()
               onClose()
