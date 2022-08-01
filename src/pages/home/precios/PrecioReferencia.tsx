@@ -106,7 +106,11 @@ const PrecioReferencial = () => {
                 {precios.map((precio) => (
                   <Tr key={precio?.referenciaId}>
                     <Td>{precio?.titulo}</Td>
-                    <Td>{precio?.precio}</Td>
+                    <Td>
+                      {String(precio?.precio).includes('.')
+                        ? precio?.precio
+                        : `${precio?.precio}.00`}
+                    </Td>
 
                     <Td>
                       <Flex justifyContent="center" alignItems="center" gap={5}>

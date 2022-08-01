@@ -1,5 +1,4 @@
 import {
-  InputMaybe,
   useGetAllButacasQuery,
   useUpdatePrecioMutation
 } from '../generated/graphql'

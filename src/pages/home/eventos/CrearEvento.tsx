@@ -179,7 +179,7 @@ const CrearEvento = () => {
                 {...form.inputProps('fecha')}
               />
               <InputFloat
-                type="text"
+                type="time"
                 label="Hora"
                 {...form.inputProps('hora')}
               />
@@ -194,12 +194,12 @@ const CrearEvento = () => {
                 {...form.inputProps('fechaFinal')}
               />
               <InputFloat
-                type="text"
+                type="time"
                 label="Hora Inicial"
                 {...form.inputProps('horaInicial')}
               />
               <InputFloat
-                type="text"
+                type="time"
                 label="Hora Final"
                 {...form.inputProps('horaFinal')}
               />

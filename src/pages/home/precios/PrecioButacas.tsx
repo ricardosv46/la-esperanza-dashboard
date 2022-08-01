@@ -16,10 +16,8 @@ import {
   useToast,
   Spinner
 } from '@chakra-ui/react'
-import { useState } from 'react'
 import InputFloat from '../../../components/input/inputFloat'
 import ModalUpdateEstadoPedido from '../../../components/modal/ModalUpdateEstadoPedido'
-import Select from '../../../components/shared/Select'
 import useForm from '../../../hooks/useForm'
 import useToggle from '../../../hooks/useToggle'
 import useButacas from '../../../services/useButacas'
@@ -30,8 +28,8 @@ const initialState = {
 const PrecioButacas = () => {
   const toast = useToast()
   const { isOpen, onOpen, onClose } = useToggle()
-  const [innerValue, setInnerValue] = useState<string>('')
-  const [selectValue, setSelectValue] = useState<number>(0)
+  // const [innerValue, setInnerValue] = useState<string>('')
+  // const [selectValue, setSelectValue] = useState<number>(0)
   const {
     db: butacas,
     updatePrecioButaca,
@@ -106,7 +104,11 @@ const PrecioButacas = () => {
                   {butacas.map((butaca) => (
                     <Tr key={butaca?.butacaId}>
                       <Td>{butaca?.codigo}</Td>
-                      <Td>{butaca?.precio}</Td>
+                      <Td>
+                        {String(butaca?.precio).includes('.')
+                          ? butaca?.precio
+                          : `${butaca?.precio}.00`}
+                      </Td>
 
                       <Td>
                         <Flex
@@ -119,7 +121,9 @@ const PrecioButacas = () => {
                             onClick={() => {
                               onOpen()
                               values.precio = Number(butaca?.precio)
+
                               values.butacaId = String(butaca?.butacaId)
+                              console.log(values.precio)
                             }}
                           >
                             <EditIcon w={5} h={5} />
@@ -146,7 +150,7 @@ const PrecioButacas = () => {
           <InputFloat
             type="number"
             label="Precio Butaca"
-            // value={Number(values.precio)}
+            // value={values.precio + '.00'}
             {...form.inputProps('precio')}
           />
         </Box>

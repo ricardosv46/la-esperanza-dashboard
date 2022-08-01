@@ -91,10 +91,10 @@ const DetallePedido = () => {
                 justifyContent="space-between"
               >
                 <Text fontSize="lg" color={'gray.500'}>
-                  Numero de Comprobante
+                  Precio Total
                 </Text>
                 <Text color="black" fontWeight={'normal'} fontSize="xl">
-                  {detalle.numeroComprobante}
+                  S/ {detalle.precioTotal}
                 </Text>
               </Flex>
               <Flex
@@ -106,10 +106,10 @@ const DetallePedido = () => {
                 justifyContent="space-between"
               >
                 <Text fontSize="lg" color={'gray.500'}>
-                  Precio Total
+                  Numero de Comprobante
                 </Text>
                 <Text color="black" fontWeight={'normal'} fontSize="xl">
-                  S/ {detalle.precioTotal}
+                  {detalle.numeroComprobante}
                 </Text>
               </Flex>
               <Flex
