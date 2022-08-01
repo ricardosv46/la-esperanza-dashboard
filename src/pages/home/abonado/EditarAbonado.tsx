@@ -170,7 +170,7 @@ const EditarAbonado = () => {
               type="text"
               label="Descuento (%)"
               {...form.inputProps('descuento')}
-              pattern="^[0-9]?[0-9]$"
+              pattern="[0-9]{0,3}"
               onChange={(e) => {
                 e.target.validity.valid &&
                   form.setField('descuento', e.target.value)
