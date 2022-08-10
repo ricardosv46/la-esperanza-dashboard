@@ -14,18 +14,27 @@ import {
   IconButton,
   Spinner
 } from '@chakra-ui/react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Pagination from '../../../components/pagination'
 import IconEyeD from '../../../icons/IconEyeD'
 import useAllPedidos from '../../../services/useAllPedidos'
 
 const Pedidos = () => {
   const navigate = useNavigate()
-  const { db: pedidos, loading } = useAllPedidos({
+  const [state, setstate] = useState({
     pagina: 1,
     numeroPagina: 10
   })
-  console.log(pedidos)
-  // pedidos.map((item) => console.log(item.Usuario?.apellidos))
+  const { db: pedidos, loading, nTotal } = useAllPedidos(state)
+
+  const generatedTotal = (items: number, itemporpage: number) => {
+    const n = Math.ceil(items / itemporpage)
+    return Array(n)
+      .fill(null)
+      .map((_, i) => i + 1)
+  }
+  const paginas = generatedTotal(nTotal, state.numeroPagina)
   return (
     <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>
@@ -101,7 +110,7 @@ const Pedidos = () => {
           </TableContainer>
         )}
 
-        {/* <Pagination state={state} setstate={setstate} paginas={paginas} /> */}
+        <Pagination state={state} setstate={setstate} paginas={paginas} />
       </Flex>
     </Container>
   )

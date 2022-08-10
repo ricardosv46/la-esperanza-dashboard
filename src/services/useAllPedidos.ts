@@ -14,10 +14,12 @@ const useAllPedidos = ({ pagina, numeroPagina }: Ipedidos) => {
     }
   })
   const db = data?.GetAllPedidos?.data ?? []
+  const nTotal = data?.GetAllPedidos?.numeroTotal ?? 0
   return {
     db,
     loading,
-    refetch
+    refetch,
+    nTotal
   }
 }
 
