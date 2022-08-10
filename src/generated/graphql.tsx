@@ -56,6 +56,18 @@ export type AsignacionEntradaInput = {
   tipoDocumento?: InputMaybe<Scalars['String']>;
 };
 
+export type Asistente = {
+  __typename?: 'Asistente';
+  apellidos?: Maybe<Scalars['String']>;
+  asiento?: Maybe<Scalars['String']>;
+  asientoId?: Maybe<Scalars['ID']>;
+  codigo?: Maybe<Scalars['String']>;
+  estado?: Maybe<Scalars['String']>;
+  nombres?: Maybe<Scalars['String']>;
+  numDocumento?: Maybe<Scalars['String']>;
+  tipoDocumento?: Maybe<Scalars['String']>;
+};
+
 export type Butaca = {
   __typename?: 'Butaca';
   butacaId?: Maybe<Scalars['ID']>;
@@ -225,15 +237,19 @@ export type Mutation = {
   DeleteEvento?: Maybe<Scalars['String']>;
   DeleteImagen: Scalars['String'];
   Login?: Maybe<User>;
+  RecoverPassword?: Maybe<Scalars['String']>;
+  RestartAsientos?: Maybe<Scalars['String']>;
   UpdateAsignacionEntrada?: Maybe<AsignacionEntrada>;
+  UpdateAsistencia?: Maybe<Asistente>;
   UpdateEstadoEvento?: Maybe<Evento>;
   UpdateEvento?: Maybe<Evento>;
   UpdateFeria?: Maybe<Feria>;
   UpdateImagen: Imagen;
+  UpdatePassword: User;
   UpdatePrecio: Butaca;
   UpdatePrecioReferencial?: Maybe<Referencial>;
   UpdateUsuario: User;
-  ValidacionEntrada?: Maybe<Scalars['String']>;
+  ValidacionEntrada?: Maybe<Asistente>;
 };
 
 
@@ -291,8 +307,23 @@ export type MutationLoginArgs = {
 };
 
 
+export type MutationRecoverPasswordArgs = {
+  email?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationRestartAsientosArgs = {
+  feriaId: Scalars['Int'];
+};
+
+
 export type MutationUpdateAsignacionEntradaArgs = {
   input: AsignacionEntradaInput;
+};
+
+
+export type MutationUpdateAsistenciaArgs = {
+  input: UpdateAsistenciaInput;
 };
 
 
@@ -317,6 +348,11 @@ export type MutationUpdateImagenArgs = {
 };
 
 
+export type MutationUpdatePasswordArgs = {
+  input?: InputMaybe<UpdatePasswordInput>;
+};
+
+
 export type MutationUpdatePrecioArgs = {
   input?: InputMaybe<ButacaInput>;
 };
@@ -333,8 +369,10 @@ export type MutationUpdateUsuarioArgs = {
 
 
 export type MutationValidacionEntradaArgs = {
-  asientoId?: InputMaybe<Scalars['Int']>;
   constante?: InputMaybe<Scalars['String']>;
+  fecha?: InputMaybe<Scalars['Date']>;
+  numDocumento?: InputMaybe<Scalars['String']>;
+  tipoDocumento?: InputMaybe<Scalars['String']>;
 };
 
 /** Allows ordering a list of records. */
@@ -395,6 +433,7 @@ export type Pedido = {
   numeroComprobante?: Maybe<Scalars['String']>;
   pedidoId?: Maybe<Scalars['ID']>;
   precioTotal?: Maybe<Scalars['Float']>;
+  razonSocial?: Maybe<Scalars['String']>;
   tipoComprobante?: Maybe<Scalars['String']>;
   transaccionId?: Maybe<Scalars['Float']>;
   usuarioId?: Maybe<Scalars['Int']>;
@@ -405,6 +444,7 @@ export type PedidoInput = {
   numeroComprobante?: InputMaybe<Scalars['String']>;
   pedidoId?: InputMaybe<Scalars['ID']>;
   precioTotal?: InputMaybe<Scalars['Float']>;
+  razonSocial?: InputMaybe<Scalars['String']>;
   tipoComprobante?: InputMaybe<Scalars['String']>;
   transaccionId?: InputMaybe<Scalars['Float']>;
 };
@@ -423,6 +463,7 @@ export type Query = {
   GetAllSuscriptores?: Maybe<GetAllSuscriptores>;
   GetEventoSlug?: Maybe<Evento>;
   GetFeria?: Maybe<Feria>;
+  GetReporteExcel?: Maybe<Scalars['String']>;
 };
 
 
@@ -476,6 +517,11 @@ export type QueryGetEventoSlugArgs = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
+
+export type QueryGetReporteExcelArgs = {
+  pedidoId: Scalars['Int'];
+};
+
 export type Referencial = {
   __typename?: 'Referencial';
   precio?: Maybe<Scalars['Float']>;
@@ -519,9 +565,21 @@ export enum Trashed {
   Without = 'WITHOUT'
 }
 
+export type UpdateAsistenciaInput = {
+  asientoId?: InputMaybe<Scalars['ID']>;
+  constante?: InputMaybe<Scalars['String']>;
+  numDocumento?: InputMaybe<Scalars['String']>;
+  tipoDocumento?: InputMaybe<Scalars['String']>;
+};
+
 export type UpdateEstadoEventoInput = {
   estado?: InputMaybe<Scalars['String']>;
   eventoId?: InputMaybe<Scalars['ID']>;
+};
+
+export type UpdatePasswordInput = {
+  passwordAntiguo?: InputMaybe<Scalars['String']>;
+  passwordNuevo?: InputMaybe<Scalars['String']>;
 };
 
 export type User = {
@@ -582,6 +640,13 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', Login?: { __typename?: 'User', id?: string | null, email?: string | null, tipoUsuario?: number | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, apiToken?: string | null } | null };
+
+export type RestartAsientosMutationVariables = Exact<{
+  feriaId: Scalars['Int'];
+}>;
+
+
+export type RestartAsientosMutation = { __typename?: 'Mutation', RestartAsientos?: string | null };
 
 export type UpdateEstadoEventoMutationVariables = Exact<{
   input: UpdateEstadoEventoInput;
@@ -647,7 +712,7 @@ export type GetAllPedidosQueryVariables = Exact<{
 }>;
 
 
-export type GetAllPedidosQuery = { __typename?: 'Query', GetAllPedidos?: { __typename?: 'GetAllPedidos', numeroTotal?: number | null, data?: Array<{ __typename?: 'Pedido', pedidoId?: string | null, tipoComprobante?: string | null, numeroComprobante?: string | null, precioTotal?: number | null, fechaPedido?: any | null, usuarioId?: number | null, Usuario?: { __typename?: 'User', id?: string | null, tipoUsuario?: number | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, email?: string | null, apiToken?: string | null } | null, DetallePedido?: Array<{ __typename?: 'DetallePedido', detallePedidoId?: string | null, tendido?: string | null, codigo?: string | null, asiento?: string | null, precio?: number | null, eventoId?: number | null, feriaId?: number | null, pedidoId?: number | null }> | null }> | null } | null };
+export type GetAllPedidosQuery = { __typename?: 'Query', GetAllPedidos?: { __typename?: 'GetAllPedidos', numeroTotal?: number | null, data?: Array<{ __typename?: 'Pedido', pedidoId?: string | null, tipoComprobante?: string | null, numeroComprobante?: string | null, razonSocial?: string | null, precioTotal?: number | null, fechaPedido?: any | null, usuarioId?: number | null, Usuario?: { __typename?: 'User', id?: string | null, tipoUsuario?: number | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, email?: string | null, apiToken?: string | null } | null, DetallePedido?: Array<{ __typename?: 'DetallePedido', detallePedidoId?: string | null, tendido?: string | null, codigo?: string | null, asiento?: string | null, precio?: number | null, eventoId?: number | null, feriaId?: number | null, pedidoId?: number | null }> | null }> | null } | null };
 
 export type GetAllSuscriptoresQueryVariables = Exact<{
   pagina?: InputMaybe<Scalars['Int']>;
@@ -666,6 +731,13 @@ export type GetAllPrecioReferencialQueryVariables = Exact<{ [key: string]: never
 
 
 export type GetAllPrecioReferencialQuery = { __typename?: 'Query', GetAllPrecioReferencial?: Array<{ __typename?: 'Referencial', referenciaId?: string | null, tendido?: string | null, titulo?: string | null, precio?: number | null } | null> | null };
+
+export type GetReporteExcelQueryVariables = Exact<{
+  pedidoId: Scalars['Int'];
+}>;
+
+
+export type GetReporteExcelQuery = { __typename?: 'Query', GetReporteExcel?: string | null };
 
 
 export const CreateEventoDocument = gql`
@@ -855,6 +927,37 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const RestartAsientosDocument = gql`
+    mutation RestartAsientos($feriaId: Int!) {
+  RestartAsientos(feriaId: $feriaId)
+}
+    `;
+export type RestartAsientosMutationFn = Apollo.MutationFunction<RestartAsientosMutation, RestartAsientosMutationVariables>;
+
+/**
+ * __useRestartAsientosMutation__
+ *
+ * To run a mutation, you first call `useRestartAsientosMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRestartAsientosMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [restartAsientosMutation, { data, loading, error }] = useRestartAsientosMutation({
+ *   variables: {
+ *      feriaId: // value for 'feriaId'
+ *   },
+ * });
+ */
+export function useRestartAsientosMutation(baseOptions?: Apollo.MutationHookOptions<RestartAsientosMutation, RestartAsientosMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RestartAsientosMutation, RestartAsientosMutationVariables>(RestartAsientosDocument, options);
+      }
+export type RestartAsientosMutationHookResult = ReturnType<typeof useRestartAsientosMutation>;
+export type RestartAsientosMutationResult = Apollo.MutationResult<RestartAsientosMutation>;
+export type RestartAsientosMutationOptions = Apollo.BaseMutationOptions<RestartAsientosMutation, RestartAsientosMutationVariables>;
 export const UpdateEstadoEventoDocument = gql`
     mutation UpdateEstadoEvento($input: UpdateEstadoEventoInput!) {
   UpdateEstadoEvento(input: $input) {
@@ -1237,6 +1340,7 @@ export const GetAllPedidosDocument = gql`
       pedidoId
       tipoComprobante
       numeroComprobante
+      razonSocial
       precioTotal
       fechaPedido
       usuarioId
@@ -1427,3 +1531,36 @@ export function useGetAllPrecioReferencialLazyQuery(baseOptions?: Apollo.LazyQue
 export type GetAllPrecioReferencialQueryHookResult = ReturnType<typeof useGetAllPrecioReferencialQuery>;
 export type GetAllPrecioReferencialLazyQueryHookResult = ReturnType<typeof useGetAllPrecioReferencialLazyQuery>;
 export type GetAllPrecioReferencialQueryResult = Apollo.QueryResult<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>;
+export const GetReporteExcelDocument = gql`
+    query GetReporteExcel($pedidoId: Int!) {
+  GetReporteExcel(pedidoId: $pedidoId)
+}
+    `;
+
+/**
+ * __useGetReporteExcelQuery__
+ *
+ * To run a query within a React component, call `useGetReporteExcelQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetReporteExcelQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetReporteExcelQuery({
+ *   variables: {
+ *      pedidoId: // value for 'pedidoId'
+ *   },
+ * });
+ */
+export function useGetReporteExcelQuery(baseOptions: Apollo.QueryHookOptions<GetReporteExcelQuery, GetReporteExcelQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetReporteExcelQuery, GetReporteExcelQueryVariables>(GetReporteExcelDocument, options);
+      }
+export function useGetReporteExcelLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetReporteExcelQuery, GetReporteExcelQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetReporteExcelQuery, GetReporteExcelQueryVariables>(GetReporteExcelDocument, options);
+        }
+export type GetReporteExcelQueryHookResult = ReturnType<typeof useGetReporteExcelQuery>;
+export type GetReporteExcelLazyQueryHookResult = ReturnType<typeof useGetReporteExcelLazyQuery>;
+export type GetReporteExcelQueryResult = Apollo.QueryResult<GetReporteExcelQuery, GetReporteExcelQueryVariables>;

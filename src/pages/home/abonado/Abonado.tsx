@@ -14,15 +14,38 @@ import {
   Td,
   IconButton,
   Image,
-  Spinner
+  Spinner,
+  Button,
+  useToast
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import useFeria from '../../../services/useFeria'
+import { useRestartAsientos } from '../../../services/useRestartAsientos'
 
 const Abonado = () => {
   const navigate = useNavigate()
   const { db: abonados, loading } = useFeria()
-  console.log(abonados)
+  const { restartAsientos, loadingRestarAsientos } = useRestartAsientos()
+  const toast = useToast()
+  // console.log(abonados)
+  const handleRestarButacas = async () => {
+    const res = await restartAsientos()
+    if (res?.ok) {
+      toast({
+        title: res?.data,
+        position: 'top-right',
+        isClosable: true,
+        status: 'success'
+      })
+    } else {
+      toast({
+        title: res?.error,
+        position: 'top-right',
+        isClosable: true,
+        status: 'error'
+      })
+    }
+  }
   return (
     <Container maxWidth="1930px" p={'10'}>
       <Flex flexDir={'column'}>
@@ -48,6 +71,15 @@ const Abonado = () => {
           >
             <Text lineHeight={0}>Crear abonados</Text>
           </Button> */}
+          <Button
+            colorScheme="primary"
+            variant="solid"
+            type='button'
+            onClick={handleRestarButacas}
+            disabled={loadingRestarAsientos}
+          >
+            <Text lineHeight={0}>Reiniciar Butacas</Text>
+          </Button>
         </Flex>
         {loading ? (
           <Flex justifyContent="center" alignItems="center" h={'xl'}>

@@ -5,6 +5,7 @@ query GetAllPedidos($pagina:Int!,$numeroPagina:Int!){
       pedidoId
       tipoComprobante
       numeroComprobante
+      razonSocial
       precioTotal
       fechaPedido
       usuarioId
