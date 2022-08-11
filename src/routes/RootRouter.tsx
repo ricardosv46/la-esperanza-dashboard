@@ -12,7 +12,7 @@ const RootRouter = () => {
   return (
     <Routes>
       <Route
-        path='home/*'
+        path='/*'
         element={
           <PrivateRoute isAuth={isAuth}>
             <HomeRouter />
@@ -29,7 +29,7 @@ const RootRouter = () => {
         }
       />
 
-      <Route path='/*' element={<Navigate to='/home' />} />
+      <Route path='/*' element={<Navigate to='/' />} />
     </Routes>
   )
 }

@@ -96,7 +96,7 @@ const Eventos = () => {
             _dark={{ bg: '#F0AC42' }}
             variant="solid"
             leftIcon={<AddIcon />}
-            onClick={() => navigate('/home/crear-evento')}
+            onClick={() => navigate('/crear-evento')}
           >
             <Text lineHeight={0}>Crear Evento</Text>
           </Button>
@@ -158,7 +158,7 @@ const Eventos = () => {
                         <IconButton
                           aria-label="editar"
                           onClick={() =>
-                            navigate(`/home/editar-evento/${evento.eventoId}`, {
+                            navigate(`/editar-evento/${evento.eventoId}`, {
                               state: { evento }
                             })
                           }

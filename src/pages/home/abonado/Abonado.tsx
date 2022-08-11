@@ -129,7 +129,7 @@ const Abonado = () => {
                       <IconButton
                         aria-label="editar"
                         onClick={() =>
-                          navigate('/home/editar-abonados/', {
+                          navigate('/editar-abonados/', {
                             state: { abonados }
                           })
                         }

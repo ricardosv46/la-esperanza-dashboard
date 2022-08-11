@@ -84,7 +84,7 @@ const Sidebar = ({ onClose, mobile }: Props) => {
         </Box>
         <Stack px={3}>
           <SidebarLink
-            to="/home"
+            to="/"
             name="Home"
             icon={IconHome}
             subMenu={{ value: false, paths: [] }}

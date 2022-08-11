@@ -75,7 +75,7 @@ const CreateBanks = () => {
               bg="primary.500"
               rounded="full"
               cursor={'pointer'}
-              onClick={() => navigate('/home/bancos')}
+              onClick={() => navigate('/bancos')}
             >
               <ChevronLeftIcon color={'white'} />
             </Flex>

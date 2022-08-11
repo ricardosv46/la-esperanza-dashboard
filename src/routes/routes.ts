@@ -60,7 +60,7 @@ export const homeRoutes: Route[] = [
     icon: IconFile,
     name: 'Imagenes',
     path: 'imagenes',
-    to: '/home/imagenes',
+    to: '/imagenes',
     component: Imagenes,
     subMenu: {
       value: false,
@@ -71,7 +71,7 @@ export const homeRoutes: Route[] = [
     icon: IconFile,
     name: 'Suscriptores',
     path: 'suscriptores',
-    to: '/home/suscriptores',
+    to: '/suscriptores',
     component: Suscriptores,
     subMenu: {
       value: false,
@@ -82,7 +82,7 @@ export const homeRoutes: Route[] = [
     icon: IconFile,
     path: 'pedidos',
     name: 'Pedidos',
-    to: '/home/pedidos',
+    to: '/pedidos',
     component: Pedidos,
     subMenu: {
       value: false,
@@ -91,7 +91,7 @@ export const homeRoutes: Route[] = [
           icon: IconFile,
           name: 'Detalle Pedido',
           path: 'detalle-pedido/:id',
-          to: '/home/detalle-pedido',
+          to: '/detalle-pedido',
           component: DetallePedido,
           render: false
         }
@@ -102,7 +102,7 @@ export const homeRoutes: Route[] = [
     icon: IconFile,
     name: 'Abonados',
     path: 'abonados',
-    to: '/home/abonados',
+    to: '/abonados',
     component: Abonado,
     subMenu: {
       value: false,
@@ -111,7 +111,7 @@ export const homeRoutes: Route[] = [
           icon: IconFile,
           name: 'Editar-abonados',
           path: 'editar-abonados',
-          to: '/home/editar-abonados/',
+          to: '/editar-abonados/',
           component: EditarAbonado,
           render: false
         }
@@ -121,7 +121,7 @@ export const homeRoutes: Route[] = [
   {
     icon: IconUser,
     name: 'Eventos',
-    to: '/home/eventos',
+    to: '/eventos',
     path: 'eventos',
     component: Eventos,
     subMenu: {
@@ -130,7 +130,7 @@ export const homeRoutes: Route[] = [
         {
           icon: IconUser,
           name: 'Crear-evento',
-          to: '/home/crear-evento',
+          to: '/crear-evento',
           path: 'crear-evento',
           render: false,
           component: CrearEvento
@@ -138,7 +138,7 @@ export const homeRoutes: Route[] = [
         {
           icon: IconUser,
           name: 'Editar-evento',
-          to: '/home/editar-evento',
+          to: '/editar-evento',
           path: 'editar-evento/:id',
           render: false,
           component: EditarEvento
@@ -149,7 +149,7 @@ export const homeRoutes: Route[] = [
   {
     icon: IconFile,
     name: 'Precios',
-    to: '/home/precios',
+    to: '/precios',
     path: 'precios',
     component: Precios,
     subMenu: {
@@ -159,7 +159,7 @@ export const homeRoutes: Route[] = [
           icon: IconOptions,
           name: 'Precio de Butacas',
           path: 'butaca',
-          to: '/home/butaca',
+          to: '/butaca',
           component: PrecioButacas,
           render: true
         },
@@ -168,7 +168,7 @@ export const homeRoutes: Route[] = [
           icon: IconFile,
           name: 'Precio Referecial',
           path: 'referencial',
-          to: '/home/referencial',
+          to: '/referencial',
           component: PrecioReferencial,
           render: true
         }

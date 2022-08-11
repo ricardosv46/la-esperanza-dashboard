@@ -101,7 +101,7 @@ const BanksPage = () => {
             colorScheme="primary"
             variant="solid"
             // leftIcon={<AddIcon />}
-            onClick={() => navigate('/home/create-bank')}
+            onClick={() => navigate('/create-bank')}
           >
             <Text lineHeight={0}>Crear Banco</Text>
           </Button>

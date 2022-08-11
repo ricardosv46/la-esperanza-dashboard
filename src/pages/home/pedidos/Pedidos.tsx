@@ -73,6 +73,9 @@ const Pedidos = () => {
                     Celular
                   </Th>
                   <Th textAlign="center" color="gray.400">
+                    Fecha
+                  </Th>
+                  <Th textAlign="center" color="gray.400">
                     Detalles
                   </Th>
                 </Tr>
@@ -86,13 +89,14 @@ const Pedidos = () => {
                     <Td>{pedido?.numeroComprobante}</Td>
                     <Td>{pedido?.Usuario?.email}</Td>
                     <Td>{pedido?.Usuario?.celular}</Td>
+                    <Td>{pedido?.fechaPedido}</Td>
                     <Td>
                       <Flex justifyContent="center" alignItems="center" gap={5}>
                         <IconButton
                           aria-label="detalle"
                           onClick={() => {
                             navigate(
-                              `/home/detalle-pedido/${pedido.pedidoId}}`,
+                              `/detalle-pedido/${pedido.pedidoId}}`,
                               {
                                 state: pedido
                               }
