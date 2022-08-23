@@ -68,6 +68,15 @@ export type Asistente = {
   tipoDocumento?: Maybe<Scalars['String']>;
 };
 
+export type BloqueoAsientoInput = {
+  asiento?: InputMaybe<Scalars['String']>;
+  codigo?: InputMaybe<Scalars['String']>;
+  eventoId?: InputMaybe<Scalars['Int']>;
+  feriaId?: InputMaybe<Scalars['Int']>;
+  reservado?: InputMaybe<Scalars['String']>;
+  tendido?: InputMaybe<Scalars['String']>;
+};
+
 export type Butaca = {
   __typename?: 'Butaca';
   butacaId?: Maybe<Scalars['ID']>;
@@ -95,6 +104,28 @@ export type DetallePedido = {
 };
 
 export type DetallePedidoInput = {
+  asiento?: InputMaybe<Scalars['String']>;
+  codigo?: InputMaybe<Scalars['String']>;
+  eventoId?: InputMaybe<Scalars['Int']>;
+  feriaId?: InputMaybe<Scalars['Int']>;
+  precio?: InputMaybe<Scalars['Float']>;
+  reservado?: InputMaybe<Scalars['String']>;
+  tendido?: InputMaybe<Scalars['String']>;
+};
+
+export type DetalleVenta = {
+  __typename?: 'DetalleVenta';
+  asiento?: Maybe<Scalars['String']>;
+  codigo?: Maybe<Scalars['String']>;
+  detalleVentaId?: Maybe<Scalars['ID']>;
+  eventoId?: Maybe<Scalars['Int']>;
+  feriaId?: Maybe<Scalars['Int']>;
+  precio?: Maybe<Scalars['Float']>;
+  tendido?: Maybe<Scalars['String']>;
+  ventaId?: Maybe<Scalars['Int']>;
+};
+
+export type DetalleVentaInput = {
   asiento?: InputMaybe<Scalars['String']>;
   codigo?: InputMaybe<Scalars['String']>;
   eventoId?: InputMaybe<Scalars['Int']>;
@@ -213,6 +244,18 @@ export type GetAllSuscriptores = {
   numeroTotal?: Maybe<Scalars['Int']>;
 };
 
+export type GetAllVendedoras = {
+  __typename?: 'GetAllVendedoras';
+  data?: Maybe<Array<Maybe<Vendedora>>>;
+  numeroTotal?: Maybe<Scalars['Int']>;
+};
+
+export type GetAllVentas = {
+  __typename?: 'GetAllVentas';
+  data?: Maybe<Array<Venta>>;
+  numeroTotal?: Maybe<Scalars['Int']>;
+};
+
 export type Imagen = {
   __typename?: 'Imagen';
   id?: Maybe<Scalars['ID']>;
@@ -228,12 +271,17 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   ConsultEmail?: Maybe<Scalars['String']>;
+  CreateBloqueoAsiento?: Maybe<Scalars['String']>;
+  CreateBloqueoAsientoAbono?: Maybe<Scalars['String']>;
   CreateEvento?: Maybe<Evento>;
   CreateImagen: Scalars['String'];
   CreatePedido: Pedido;
   CreatePedidoAbonado: Pedido;
   CreateSuscriptor?: Maybe<Suscriptor>;
   CreateUsuario: User;
+  CreateVendedora?: Maybe<Vendedora>;
+  CreateVenta: Venta;
+  CreateVentaAbonado: Venta;
   DeleteEvento?: Maybe<Scalars['String']>;
   DeleteImagen: Scalars['String'];
   Login?: Maybe<User>;
@@ -242,6 +290,7 @@ export type Mutation = {
   UpdateAsignacionEntrada?: Maybe<AsignacionEntrada>;
   UpdateAsistencia?: Maybe<Asistente>;
   UpdateEstadoEvento?: Maybe<Evento>;
+  UpdateEstadoVendedora?: Maybe<Vendedora>;
   UpdateEvento?: Maybe<Evento>;
   UpdateFeria?: Maybe<Feria>;
   UpdateImagen: Imagen;
@@ -249,12 +298,23 @@ export type Mutation = {
   UpdatePrecio: Butaca;
   UpdatePrecioReferencial?: Maybe<Referencial>;
   UpdateUsuario: User;
+  UpdateVendedora?: Maybe<Vendedora>;
   ValidacionEntrada?: Maybe<Asistente>;
 };
 
 
 export type MutationConsultEmailArgs = {
   email: Scalars['String'];
+};
+
+
+export type MutationCreateBloqueoAsientoArgs = {
+  input?: InputMaybe<Array<BloqueoAsientoInput>>;
+};
+
+
+export type MutationCreateBloqueoAsientoAbonoArgs = {
+  input?: InputMaybe<Array<BloqueoAsientoInput>>;
 };
 
 
@@ -289,6 +349,25 @@ export type MutationCreateSuscriptorArgs = {
 
 export type MutationCreateUsuarioArgs = {
   input: UserInput;
+};
+
+
+export type MutationCreateVendedoraArgs = {
+  input: VendedoraInput;
+};
+
+
+export type MutationCreateVentaArgs = {
+  input1: VentaInput;
+  input2?: InputMaybe<Array<DetalleVentaInput>>;
+  input3?: InputMaybe<UserInput>;
+};
+
+
+export type MutationCreateVentaAbonadoArgs = {
+  input1: VentaInput;
+  input2?: InputMaybe<Array<DetalleVentaInput>>;
+  input3?: InputMaybe<UserInput>;
 };
 
 
@@ -332,6 +411,11 @@ export type MutationUpdateEstadoEventoArgs = {
 };
 
 
+export type MutationUpdateEstadoVendedoraArgs = {
+  input: UpdateEstadoVendedoraInput;
+};
+
+
 export type MutationUpdateEventoArgs = {
   input: EventoInput;
 };
@@ -365,6 +449,11 @@ export type MutationUpdatePrecioReferencialArgs = {
 
 export type MutationUpdateUsuarioArgs = {
   input?: InputMaybe<UserInput>;
+};
+
+
+export type MutationUpdateVendedoraArgs = {
+  input: VendedoraInput;
 };
 
 
@@ -461,9 +550,13 @@ export type Query = {
   GetAllPedidos?: Maybe<GetAllPedidos>;
   GetAllPrecioReferencial?: Maybe<Array<Maybe<Referencial>>>;
   GetAllSuscriptores?: Maybe<GetAllSuscriptores>;
+  GetAllVendedoras?: Maybe<GetAllVendedoras>;
+  GetAllVentas?: Maybe<GetAllPedidos>;
   GetEventoSlug?: Maybe<Evento>;
   GetFeria?: Maybe<Feria>;
+  GetPedidoId?: Maybe<Pedido>;
   GetReporteExcel?: Maybe<Scalars['String']>;
+  GetVentaId?: Maybe<Venta>;
 };
 
 
@@ -513,13 +606,36 @@ export type QueryGetAllSuscriptoresArgs = {
 };
 
 
+export type QueryGetAllVendedorasArgs = {
+  estado?: InputMaybe<Scalars['String']>;
+  numeroPagina?: InputMaybe<Scalars['Int']>;
+  pagina?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryGetAllVentasArgs = {
+  numeroPagina?: InputMaybe<Scalars['Int']>;
+  pagina?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryGetEventoSlugArgs = {
   slug?: InputMaybe<Scalars['String']>;
 };
 
 
+export type QueryGetPedidoIdArgs = {
+  pedidoId?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type QueryGetReporteExcelArgs = {
   pedidoId: Scalars['Int'];
+};
+
+
+export type QueryGetVentaIdArgs = {
+  ventaId?: InputMaybe<Scalars['Int']>;
 };
 
 export type Referencial = {
@@ -577,6 +693,11 @@ export type UpdateEstadoEventoInput = {
   eventoId?: InputMaybe<Scalars['ID']>;
 };
 
+export type UpdateEstadoVendedoraInput = {
+  estado?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+};
+
 export type UpdatePasswordInput = {
   passwordAntiguo?: InputMaybe<Scalars['String']>;
   passwordNuevo?: InputMaybe<Scalars['String']>;
@@ -588,6 +709,7 @@ export type User = {
   apiToken?: Maybe<Scalars['String']>;
   celular?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
+  estado?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['ID']>;
   nombres?: Maybe<Scalars['String']>;
   numeroDocumento?: Maybe<Scalars['String']>;
@@ -606,6 +728,66 @@ export type UserInput = {
   tipoDocumento?: InputMaybe<Scalars['String']>;
 };
 
+export type Vendedora = {
+  __typename?: 'Vendedora';
+  apellidos?: Maybe<Scalars['String']>;
+  celular?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  estado?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']>;
+  nombres?: Maybe<Scalars['String']>;
+  numeroDocumento?: Maybe<Scalars['String']>;
+  tipoDocumento?: Maybe<Scalars['String']>;
+};
+
+export type VendedoraInput = {
+  apellidos?: InputMaybe<Scalars['String']>;
+  celular?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  nombres?: InputMaybe<Scalars['String']>;
+  numeroDocumento?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+  tipoDocumento?: InputMaybe<Scalars['String']>;
+};
+
+export type Venta = {
+  __typename?: 'Venta';
+  DetalleVenta?: Maybe<Array<DetalleVenta>>;
+  Usuario?: Maybe<User>;
+  fechaVenta?: Maybe<Scalars['Date']>;
+  numeroComprobante?: Maybe<Scalars['String']>;
+  precioTotal?: Maybe<Scalars['Float']>;
+  razonSocial?: Maybe<Scalars['String']>;
+  tipoComprobante?: Maybe<Scalars['String']>;
+  usuarioId?: Maybe<Scalars['Int']>;
+  ventaId?: Maybe<Scalars['ID']>;
+};
+
+export type VentaInput = {
+  fechaVenta?: InputMaybe<Scalars['Date']>;
+  numeroComprobante?: InputMaybe<Scalars['String']>;
+  precioTotal?: InputMaybe<Scalars['Float']>;
+  razonSocial?: InputMaybe<Scalars['String']>;
+  tipoComprobante?: InputMaybe<Scalars['String']>;
+  transaccionId?: InputMaybe<Scalars['Float']>;
+  ventaId?: InputMaybe<Scalars['ID']>;
+};
+
+export type CreateBloqueoAsientoMutationVariables = Exact<{
+  input?: InputMaybe<Array<BloqueoAsientoInput> | BloqueoAsientoInput>;
+}>;
+
+
+export type CreateBloqueoAsientoMutation = { __typename?: 'Mutation', CreateBloqueoAsiento?: string | null };
+
+export type CreateBloqueoAsientoAbonoMutationVariables = Exact<{
+  input?: InputMaybe<Array<BloqueoAsientoInput> | BloqueoAsientoInput>;
+}>;
+
+
+export type CreateBloqueoAsientoAbonoMutation = { __typename?: 'Mutation', CreateBloqueoAsientoAbono?: string | null };
+
 export type CreateEventoMutationVariables = Exact<{
   input: EventoInput;
 }>;
@@ -619,6 +801,13 @@ export type CreateImagenMutationVariables = Exact<{
 
 
 export type CreateImagenMutation = { __typename?: 'Mutation', CreateImagen: string };
+
+export type CreateVendedoraMutationVariables = Exact<{
+  input: VendedoraInput;
+}>;
+
+
+export type CreateVendedoraMutation = { __typename?: 'Mutation', CreateVendedora?: { __typename?: 'Vendedora', id?: string | null, nombres?: string | null, estado?: string | null } | null };
 
 export type DeleteEventoMutationVariables = Exact<{
   eventoId: Scalars['Int'];
@@ -655,6 +844,13 @@ export type UpdateEstadoEventoMutationVariables = Exact<{
 
 export type UpdateEstadoEventoMutation = { __typename?: 'Mutation', UpdateEstadoEvento?: { __typename?: 'Evento', eventoId?: string | null, slug?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, direccion?: string | null, ubicacion?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, estado?: string | null, feriaId?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
 
+export type UpdateEstadoVendedoraMutationVariables = Exact<{
+  input: UpdateEstadoVendedoraInput;
+}>;
+
+
+export type UpdateEstadoVendedoraMutation = { __typename?: 'Mutation', UpdateEstadoVendedora?: { __typename?: 'Vendedora', id?: string | null, estado?: string | null } | null };
+
 export type UpdateEventoMutationVariables = Exact<{
   input: EventoInput;
 }>;
@@ -669,6 +865,13 @@ export type UpdateFeriaMutationVariables = Exact<{
 
 export type UpdateFeriaMutation = { __typename?: 'Mutation', UpdateFeria?: { __typename?: 'Feria', feriaId?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, descuento?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null, imagenSecundaria?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
 
+export type UpdatePasswordMutationVariables = Exact<{
+  input?: InputMaybe<UpdatePasswordInput>;
+}>;
+
+
+export type UpdatePasswordMutation = { __typename?: 'Mutation', UpdatePassword: { __typename?: 'User', nombres?: string | null, apellidos?: string | null, apiToken?: string | null } };
+
 export type UpdatePrecioMutationVariables = Exact<{
   input?: InputMaybe<ButacaInput>;
 }>;
@@ -682,6 +885,29 @@ export type UpdatePrecioReferencialMutationVariables = Exact<{
 
 
 export type UpdatePrecioReferencialMutation = { __typename?: 'Mutation', UpdatePrecioReferencial?: { __typename?: 'Referencial', referenciaId?: string | null, tendido?: string | null, titulo?: string | null, precio?: number | null } | null };
+
+export type UpdateVendedoraMutationVariables = Exact<{
+  input: VendedoraInput;
+}>;
+
+
+export type UpdateVendedoraMutation = { __typename?: 'Mutation', UpdateVendedora?: { __typename?: 'Vendedora', id?: string | null, nombres?: string | null, estado?: string | null } | null };
+
+export type GetAllAsientosQueryVariables = Exact<{
+  tendido?: InputMaybe<Scalars['String']>;
+  eventoId?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetAllAsientosQuery = { __typename?: 'Query', GetAllAsientos?: Array<{ __typename?: 'Asiento', asientoId?: string | null, tendido?: string | null, codigo?: string | null, asiento?: string | null, reservado?: string | null } | null> | null };
+
+export type GetAllAsientosAbonadosQueryVariables = Exact<{
+  tendido?: InputMaybe<Scalars['String']>;
+  feriaId?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetAllAsientosAbonadosQuery = { __typename?: 'Query', GetAllAsientosAbonados?: Array<{ __typename?: 'Asiento', asientoId?: string | null, tendido?: string | null, codigo?: string | null, reservado?: string | null, asiento?: string | null, feriaId?: number | null } | null> | null };
 
 export type GetAllButacasQueryVariables = Exact<{
   tendido?: InputMaybe<Scalars['String']>;
@@ -714,6 +940,11 @@ export type GetAllPedidosQueryVariables = Exact<{
 
 export type GetAllPedidosQuery = { __typename?: 'Query', GetAllPedidos?: { __typename?: 'GetAllPedidos', numeroTotal?: number | null, data?: Array<{ __typename?: 'Pedido', pedidoId?: string | null, tipoComprobante?: string | null, numeroComprobante?: string | null, razonSocial?: string | null, precioTotal?: number | null, fechaPedido?: any | null, usuarioId?: number | null, Usuario?: { __typename?: 'User', id?: string | null, tipoUsuario?: number | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, email?: string | null, apiToken?: string | null } | null, DetallePedido?: Array<{ __typename?: 'DetallePedido', detallePedidoId?: string | null, tendido?: string | null, codigo?: string | null, asiento?: string | null, precio?: number | null, eventoId?: number | null, feriaId?: number | null, pedidoId?: number | null }> | null }> | null } | null };
 
+export type GetAllPrecioReferencialQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllPrecioReferencialQuery = { __typename?: 'Query', GetAllPrecioReferencial?: Array<{ __typename?: 'Referencial', tendido?: string | null, precio?: number | null, titulo?: string | null, referenciaId?: string | null } | null> | null };
+
 export type GetAllSuscriptoresQueryVariables = Exact<{
   pagina?: InputMaybe<Scalars['Int']>;
   numeroPagina?: InputMaybe<Scalars['Int']>;
@@ -722,15 +953,19 @@ export type GetAllSuscriptoresQueryVariables = Exact<{
 
 export type GetAllSuscriptoresQuery = { __typename?: 'Query', GetAllSuscriptores?: { __typename?: 'GetAllSuscriptores', numeroTotal?: number | null, data?: Array<{ __typename?: 'Suscriptor', suscriptorId?: string | null, nombres?: string | null, email?: string | null } | null> | null } | null };
 
+export type GetAllVendedorasQueryVariables = Exact<{
+  pagina?: InputMaybe<Scalars['Int']>;
+  numeroPagina?: InputMaybe<Scalars['Int']>;
+  estado?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetAllVendedorasQuery = { __typename?: 'Query', GetAllVendedoras?: { __typename?: 'GetAllVendedoras', numeroTotal?: number | null, data?: Array<{ __typename?: 'Vendedora', id?: string | null, tipoDocumento?: string | null, numeroDocumento?: string | null, nombres?: string | null, apellidos?: string | null, celular?: string | null, email?: string | null, estado?: string | null } | null> | null } | null };
+
 export type GetFeriaQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetFeriaQuery = { __typename?: 'Query', GetFeria?: { __typename?: 'Feria', feriaId?: string | null, titulo?: string | null, descripcionCorta?: string | null, descripcionLarga?: string | null, terminosCondiciones?: string | null, fecha?: any | null, hora?: string | null, fechaInicial?: any | null, horaInicial?: string | null, fechaFinal?: any | null, horaFinal?: string | null, descuento?: number | null, imagenPrincipal?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null, imagenSecundaria?: { __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null } | null } | null };
-
-export type GetAllPrecioReferencialQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetAllPrecioReferencialQuery = { __typename?: 'Query', GetAllPrecioReferencial?: Array<{ __typename?: 'Referencial', referenciaId?: string | null, tendido?: string | null, titulo?: string | null, precio?: number | null } | null> | null };
 
 export type GetReporteExcelQueryVariables = Exact<{
   pedidoId: Scalars['Int'];
@@ -740,6 +975,68 @@ export type GetReporteExcelQueryVariables = Exact<{
 export type GetReporteExcelQuery = { __typename?: 'Query', GetReporteExcel?: string | null };
 
 
+export const CreateBloqueoAsientoDocument = gql`
+    mutation CreateBloqueoAsiento($input: [BloqueoAsientoInput!]) {
+  CreateBloqueoAsiento(input: $input)
+}
+    `;
+export type CreateBloqueoAsientoMutationFn = Apollo.MutationFunction<CreateBloqueoAsientoMutation, CreateBloqueoAsientoMutationVariables>;
+
+/**
+ * __useCreateBloqueoAsientoMutation__
+ *
+ * To run a mutation, you first call `useCreateBloqueoAsientoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBloqueoAsientoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBloqueoAsientoMutation, { data, loading, error }] = useCreateBloqueoAsientoMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateBloqueoAsientoMutation(baseOptions?: Apollo.MutationHookOptions<CreateBloqueoAsientoMutation, CreateBloqueoAsientoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateBloqueoAsientoMutation, CreateBloqueoAsientoMutationVariables>(CreateBloqueoAsientoDocument, options);
+      }
+export type CreateBloqueoAsientoMutationHookResult = ReturnType<typeof useCreateBloqueoAsientoMutation>;
+export type CreateBloqueoAsientoMutationResult = Apollo.MutationResult<CreateBloqueoAsientoMutation>;
+export type CreateBloqueoAsientoMutationOptions = Apollo.BaseMutationOptions<CreateBloqueoAsientoMutation, CreateBloqueoAsientoMutationVariables>;
+export const CreateBloqueoAsientoAbonoDocument = gql`
+    mutation CreateBloqueoAsientoAbono($input: [BloqueoAsientoInput!]) {
+  CreateBloqueoAsientoAbono(input: $input)
+}
+    `;
+export type CreateBloqueoAsientoAbonoMutationFn = Apollo.MutationFunction<CreateBloqueoAsientoAbonoMutation, CreateBloqueoAsientoAbonoMutationVariables>;
+
+/**
+ * __useCreateBloqueoAsientoAbonoMutation__
+ *
+ * To run a mutation, you first call `useCreateBloqueoAsientoAbonoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBloqueoAsientoAbonoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBloqueoAsientoAbonoMutation, { data, loading, error }] = useCreateBloqueoAsientoAbonoMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateBloqueoAsientoAbonoMutation(baseOptions?: Apollo.MutationHookOptions<CreateBloqueoAsientoAbonoMutation, CreateBloqueoAsientoAbonoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateBloqueoAsientoAbonoMutation, CreateBloqueoAsientoAbonoMutationVariables>(CreateBloqueoAsientoAbonoDocument, options);
+      }
+export type CreateBloqueoAsientoAbonoMutationHookResult = ReturnType<typeof useCreateBloqueoAsientoAbonoMutation>;
+export type CreateBloqueoAsientoAbonoMutationResult = Apollo.MutationResult<CreateBloqueoAsientoAbonoMutation>;
+export type CreateBloqueoAsientoAbonoMutationOptions = Apollo.BaseMutationOptions<CreateBloqueoAsientoAbonoMutation, CreateBloqueoAsientoAbonoMutationVariables>;
 export const CreateEventoDocument = gql`
     mutation CreateEvento($input: EventoInput!) {
   CreateEvento(input: $input) {
@@ -824,6 +1121,41 @@ export function useCreateImagenMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreateImagenMutationHookResult = ReturnType<typeof useCreateImagenMutation>;
 export type CreateImagenMutationResult = Apollo.MutationResult<CreateImagenMutation>;
 export type CreateImagenMutationOptions = Apollo.BaseMutationOptions<CreateImagenMutation, CreateImagenMutationVariables>;
+export const CreateVendedoraDocument = gql`
+    mutation CreateVendedora($input: VendedoraInput!) {
+  CreateVendedora(input: $input) {
+    id
+    nombres
+    estado
+  }
+}
+    `;
+export type CreateVendedoraMutationFn = Apollo.MutationFunction<CreateVendedoraMutation, CreateVendedoraMutationVariables>;
+
+/**
+ * __useCreateVendedoraMutation__
+ *
+ * To run a mutation, you first call `useCreateVendedoraMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateVendedoraMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createVendedoraMutation, { data, loading, error }] = useCreateVendedoraMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateVendedoraMutation(baseOptions?: Apollo.MutationHookOptions<CreateVendedoraMutation, CreateVendedoraMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateVendedoraMutation, CreateVendedoraMutationVariables>(CreateVendedoraDocument, options);
+      }
+export type CreateVendedoraMutationHookResult = ReturnType<typeof useCreateVendedoraMutation>;
+export type CreateVendedoraMutationResult = Apollo.MutationResult<CreateVendedoraMutation>;
+export type CreateVendedoraMutationOptions = Apollo.BaseMutationOptions<CreateVendedoraMutation, CreateVendedoraMutationVariables>;
 export const DeleteEventoDocument = gql`
     mutation DeleteEvento($eventoId: Int!) {
   DeleteEvento(eventoId: $eventoId)
@@ -1010,6 +1342,40 @@ export function useUpdateEstadoEventoMutation(baseOptions?: Apollo.MutationHookO
 export type UpdateEstadoEventoMutationHookResult = ReturnType<typeof useUpdateEstadoEventoMutation>;
 export type UpdateEstadoEventoMutationResult = Apollo.MutationResult<UpdateEstadoEventoMutation>;
 export type UpdateEstadoEventoMutationOptions = Apollo.BaseMutationOptions<UpdateEstadoEventoMutation, UpdateEstadoEventoMutationVariables>;
+export const UpdateEstadoVendedoraDocument = gql`
+    mutation UpdateEstadoVendedora($input: UpdateEstadoVendedoraInput!) {
+  UpdateEstadoVendedora(input: $input) {
+    id
+    estado
+  }
+}
+    `;
+export type UpdateEstadoVendedoraMutationFn = Apollo.MutationFunction<UpdateEstadoVendedoraMutation, UpdateEstadoVendedoraMutationVariables>;
+
+/**
+ * __useUpdateEstadoVendedoraMutation__
+ *
+ * To run a mutation, you first call `useUpdateEstadoVendedoraMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEstadoVendedoraMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEstadoVendedoraMutation, { data, loading, error }] = useUpdateEstadoVendedoraMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateEstadoVendedoraMutation(baseOptions?: Apollo.MutationHookOptions<UpdateEstadoVendedoraMutation, UpdateEstadoVendedoraMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateEstadoVendedoraMutation, UpdateEstadoVendedoraMutationVariables>(UpdateEstadoVendedoraDocument, options);
+      }
+export type UpdateEstadoVendedoraMutationHookResult = ReturnType<typeof useUpdateEstadoVendedoraMutation>;
+export type UpdateEstadoVendedoraMutationResult = Apollo.MutationResult<UpdateEstadoVendedoraMutation>;
+export type UpdateEstadoVendedoraMutationOptions = Apollo.BaseMutationOptions<UpdateEstadoVendedoraMutation, UpdateEstadoVendedoraMutationVariables>;
 export const UpdateEventoDocument = gql`
     mutation UpdateEvento($input: EventoInput!) {
   UpdateEvento(input: $input) {
@@ -1117,6 +1483,41 @@ export function useUpdateFeriaMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UpdateFeriaMutationHookResult = ReturnType<typeof useUpdateFeriaMutation>;
 export type UpdateFeriaMutationResult = Apollo.MutationResult<UpdateFeriaMutation>;
 export type UpdateFeriaMutationOptions = Apollo.BaseMutationOptions<UpdateFeriaMutation, UpdateFeriaMutationVariables>;
+export const UpdatePasswordDocument = gql`
+    mutation UpdatePassword($input: UpdatePasswordInput) {
+  UpdatePassword(input: $input) {
+    nombres
+    apellidos
+    apiToken
+  }
+}
+    `;
+export type UpdatePasswordMutationFn = Apollo.MutationFunction<UpdatePasswordMutation, UpdatePasswordMutationVariables>;
+
+/**
+ * __useUpdatePasswordMutation__
+ *
+ * To run a mutation, you first call `useUpdatePasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updatePasswordMutation, { data, loading, error }] = useUpdatePasswordMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdatePasswordMutation(baseOptions?: Apollo.MutationHookOptions<UpdatePasswordMutation, UpdatePasswordMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdatePasswordMutation, UpdatePasswordMutationVariables>(UpdatePasswordDocument, options);
+      }
+export type UpdatePasswordMutationHookResult = ReturnType<typeof useUpdatePasswordMutation>;
+export type UpdatePasswordMutationResult = Apollo.MutationResult<UpdatePasswordMutation>;
+export type UpdatePasswordMutationOptions = Apollo.BaseMutationOptions<UpdatePasswordMutation, UpdatePasswordMutationVariables>;
 export const UpdatePrecioDocument = gql`
     mutation UpdatePrecio($input: ButacaInput) {
   UpdatePrecio(input: $input) {
@@ -1190,6 +1591,122 @@ export function useUpdatePrecioReferencialMutation(baseOptions?: Apollo.Mutation
 export type UpdatePrecioReferencialMutationHookResult = ReturnType<typeof useUpdatePrecioReferencialMutation>;
 export type UpdatePrecioReferencialMutationResult = Apollo.MutationResult<UpdatePrecioReferencialMutation>;
 export type UpdatePrecioReferencialMutationOptions = Apollo.BaseMutationOptions<UpdatePrecioReferencialMutation, UpdatePrecioReferencialMutationVariables>;
+export const UpdateVendedoraDocument = gql`
+    mutation UpdateVendedora($input: VendedoraInput!) {
+  UpdateVendedora(input: $input) {
+    id
+    nombres
+    estado
+  }
+}
+    `;
+export type UpdateVendedoraMutationFn = Apollo.MutationFunction<UpdateVendedoraMutation, UpdateVendedoraMutationVariables>;
+
+/**
+ * __useUpdateVendedoraMutation__
+ *
+ * To run a mutation, you first call `useUpdateVendedoraMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateVendedoraMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateVendedoraMutation, { data, loading, error }] = useUpdateVendedoraMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateVendedoraMutation(baseOptions?: Apollo.MutationHookOptions<UpdateVendedoraMutation, UpdateVendedoraMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateVendedoraMutation, UpdateVendedoraMutationVariables>(UpdateVendedoraDocument, options);
+      }
+export type UpdateVendedoraMutationHookResult = ReturnType<typeof useUpdateVendedoraMutation>;
+export type UpdateVendedoraMutationResult = Apollo.MutationResult<UpdateVendedoraMutation>;
+export type UpdateVendedoraMutationOptions = Apollo.BaseMutationOptions<UpdateVendedoraMutation, UpdateVendedoraMutationVariables>;
+export const GetAllAsientosDocument = gql`
+    query GetAllAsientos($tendido: String, $eventoId: Int) {
+  GetAllAsientos(tendido: $tendido, eventoId: $eventoId) {
+    asientoId
+    tendido
+    codigo
+    asiento
+    reservado
+  }
+}
+    `;
+
+/**
+ * __useGetAllAsientosQuery__
+ *
+ * To run a query within a React component, call `useGetAllAsientosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllAsientosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllAsientosQuery({
+ *   variables: {
+ *      tendido: // value for 'tendido'
+ *      eventoId: // value for 'eventoId'
+ *   },
+ * });
+ */
+export function useGetAllAsientosQuery(baseOptions?: Apollo.QueryHookOptions<GetAllAsientosQuery, GetAllAsientosQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllAsientosQuery, GetAllAsientosQueryVariables>(GetAllAsientosDocument, options);
+      }
+export function useGetAllAsientosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllAsientosQuery, GetAllAsientosQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllAsientosQuery, GetAllAsientosQueryVariables>(GetAllAsientosDocument, options);
+        }
+export type GetAllAsientosQueryHookResult = ReturnType<typeof useGetAllAsientosQuery>;
+export type GetAllAsientosLazyQueryHookResult = ReturnType<typeof useGetAllAsientosLazyQuery>;
+export type GetAllAsientosQueryResult = Apollo.QueryResult<GetAllAsientosQuery, GetAllAsientosQueryVariables>;
+export const GetAllAsientosAbonadosDocument = gql`
+    query GetAllAsientosAbonados($tendido: String, $feriaId: Int) {
+  GetAllAsientosAbonados(tendido: $tendido, feriaId: $feriaId) {
+    asientoId
+    tendido
+    codigo
+    reservado
+    asiento
+    feriaId
+  }
+}
+    `;
+
+/**
+ * __useGetAllAsientosAbonadosQuery__
+ *
+ * To run a query within a React component, call `useGetAllAsientosAbonadosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllAsientosAbonadosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllAsientosAbonadosQuery({
+ *   variables: {
+ *      tendido: // value for 'tendido'
+ *      feriaId: // value for 'feriaId'
+ *   },
+ * });
+ */
+export function useGetAllAsientosAbonadosQuery(baseOptions?: Apollo.QueryHookOptions<GetAllAsientosAbonadosQuery, GetAllAsientosAbonadosQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllAsientosAbonadosQuery, GetAllAsientosAbonadosQueryVariables>(GetAllAsientosAbonadosDocument, options);
+      }
+export function useGetAllAsientosAbonadosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllAsientosAbonadosQuery, GetAllAsientosAbonadosQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllAsientosAbonadosQuery, GetAllAsientosAbonadosQueryVariables>(GetAllAsientosAbonadosDocument, options);
+        }
+export type GetAllAsientosAbonadosQueryHookResult = ReturnType<typeof useGetAllAsientosAbonadosQuery>;
+export type GetAllAsientosAbonadosLazyQueryHookResult = ReturnType<typeof useGetAllAsientosAbonadosLazyQuery>;
+export type GetAllAsientosAbonadosQueryResult = Apollo.QueryResult<GetAllAsientosAbonadosQuery, GetAllAsientosAbonadosQueryVariables>;
 export const GetAllButacasDocument = gql`
     query GetAllButacas($tendido: String) {
   GetAllButacas(tendido: $tendido) {
@@ -1398,6 +1915,43 @@ export function useGetAllPedidosLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetAllPedidosQueryHookResult = ReturnType<typeof useGetAllPedidosQuery>;
 export type GetAllPedidosLazyQueryHookResult = ReturnType<typeof useGetAllPedidosLazyQuery>;
 export type GetAllPedidosQueryResult = Apollo.QueryResult<GetAllPedidosQuery, GetAllPedidosQueryVariables>;
+export const GetAllPrecioReferencialDocument = gql`
+    query GetAllPrecioReferencial {
+  GetAllPrecioReferencial {
+    tendido
+    precio
+    titulo
+    referenciaId
+  }
+}
+    `;
+
+/**
+ * __useGetAllPrecioReferencialQuery__
+ *
+ * To run a query within a React component, call `useGetAllPrecioReferencialQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllPrecioReferencialQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllPrecioReferencialQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllPrecioReferencialQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>(GetAllPrecioReferencialDocument, options);
+      }
+export function useGetAllPrecioReferencialLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>(GetAllPrecioReferencialDocument, options);
+        }
+export type GetAllPrecioReferencialQueryHookResult = ReturnType<typeof useGetAllPrecioReferencialQuery>;
+export type GetAllPrecioReferencialLazyQueryHookResult = ReturnType<typeof useGetAllPrecioReferencialLazyQuery>;
+export type GetAllPrecioReferencialQueryResult = Apollo.QueryResult<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>;
 export const GetAllSuscriptoresDocument = gql`
     query GetAllSuscriptores($pagina: Int, $numeroPagina: Int) {
   GetAllSuscriptores(pagina: $pagina, numeroPagina: $numeroPagina) {
@@ -1439,6 +1993,53 @@ export function useGetAllSuscriptoresLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type GetAllSuscriptoresQueryHookResult = ReturnType<typeof useGetAllSuscriptoresQuery>;
 export type GetAllSuscriptoresLazyQueryHookResult = ReturnType<typeof useGetAllSuscriptoresLazyQuery>;
 export type GetAllSuscriptoresQueryResult = Apollo.QueryResult<GetAllSuscriptoresQuery, GetAllSuscriptoresQueryVariables>;
+export const GetAllVendedorasDocument = gql`
+    query GetAllVendedoras($pagina: Int, $numeroPagina: Int, $estado: String) {
+  GetAllVendedoras(pagina: $pagina, numeroPagina: $numeroPagina, estado: $estado) {
+    numeroTotal
+    data {
+      id
+      tipoDocumento
+      numeroDocumento
+      nombres
+      apellidos
+      celular
+      email
+      estado
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllVendedorasQuery__
+ *
+ * To run a query within a React component, call `useGetAllVendedorasQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllVendedorasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllVendedorasQuery({
+ *   variables: {
+ *      pagina: // value for 'pagina'
+ *      numeroPagina: // value for 'numeroPagina'
+ *      estado: // value for 'estado'
+ *   },
+ * });
+ */
+export function useGetAllVendedorasQuery(baseOptions?: Apollo.QueryHookOptions<GetAllVendedorasQuery, GetAllVendedorasQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllVendedorasQuery, GetAllVendedorasQueryVariables>(GetAllVendedorasDocument, options);
+      }
+export function useGetAllVendedorasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllVendedorasQuery, GetAllVendedorasQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllVendedorasQuery, GetAllVendedorasQueryVariables>(GetAllVendedorasDocument, options);
+        }
+export type GetAllVendedorasQueryHookResult = ReturnType<typeof useGetAllVendedorasQuery>;
+export type GetAllVendedorasLazyQueryHookResult = ReturnType<typeof useGetAllVendedorasLazyQuery>;
+export type GetAllVendedorasQueryResult = Apollo.QueryResult<GetAllVendedorasQuery, GetAllVendedorasQueryVariables>;
 export const GetFeriaDocument = gql`
     query GetFeria {
   GetFeria {
@@ -1494,43 +2095,6 @@ export function useGetFeriaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetFeriaQueryHookResult = ReturnType<typeof useGetFeriaQuery>;
 export type GetFeriaLazyQueryHookResult = ReturnType<typeof useGetFeriaLazyQuery>;
 export type GetFeriaQueryResult = Apollo.QueryResult<GetFeriaQuery, GetFeriaQueryVariables>;
-export const GetAllPrecioReferencialDocument = gql`
-    query GetAllPrecioReferencial {
-  GetAllPrecioReferencial {
-    referenciaId
-    tendido
-    titulo
-    precio
-  }
-}
-    `;
-
-/**
- * __useGetAllPrecioReferencialQuery__
- *
- * To run a query within a React component, call `useGetAllPrecioReferencialQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllPrecioReferencialQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAllPrecioReferencialQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetAllPrecioReferencialQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>(GetAllPrecioReferencialDocument, options);
-      }
-export function useGetAllPrecioReferencialLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>(GetAllPrecioReferencialDocument, options);
-        }
-export type GetAllPrecioReferencialQueryHookResult = ReturnType<typeof useGetAllPrecioReferencialQuery>;
-export type GetAllPrecioReferencialLazyQueryHookResult = ReturnType<typeof useGetAllPrecioReferencialLazyQuery>;
-export type GetAllPrecioReferencialQueryResult = Apollo.QueryResult<GetAllPrecioReferencialQuery, GetAllPrecioReferencialQueryVariables>;
 export const GetReporteExcelDocument = gql`
     query GetReporteExcel($pedidoId: Int!) {
   GetReporteExcel(pedidoId: $pedidoId)

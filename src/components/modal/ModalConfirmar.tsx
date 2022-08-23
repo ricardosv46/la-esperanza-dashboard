@@ -8,36 +8,35 @@ import {
 	ModalHeader,
 	ModalOverlay
 } from '@chakra-ui/react'
-import { ReactElement } from 'react'
 
 interface IModal {
 	isOpen: boolean
 	onClose: () => void
 	onClick: () => void
 	header: string
-	children: ReactElement
+	body: string
 }
 
-const ModalUpdateEstadoPedido = ({ isOpen, onClick, onClose, header, children }: IModal) => {
+const ModalConfirmar = ({ isOpen, onClick, onClose, body, header }: IModal) => {
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} isCentered>
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader>{header}</ModalHeader>
 				<ModalCloseButton />
-				<ModalBody>{children}</ModalBody>
+				<ModalBody>{body}</ModalBody>
 
 				<ModalFooter>
 					<Button mr={3} onClick={onClose}>
 						Cancelar
 					</Button>
 					<Button
-						colorScheme='red'
+						colorScheme='green'
 						onClick={() => {
 							onClick()
 							onClose()
 						}}>
-						Actualizar
+						Confirmar
 					</Button>
 				</ModalFooter>
 			</ModalContent>
@@ -45,4 +44,4 @@ const ModalUpdateEstadoPedido = ({ isOpen, onClick, onClose, header, children }:
 	)
 }
 
-export default ModalUpdateEstadoPedido
+export default ModalConfirmar

@@ -27,7 +27,6 @@ const Abonado = () => {
   const { db: abonados, loading } = useFeria()
   const { restartAsientos, loadingRestarAsientos } = useRestartAsientos()
   const toast = useToast()
-  // console.log(abonados)
   const handleRestarButacas = async () => {
     const res = await restartAsientos()
     if (res?.ok) {

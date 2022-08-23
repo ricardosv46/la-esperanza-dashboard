@@ -18,31 +18,28 @@ interface IModal {
 	children: ReactElement
 }
 
-const ModalUpdateEstadoPedido = ({ isOpen, onClick, onClose, header, children }: IModal) => {
+const ModalContraseña = ({ isOpen, onClick, onClose, header, children }: IModal) => {
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} isCentered>
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader>{header}</ModalHeader>
 				<ModalCloseButton />
-				<ModalBody>{children}</ModalBody>
+				<form onSubmit={onClick}>
+					<ModalBody>{children}</ModalBody>
 
-				<ModalFooter>
-					<Button mr={3} onClick={onClose}>
-						Cancelar
-					</Button>
-					<Button
-						colorScheme='red'
-						onClick={() => {
-							onClick()
-							onClose()
-						}}>
-						Actualizar
-					</Button>
-				</ModalFooter>
+					<ModalFooter>
+						<Button type='button' mr={3} onClick={onClose}>
+							Cancelar
+						</Button>
+						<Button type='submit' colorScheme='primary'>
+							Actualizar
+						</Button>
+					</ModalFooter>
+				</form>
 			</ModalContent>
 		</Modal>
 	)
 }
 
-export default ModalUpdateEstadoPedido
+export default ModalContraseña

@@ -8,9 +8,7 @@ import { Route } from '../interfaces'
 
 // import EditCategoryProduct from '../pages/home/products/categorys/EditCategoryProduct'
 const Imagenes = lazy(() => import('../pages/home/imagenes/Imagenes'))
-const Suscriptores = lazy(
-  () => import('../pages/home/suscriptores/Suscriptores')
-)
+const Suscriptores = lazy(() => import('../pages/home/suscriptores/Suscriptores'))
 const Pedidos = lazy(() => import('../pages/home/pedidos/Pedidos'))
 const Abonado = lazy(() => import('../pages/home/abonado/Abonado'))
 const EditarAbonado = lazy(() => import('../pages/home/abonado/EditarAbonado'))
@@ -19,312 +17,206 @@ const CrearEvento = lazy(() => import('../pages/home/eventos/CrearEvento'))
 const EditarEvento = lazy(() => import('../pages/home/eventos/EditarEvento'))
 const Precios = lazy(() => import('../pages/home/precios/Precio'))
 const PrecioButacas = lazy(() => import('../pages/home/precios/PrecioButacas'))
-const PrecioReferencial = lazy(
-  () => import('../pages/home/precios/PrecioReferencia')
-)
+const PrecioReferencial = lazy(() => import('../pages/home/precios/PrecioReferencia'))
 const DetallePedido = lazy(() => import('../pages/home/pedidos/DetallePedido'))
-// const BlogsPage = lazy(() => import('../pages/home/blogs/BlogsPage'))
-// const ProductsPage = lazy(() => import('../pages/home/products/ProductsPage'))
-// const CreateProduct = lazy(() => import('../pages/home/products/CreateProduct'))
-// const EditProduct = lazy(() => import('../pages/home/products/EditProduct'))
-
-// const CategoryProduct = lazy(
-//   () => import('../pages/home/products/categorys/CategoryProduct')
-// )
-
-// const CreateCategoryProducto = lazy(
-//   () => import('../pages/home/products/categorys/CreateCategoryProduct')
-// )
-// const EditCategoryProducto = lazy(
-//   () => import('../pages/home/products/categorys/EditCategoryProduct')
-// )
-
-// const CategoryBlog = lazy(
-//   () => import('../pages/home/blogs/categorys/CategoryBlog')
-// )
-// const CreateCategoryBlog = lazy(
-//   () => import('../pages/home/blogs/categorys/CreateCategoryBlog')
-// )
-// const EditCategoryBlog = lazy(
-//   () => import('../pages/home/blogs/categorys/EditCategoryBlog')
-// )
-// const CreateBlog = lazy(() => import('../pages/home/blogs/CreateBlog'))
-// const EditBlog = lazy(() => import('../pages/home/blogs/EditBlog'))
-// const Profile = lazy(() => import('../pages/home/Profile'))
-// const Banks = lazy(() => import('../pages/home/banks/Banks'))
-// const CreateBank = lazy(() => import('../pages/home/banks/CreateBank'))
-// const EditBank = lazy(() => import('../pages/home/banks/EditarBank'))
+const ButacasPage = lazy(() => import('../pages/home/bloqueo/ButacasPage'))
+const AbonoPage = lazy(() => import('../pages/home/bloqueo/abono/AbonoPage'))
+const EventosPage = lazy(() => import('../pages/home/bloqueo/eventos/EventosPage'))
+const VendedorasPage = lazy(() => import('../pages/home/vendedoras/VendedorasPage'))
+const EditarVendedora = lazy(() => import('../pages/home/vendedoras/EditarVendedora'))
+const CrearVendedora = lazy(() => import('../pages/home/vendedoras/CrearVendedora'))
 
 export const homeRoutes: Route[] = [
-  {
-    icon: IconFile,
-    name: 'Imagenes',
-    path: 'imagenes',
-    to: '/imagenes',
-    component: Imagenes,
-    subMenu: {
-      value: false,
-      paths: []
-    }
-  },
-  {
-    icon: IconFile,
-    name: 'Suscriptores',
-    path: 'suscriptores',
-    to: '/suscriptores',
-    component: Suscriptores,
-    subMenu: {
-      value: false,
-      paths: []
-    }
-  },
-  {
-    icon: IconFile,
-    path: 'pedidos',
-    name: 'Pedidos',
-    to: '/pedidos',
-    component: Pedidos,
-    subMenu: {
-      value: false,
-      paths: [
-        {
-          icon: IconFile,
-          name: 'Detalle Pedido',
-          path: 'detalle-pedido/:id',
-          to: '/detalle-pedido',
-          component: DetallePedido,
-          render: false
-        }
-      ]
-    }
-  },
-  {
-    icon: IconFile,
-    name: 'Abonados',
-    path: 'abonados',
-    to: '/abonados',
-    component: Abonado,
-    subMenu: {
-      value: false,
-      paths: [
-        {
-          icon: IconFile,
-          name: 'Editar-abonados',
-          path: 'editar-abonados',
-          to: '/editar-abonados/',
-          component: EditarAbonado,
-          render: false
-        }
-      ]
-    }
-  },
-  {
-    icon: IconUser,
-    name: 'Eventos',
-    to: '/eventos',
-    path: 'eventos',
-    component: Eventos,
-    subMenu: {
-      value: false,
-      paths: [
-        {
-          icon: IconUser,
-          name: 'Crear-evento',
-          to: '/crear-evento',
-          path: 'crear-evento',
-          render: false,
-          component: CrearEvento
-        },
-        {
-          icon: IconUser,
-          name: 'Editar-evento',
-          to: '/editar-evento',
-          path: 'editar-evento/:id',
-          render: false,
-          component: EditarEvento
-        }
-      ]
-    }
-  },
-  {
-    icon: IconFile,
-    name: 'Precios',
-    to: '/precios',
-    path: 'precios',
-    component: Precios,
-    subMenu: {
-      value: true,
-      paths: [
-        {
-          icon: IconOptions,
-          name: 'Precio de Butacas',
-          path: 'butaca',
-          to: '/butaca',
-          component: PrecioButacas,
-          render: true
-        },
+	{
+		icon: IconFile,
+		name: 'Imagenes',
+		path: 'imagenes',
+		to: '/imagenes',
+		component: Imagenes,
+		subMenu: {
+			value: false,
+			paths: []
+		}
+	},
+	{
+		icon: IconFile,
+		name: 'Suscriptores',
+		path: 'suscriptores',
+		to: '/suscriptores',
+		component: Suscriptores,
+		subMenu: {
+			value: false,
+			paths: []
+		}
+	},
+	{
+		icon: IconFile,
+		path: 'pedidos',
+		name: 'Pedidos',
+		to: '/pedidos',
+		component: Pedidos,
+		subMenu: {
+			value: false,
+			paths: [
+				{
+					icon: IconFile,
+					name: 'Detalle Pedido',
+					path: 'detalle-pedido/:id',
+					to: '/detalle-pedido',
+					component: DetallePedido,
+					render: false
+				}
+			]
+		}
+	},
+	{
+		icon: IconFile,
+		name: 'Abonados',
+		path: 'abonados',
+		to: '/abonados',
+		component: Abonado,
+		subMenu: {
+			value: false,
+			paths: [
+				{
+					icon: IconFile,
+					name: 'Editar-abonados',
+					path: 'editar-abonados',
+					to: '/editar-abonados/',
+					component: EditarAbonado,
+					render: false
+				}
+			]
+		}
+	},
+	{
+		icon: IconUser,
+		name: 'Eventos',
+		to: '/eventos',
+		path: 'eventos',
+		component: Eventos,
+		subMenu: {
+			value: false,
+			paths: [
+				{
+					icon: IconUser,
+					name: 'Crear-evento',
+					to: '/crear-evento',
+					path: 'crear-evento',
+					render: false,
+					component: CrearEvento
+				},
+				{
+					icon: IconUser,
+					name: 'Editar-evento',
+					to: '/editar-evento',
+					path: 'editar-evento/:id',
+					render: false,
+					component: EditarEvento
+				}
+			]
+		}
+	},
+	{
+		icon: IconFile,
+		name: 'Bloqueo',
+		to: '/bloqueo',
+		path: 'bloqueo',
+		component: ButacasPage,
+		subMenu: {
+			value: false,
+			paths: [
+				{
+					icon: IconOptions,
+					name: 'Abono',
+					path: 'bloqueo/abono',
+					to: 'abono',
+					component: AbonoPage,
+					render: false
+				},
 
-        {
-          icon: IconFile,
-          name: 'Precio Referecial',
-          path: 'referencial',
-          to: '/referencial',
-          component: PrecioReferencial,
-          render: true
-        }
+				{
+					icon: IconFile,
+					name: 'evento',
+					path: 'bloqueo/evento/:id',
+					to: 'evento',
+					component: EventosPage,
+					render: false
+				}
+			]
+		}
+	},
+	{
+		icon: IconUser,
+		name: 'Vendeoras',
+		to: '/vendedora',
+		path: 'vendedora',
+		component: VendedorasPage,
+		subMenu: {
+			value: false,
+			paths: [
+				{
+					icon: IconOptions,
+					name: 'Abono',
+					path: 'crear-vendedora',
+					to: '/crear-vendedora',
+					component: CrearVendedora,
+					render: false
+				},
 
-        // {
-        //   icon: IconOptions,
-        //   name: 'Crear Categoria Blog',
-        //   path: 'create-blog-category',
-        //   to: '/home/create-blog-category',
-        //   component: CreateCategoryBlog,
-        //   render: false
-        // },
-        // {
-        //   icon: IconOptions,
-        //   name: 'Editar Categoria Blog',
-        //   path: 'edit-blog-category/:id',
-        //   to: '/home/edit-blog-category/:id',
-        //   component: EditCategoryBlog,
-        //   render: false
-        // },
-        // {
-        //   icon: IconOptions,
-        //   name: 'Crear Blog',
-        //   path: 'create-blog',
-        //   to: '/home/create-blog',
-        //   component: CreateBlog,
-        //   render: false
-        // },
-        // {
-        //   icon: IconOptions,
-        //   name: 'Editar Blog',
-        //   path: 'edit-blog/:slug',
-        //   to: '/home/edit-blog/:id',
-        //   component: EditBlog,
-        //   render: false
-        // }
-      ]
-    }
-  }
-  // {
-  //   icon: IconCart,
-  //   name: 'Productos',
-  //   to: '/home/products',
-  //   path: 'products',
-  //   component: ProductsPage,
-  //   subMenu: {
-  //     value: true,
-  //     paths: [
-  //       {
-  //         icon: IconOptions,
-  //         name: 'Categoria',
-  //         path: 'products-category',
-  //         to: '/home/products-category',
-  //         component: CategoryProduct,
-  //         render: true
-  //       },
-  //       {
-  //         icon: IconCart,
-  //         name: 'Productos',
-  //         path: 'products',
-  //         to: '/home/products',
-  //         component: ProductsPage,
-  //         render: true
-  //       },
-  //       {
-  //         icon: IconOptions,
-  //         name: 'Crear Categoria Producto',
-  //         path: 'create-producto-category',
-  //         to: '/home/create-producto-category',
-  //         component: CreateCategoryProducto,
-  //         render: false
-  //       },
-  //       {
-  //         icon: IconOptions,
-  //         name: 'Editar Categoria Producto',
-  //         path: 'edit-producto-category/:id',
-  //         to: '/home/edit-producto-category/:id',
-  //         component: EditCategoryProducto,
-  //         render: false
-  //       },
-  //       {
-  //         icon: IconOptions,
-  //         name: 'Crear Product',
-  //         path: 'create-product',
-  //         to: '/home/create-product',
-  //         component: CreateProduct,
-  //         render: false
-  //       },
-  //       {
-  //         icon: IconOptions,
-  //         name: 'Editar Product',
-  //         path: 'edit-product/:id',
-  //         to: '/home/edit-product/:id',
-  //         component: EditProduct,
-  //         render: false
-  //       }
-  //     ]
-  //   }
-  // },
-  // {
-  //   icon: IconBank,
-  //   name: 'Bancos',
-  //   to: '/home/bancos',
-  //   path: 'bancos',
-  //   component: Banks,
-  //   subMenu: {
-  //     value: true,
-  //     paths: [
-  //       {
-  //         icon: IconOptions,
-  //         name: 'Crear Banco',
-  //         path: 'create-bank',
-  //         to: '/home/create-bank',
-  //         component: CreateBank,
-  //         render: false
-  //       },
-  //       {
-  //         icon: IconOptions,
-  //         name: 'Editar Banco',
-  //         path: 'edit-bank/:id',
-  //         to: '/home/edit-bank/:id',
-  //         component: EditBank,
-  //         render: false
-  //       },
-  //       {
-  //         icon: IconBank,
-  //         name: 'Bancos',
-  //         path: 'bancos',
-  //         to: '/home/bancos',
-  //         component: Banks,
-  //         render: true
-  //       }
-  //     ]
-  //   }
-  // },
-  // {
-  //   icon: IconConfig,
-  //   name: 'Configuraciones',
-  //   to: '/home/configuraciones',
-  //   path: 'configuraciones',
-  //   component: Profile,
-  //   subMenu: { value: false, paths: [] }
-  // }
+				{
+					icon: IconFile,
+					name: 'evento',
+					path: 'editar-vendedora/:id',
+					to: '/editar-vendedora',
+					component: EditarVendedora,
+					render: false
+				}
+			]
+		}
+	},
+	{
+		icon: IconFile,
+		name: 'Precios',
+		to: '/precios',
+		path: 'precios',
+		component: Precios,
+		subMenu: {
+			value: true,
+			paths: [
+				{
+					icon: IconOptions,
+					name: 'Precio de Butacas',
+					path: 'butaca',
+					to: '/butaca',
+					component: PrecioButacas,
+					render: true
+				},
+
+				{
+					icon: IconFile,
+					name: 'Precio Referecial',
+					path: 'referencial',
+					to: '/referencial',
+					component: PrecioReferencial,
+					render: true
+				}
+			]
+		}
+	}
 ]
 
 export const getRoutes = () => {
-  const subRoutes = []
-  const mainRoutes = []
+	const subRoutes = []
+	const mainRoutes = []
 
-  for (const { subMenu, ...mainRoute } of homeRoutes) {
-    mainRoutes.push(mainRoute)
+	for (const { subMenu, ...mainRoute } of homeRoutes) {
+		mainRoutes.push(mainRoute)
 
-    for (const subMenu_ of subMenu.paths) {
-      subRoutes.push(subMenu_)
-    }
-  }
+		for (const subMenu_ of subMenu.paths) {
+			subRoutes.push(subMenu_)
+		}
+	}
 
-  return { mainRoutes, subRoutes }
+	return { mainRoutes, subRoutes }
 }
