@@ -3,7 +3,7 @@ import { setContext } from '@apollo/client/link/context'
 import { createUploadLink } from 'apollo-upload-client'
 
 const httpLink = createUploadLink({
-	uri: 'https://apilaesperanza.plazaticket.com/public/graphql'
+	uri: 'https://apilaesperanza-dev.plazaticket.com/public/graphql'
 })
 
 const authLink = setContext((_, { headers }) => {

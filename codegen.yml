@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'https://apilaesperanza.plazaticket.com/public/graphql'
+schema: 'https://apilaesperanza-dev.plazaticket.com/public/graphql'
 documents: 'src/**/*.graphql'
 generates:
     src/generated/graphql.tsx:
