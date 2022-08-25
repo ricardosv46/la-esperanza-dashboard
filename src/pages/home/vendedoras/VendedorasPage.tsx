@@ -193,9 +193,7 @@ const VendedorasPage = () => {
 												colorScheme='primary'
 												size='lg'
 												isChecked={vendedora?.estado === 'Activado'}
-												onChange={() =>
-													handleUpdateEstado(Number(vendedora?.id), vendedora?.estado!)
-												}
+												onChange={() => handleUpdateEstado(Number(vendedora?.id), vendedora?.estado!)}
 											/>
 										</Td>
 										<Td>{vendedora?.email}</Td>
@@ -213,7 +211,7 @@ const VendedorasPage = () => {
 													}}>
 													<EditIcon w={5} h={5} />
 												</IconButton>
-												<Button
+												{/* <Button
 													aria-label='editar'
 													onClick={() => {
 														onOpen()
@@ -221,7 +219,7 @@ const VendedorasPage = () => {
 													}}>
 													<EditIcon w={5} h={5} />
 													<Text ml={3}>Password</Text>
-												</Button>
+												</Button> */}
 											</Flex>
 										</Td>
 									</Tr>

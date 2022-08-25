@@ -148,7 +148,7 @@ export const homeRoutes: Route[] = [
 	},
 	{
 		icon: IconUser,
-		name: 'Vendeoras',
+		name: 'Vendedor',
 		to: '/vendedora',
 		path: 'vendedora',
 		component: VendedorasPage,
