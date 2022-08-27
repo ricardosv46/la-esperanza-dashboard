@@ -39,15 +39,7 @@ const initialState = {
 	repeatPassword: ''
 }
 
-const validation = ({
-	nombres,
-	apellidos,
-	celular,
-	email,
-	numeroDocumento,
-	password,
-	repeatPassword
-}: ICrearVendedora) => {
+const validation = ({ nombres, apellidos, celular, email, numeroDocumento, password, repeatPassword }: ICrearVendedora) => {
 	const error: FormError<ICrearVendedora> = {}
 	if (isEmpty(nombres)) {
 		error.nombres = 'Este campo es obligatorio'
@@ -91,6 +83,7 @@ const CrearVendedora = () => {
 	const navigate = useNavigate()
 	const toast = useToast()
 	const [innerValue, setInnerValue] = useState<string>('DNI')
+	const [selectValue, setSelectValue] = useState<string>('DNI')
 	const { values, ...form } = useForm({
 		initialValues: initialState,
 		validate: validation
@@ -99,7 +92,7 @@ const CrearVendedora = () => {
 
 	const handleSubmit = () => {
 		const { repeatPassword, ...rest } = values
-		createVendededora({ tipoDocumento: innerValue, ...rest }).then((res) => {
+		createVendededora({ tipoDocumento: selectValue, ...rest }).then((res) => {
 			if (res?.ok) {
 				toast({
 					title: 'Vendedor creado Correctamente',
@@ -146,8 +139,9 @@ const CrearVendedora = () => {
 						<Grid mt={5} templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' }} gap={6}>
 							<Select
 								innerValue={innerValue!}
+								setValue={setSelectValue}
 								setInnerValue={setInnerValue}
-								selectOptions={dataDocumentos}
+								selectOptions={dataDocumentos!}
 								label='Tipo Documento'
 							/>
 							<InputFloat
@@ -156,36 +150,11 @@ const CrearVendedora = () => {
 								{...form.inputProps('numeroDocumento')}
 								errorMessage={form.errors?.numeroDocumento}
 							/>
-							<InputFloat
-								type='text'
-								label='Nombres'
-								{...form.inputProps('nombres')}
-								errorMessage={form.errors?.nombres}
-							/>
-							<InputFloat
-								type='text'
-								label='Apellidos'
-								{...form.inputProps('apellidos')}
-								errorMessage={form.errors?.apellidos}
-							/>
-							<InputFloat
-								type='text'
-								label='Celular'
-								{...form.inputProps('celular')}
-								errorMessage={form.errors?.celular}
-							/>
-							<InputFloat
-								type='text'
-								label='Email'
-								{...form.inputProps('email')}
-								errorMessage={form.errors?.email}
-							/>
-							<InputFloat
-								type='text'
-								label='Contraseña'
-								{...form.inputProps('password')}
-								errorMessage={form.errors?.password}
-							/>
+							<InputFloat type='text' label='Nombres' {...form.inputProps('nombres')} errorMessage={form.errors?.nombres} />
+							<InputFloat type='text' label='Apellidos' {...form.inputProps('apellidos')} errorMessage={form.errors?.apellidos} />
+							<InputFloat type='text' label='Celular' {...form.inputProps('celular')} errorMessage={form.errors?.celular} />
+							<InputFloat type='text' label='Email' {...form.inputProps('email')} errorMessage={form.errors?.email} />
+							<InputFloat type='text' label='Contraseña' {...form.inputProps('password')} errorMessage={form.errors?.password} />
 							<InputFloat
 								type='text'
 								label='Repetir Contraseña'

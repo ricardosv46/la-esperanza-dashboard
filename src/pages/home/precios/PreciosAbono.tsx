@@ -15,7 +15,6 @@ const PreciosAbono = () => {
 	// const [innerValue, setInnerValue] = useState<string>('')
 	// const [selectValue, setSelectValue] = useState<number>(0)
 	const { db: butacas, updatePrecioButaca, loading } = useButacasAbono({ tendido: '' })
-	console.log(butacas)
 	const { values, ...form } = useForm({
 		initialValues: initialState
 	})

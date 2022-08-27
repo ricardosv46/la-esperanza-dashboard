@@ -66,7 +66,8 @@ const EditarVendedora = () => {
 	const toast = useToast()
 	const { state: vendedores } = useLocation() as any
 	const vendedora = vendedores.vendedora
-	const [innerValue, setInnerValue] = useState<string>(vendedora.tipoDocumento)
+	const [innerValue, setInnerValue] = useState<string>(vendedora?.tipoDocumento)
+	const [selectValue, setSelectValue] = useState<string>(vendedora?.tipoDocumento)
 	const { values, ...form } = useForm({
 		initialValues: initialState,
 		validate: validation
@@ -81,7 +82,7 @@ const EditarVendedora = () => {
 
 	const handleSubmit = () => {
 		const { ...rest } = values
-		updateVendedora({ tipoDocumento: innerValue, id: vendedora?.id, ...rest }).then((res) => {
+		updateVendedora({ tipoDocumento: selectValue, id: vendedora?.id, ...rest }).then((res) => {
 			if (res?.ok) {
 				toast({
 					title: 'Vendedor creado Correctamente',
@@ -128,9 +129,10 @@ const EditarVendedora = () => {
 						<Grid mt={5} templateColumns={{ base: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' }} gap={6}>
 							<Select
 								innerValue={innerValue!}
+								setValue={setSelectValue}
 								setInnerValue={setInnerValue}
-								selectOptions={dataDocumentos}
-								label='Tipo Documento'
+								selectOptions={dataDocumentos!}
+								label='EvTipo Documentoentos'
 							/>
 							<InputFloat
 								type='text'
@@ -138,30 +140,10 @@ const EditarVendedora = () => {
 								{...form.inputProps('numeroDocumento')}
 								errorMessage={form.errors?.numeroDocumento}
 							/>
-							<InputFloat
-								type='text'
-								label='Nombres'
-								{...form.inputProps('nombres')}
-								errorMessage={form.errors?.nombres}
-							/>
-							<InputFloat
-								type='text'
-								label='Apellidos'
-								{...form.inputProps('apellidos')}
-								errorMessage={form.errors?.apellidos}
-							/>
-							<InputFloat
-								type='text'
-								label='Celular'
-								{...form.inputProps('celular')}
-								errorMessage={form.errors?.celular}
-							/>
-							<InputFloat
-								type='text'
-								label='Email'
-								{...form.inputProps('email')}
-								errorMessage={form.errors?.email}
-							/>
+							<InputFloat type='text' label='Nombres' {...form.inputProps('nombres')} errorMessage={form.errors?.nombres} />
+							<InputFloat type='text' label='Apellidos' {...form.inputProps('apellidos')} errorMessage={form.errors?.apellidos} />
+							<InputFloat type='text' label='Celular' {...form.inputProps('celular')} errorMessage={form.errors?.celular} />
+							<InputFloat disabled type='text' label='Email' {...form.inputProps('email')} errorMessage={form.errors?.email} />
 						</Grid>
 					</Box>
 				</Flex>

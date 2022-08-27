@@ -12,7 +12,7 @@ import { usePreciosRefs } from '../../../../services/usePreciosRefs'
 import { genNombreFilas } from '../../../../utils/genNombreFilas'
 
 const Abono = () => {
-	const [innerValue, setInnerValue] = useState<string>('')
+	const [innerValue, setInnerValue] = useState<string>('Tendido 1 SOMBRA')
 	const [selectValue, setSelectValue] = useState<string>('T1')
 	const [seleccionados, setSeleccionados] = useState<IColums[]>([])
 	const { tendidos } = usePreciosRefs()
