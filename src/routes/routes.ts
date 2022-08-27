@@ -26,6 +26,9 @@ const VendedorasPage = lazy(() => import('../pages/home/vendedoras/VendedorasPag
 const EditarVendedora = lazy(() => import('../pages/home/vendedoras/EditarVendedora'))
 const CrearVendedora = lazy(() => import('../pages/home/vendedoras/CrearVendedora'))
 
+const VentasPage = lazy(() => import('../pages/home/ventas/VentasPage'))
+const DetalleVenta = lazy(() => import('../pages/home/ventas/DetalleVenta'))
+
 export const homeRoutes: Route[] = [
 	{
 		icon: IconFile,
@@ -200,6 +203,26 @@ export const homeRoutes: Route[] = [
 					to: '/referencial',
 					component: PrecioReferencial,
 					render: true
+				}
+			]
+		}
+	},
+	{
+		icon: IconFile,
+		path: 'ventas',
+		name: 'Ventas',
+		to: '/ventas',
+		component: VentasPage,
+		subMenu: {
+			value: false,
+			paths: [
+				{
+					icon: IconFile,
+					name: 'Abono',
+					path: 'ventas/:id',
+					to: '',
+					component: DetalleVenta,
+					render: false
 				}
 			]
 		}
