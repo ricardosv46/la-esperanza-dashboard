@@ -6,24 +6,26 @@ import Select from '../../../../components/shared/Select'
 import useToggle from '../../../../hooks/useToggle'
 import { useAsientosAbonado } from '../../../../services/useAsientosAbonado'
 import { useBloqueoAsientoAbono } from '../../../../services/useBloqueoAsientoAbono'
-import useButacas from '../../../../services/useButacas'
+import useButacasAbono from '../../../../services/useButacasAbono'
+
 import { usePreciosRefs } from '../../../../services/usePreciosRefs'
 import { genNombreFilas } from '../../../../utils/genNombreFilas'
 
 const Abono = () => {
-	const [innerValue, setInnerValue] = useState<string>('T1')
+	const [innerValue, setInnerValue] = useState<string>('')
+	const [selectValue, setSelectValue] = useState<string>('T1')
 	const [seleccionados, setSeleccionados] = useState<IColums[]>([])
 	const { tendidos } = usePreciosRefs()
 	const { onOpen, onClose, isOpen } = useToggle()
-	const { asientos, refetch: refetchAsientos } = useAsientosAbonado({ feriaId: 1, tendido: innerValue })
+	const { asientos, refetch: refetchAsientos } = useAsientosAbonado({ feriaId: 1, tendido: selectValue })
 	const { createBloqueoAsiento } = useBloqueoAsientoAbono()
 	const toast = useToast()
 	const categorias = tendidos.map((tendido) => ({
 		value: tendido?.tendido!,
-		label: tendido?.tendido!,
-		desc: tendido?.tendido!
+		label: tendido?.titulo!,
+		desc: tendido?.titulo!
 	}))
-	const { db: butacas, loading, refetch } = useButacas({ tendido: innerValue })
+	const { db: butacas, loading, refetch } = useButacasAbono({ tendido: selectValue })
 
 	const dataAsientos = useMemo(() => {
 		if (butacas?.length && !loading) {
@@ -41,7 +43,7 @@ const Abono = () => {
 		refetch()
 		refetchAsientos()
 		setSeleccionados([])
-	}, [innerValue])
+	}, [selectValue])
 
 	const handleBloquear = () => {
 		createBloqueoAsiento({ input: seleccionados }).then((res) => {
@@ -85,24 +87,25 @@ const Abono = () => {
 						mt={5}>
 						<Select
 							innerValue={innerValue!}
+							setValue={setSelectValue}
 							setInnerValue={setInnerValue}
 							selectOptions={categorias!}
 							label='Tendido'
 						/>
 
-						{dataAsientos?.length && innerValue?.length > 0 && (
+						{dataAsientos?.length && selectValue?.length > 0 && (
 							<Asientos
 								{...{
 									data: dataAsientos!,
 									desabilitados: asientos,
 									seleccionados,
 									setSeleccionados,
-									nombreFilas: genNombreFilas(innerValue)
+									nombreFilas: genNombreFilas(selectValue)
 								}}
 								tipo='abono'
-								doble={innerValue === 'T2S' ? 'Tendido2' : innerValue === 'T3' ? 'Tendido3' : 'Ruedo'}
-								direccion={innerValue === 'T3A' ? 'end' : innerValue === 'T3B' ? 'start' : 'center'}
-								id={innerValue}
+								doble={selectValue === 'T2S' ? 'Tendido2' : selectValue === 'T3' ? 'Tendido3' : 'Ruedo'}
+								direccion={selectValue === 'T3A' ? 'end' : selectValue === 'T3B' ? 'start' : 'center'}
+								id={selectValue}
 							/>
 						)}
 					</Flex>

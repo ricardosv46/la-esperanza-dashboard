@@ -8,12 +8,13 @@ import useToggle from '../../../../hooks/useToggle'
 import { useAsientosEventos } from '../../../../services/useAsientosEventos'
 import { useBloqueoAsientoAbono } from '../../../../services/useBloqueoAsientoAbono'
 import { useBloqueoAsientoEvento } from '../../../../services/useBloqueoAsientoEvento'
-import useButacas from '../../../../services/useButacas'
+import useButacas from '../../../../services/useButacasAbono'
 import { usePreciosRefs } from '../../../../services/usePreciosRefs'
 import { genNombreFilas } from '../../../../utils/genNombreFilas'
 
 const EventoId = () => {
-	const [innerValue, setInnerValue] = useState<string>('T1')
+	const [innerValue, setInnerValue] = useState<string>('')
+	const [selectValue, setSelectValue] = useState<string>('T1')
 	const [seleccionados, setSeleccionados] = useState<IColums[]>([])
 	const { tendidos } = usePreciosRefs()
 	const { onOpen, onClose, isOpen } = useToggle()
@@ -23,15 +24,15 @@ const EventoId = () => {
 	const toast = useToast()
 	const { asientos, refetch: refetchAsientos } = useAsientosEventos({
 		eventoId: evento?.eventoId,
-		tendido: innerValue
+		tendido: selectValue
 	})
 
 	const categorias = tendidos.map((tendido) => ({
 		value: tendido?.tendido!,
-		label: tendido?.tendido!,
-		desc: tendido?.tendido!
+		label: tendido?.titulo!,
+		desc: tendido?.titulo!
 	}))
-	const { db: butacas, loading, refetch } = useButacas({ tendido: innerValue })
+	const { db: butacas, loading, refetch } = useButacas({ tendido: selectValue })
 
 	const dataAsientos = useMemo(() => {
 		if (butacas?.length && !loading) {
@@ -49,7 +50,7 @@ const EventoId = () => {
 		refetch()
 		refetchAsientos()
 		setSeleccionados([])
-	}, [innerValue])
+	}, [selectValue])
 
 	const handleBloquear = () => {
 		createBloqueoAsiento({ input: seleccionados }).then((res) => {
@@ -95,25 +96,26 @@ const EventoId = () => {
 						mt={5}>
 						<Select
 							innerValue={innerValue!}
+							setValue={setSelectValue}
 							setInnerValue={setInnerValue}
 							selectOptions={categorias!}
 							label='Tendido'
 						/>
 
-						{dataAsientos?.length && innerValue?.length > 0 && (
+						{dataAsientos?.length && selectValue?.length > 0 && (
 							<Asientos
 								{...{
 									data: dataAsientos!,
 									desabilitados: asientos,
 									seleccionados,
 									setSeleccionados,
-									nombreFilas: genNombreFilas(innerValue)
+									nombreFilas: genNombreFilas(selectValue)
 								}}
 								tipo='evento'
 								evento={evento?.eventoId}
-								doble={innerValue === 'T2S' ? 'Tendido2' : innerValue === 'T3' ? 'Tendido3' : 'Ruedo'}
-								direccion={innerValue === 'T3A' ? 'end' : innerValue === 'T3B' ? 'start' : 'center'}
-								id={innerValue}
+								doble={selectValue === 'T2S' ? 'Tendido2' : selectValue === 'T3' ? 'Tendido3' : 'Ruedo'}
+								direccion={selectValue === 'T3A' ? 'end' : selectValue === 'T3B' ? 'start' : 'center'}
+								id={selectValue}
 							/>
 						)}
 					</Flex>

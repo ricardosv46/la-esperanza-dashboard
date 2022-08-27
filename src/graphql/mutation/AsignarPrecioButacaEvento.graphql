@@ -1,0 +1,10 @@
+mutation AsignarPrecioButacaEvento($input: ButacaEventoInput) {
+	AsignarPrecioButacaEvento(input: $input) {
+		butacaEventoId
+		eventoId
+		tendido
+		codigo
+		cantidad
+		precio
+	}
+}

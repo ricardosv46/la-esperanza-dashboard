@@ -16,7 +16,8 @@ const Eventos = lazy(() => import('../pages/home/eventos/Eventos'))
 const CrearEvento = lazy(() => import('../pages/home/eventos/CrearEvento'))
 const EditarEvento = lazy(() => import('../pages/home/eventos/EditarEvento'))
 const Precios = lazy(() => import('../pages/home/precios/Precio'))
-const PrecioButacas = lazy(() => import('../pages/home/precios/PrecioButacas'))
+const PreciosAbono = lazy(() => import('../pages/home/precios/PreciosAbono'))
+const PreciosEventos = lazy(() => import('../pages/home/precios/PreciosEventos'))
 const PrecioReferencial = lazy(() => import('../pages/home/precios/PrecioReferencia'))
 const DetallePedido = lazy(() => import('../pages/home/pedidos/DetallePedido'))
 const ButacasPage = lazy(() => import('../pages/home/bloqueo/ButacasPage'))
@@ -189,13 +190,20 @@ export const homeRoutes: Route[] = [
 			paths: [
 				{
 					icon: IconOptions,
-					name: 'Precio de Butacas',
-					path: 'butaca',
-					to: '/butaca',
-					component: PrecioButacas,
+					name: 'Precios Abono',
+					path: 'precios-abono',
+					to: '/precios-abono',
+					component: PreciosAbono,
 					render: true
 				},
-
+				{
+					icon: IconOptions,
+					name: 'Precios Eventos',
+					path: 'precios-eventos',
+					to: '/precios-eventos',
+					component: PreciosEventos,
+					render: true
+				},
 				{
 					icon: IconFile,
 					name: 'Precio Referecial',

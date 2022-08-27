@@ -21,19 +21,7 @@ interface IProps {
 
 const ShowPassword = ({ show }: { show: boolean }) => <Icon as={show ? IconEyeSlash : IconEye} />
 
-const InputFloat = ({
-	label,
-	name,
-	type,
-	value,
-	onChange,
-	errorMessage,
-	rightElement,
-	maxLength,
-	h = '60px',
-	pattern,
-	disabled
-}: IProps) => {
+const InputFloat = ({ label, name, type, value, onChange, errorMessage, rightElement, maxLength, h = '60px', pattern, disabled }: IProps) => {
 	const values = value.toString()
 
 	const [show, setShow] = useState(false)
@@ -54,6 +42,7 @@ const InputFloat = ({
 				name={name}
 				transition={'all 0.3s'}
 				rounded='none'
+				_disabled={{ opacity: 1 }}
 				autoComplete='none'
 				_invalid={{ borderBottomColor: 'red.400' }}
 				_valid={{ borderBottomColor: 'primary.500' }}
