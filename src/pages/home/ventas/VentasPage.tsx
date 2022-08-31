@@ -47,6 +47,7 @@ const VentasPage = () => {
 									<Th color='gray.400'>Email</Th>
 									<Th color='gray.400'>Fecha Venta</Th>
 									<Th color='gray.400'>Tipo Pago</Th>
+									<Th color='gray.400'>Monto</Th>
 									<Th color='gray.400'>Nombres o Razón social </Th>
 								</Tr>
 							</Thead>
@@ -59,6 +60,7 @@ const VentasPage = () => {
 										<Td>{venta?.email}</Td>
 										<Td>{venta?.fechaVenta}</Td>
 										<Td>{venta?.tipoVenta}</Td>
+										<Td>{venta?.precioTotal}</Td>
 										<Td>{venta?.razonSocial}</Td>
 										<Td>
 											<Flex justifyContent='center' alignItems='center' gap={5}>

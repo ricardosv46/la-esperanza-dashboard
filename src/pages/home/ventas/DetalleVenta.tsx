@@ -35,7 +35,8 @@ const DetalleVenta = () => {
 								<Tr>
 									<Th color='gray.400'>Codigo</Th>
 									<Th color='gray.400'>Asiento</Th>
-									<Th color='gray.400'>Tnedido</Th>
+									<Th color='gray.400'>Tendido</Th>
+									<Th color='gray.400'>Monto</Th>
 									<Th color='gray.400'>Evento</Th>
 								</Tr>
 							</Thead>
@@ -45,6 +46,7 @@ const DetalleVenta = () => {
 										<Td>{item?.codigo}</Td>
 										<Td>{item?.asiento}</Td>
 										<Td>{item?.tendido}</Td>
+										<Td>{item?.precio}</Td>
 										<Td>{item?.Evento?.titulo}</Td>
 									</Tr>
 								))}
