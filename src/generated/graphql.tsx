@@ -907,6 +907,13 @@ export type DeleteImagenMutationVariables = Exact<{
 
 export type DeleteImagenMutation = { __typename?: 'Mutation', DeleteImagen: string };
 
+export type DeleteVentaMutationVariables = Exact<{
+  ventaId: Scalars['Int'];
+}>;
+
+
+export type DeleteVentaMutation = { __typename?: 'Mutation', DeleteVenta?: string | null };
+
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
 }>;
@@ -1363,6 +1370,37 @@ export function useDeleteImagenMutation(baseOptions?: Apollo.MutationHookOptions
 export type DeleteImagenMutationHookResult = ReturnType<typeof useDeleteImagenMutation>;
 export type DeleteImagenMutationResult = Apollo.MutationResult<DeleteImagenMutation>;
 export type DeleteImagenMutationOptions = Apollo.BaseMutationOptions<DeleteImagenMutation, DeleteImagenMutationVariables>;
+export const DeleteVentaDocument = gql`
+    mutation DeleteVenta($ventaId: Int!) {
+  DeleteVenta(ventaId: $ventaId)
+}
+    `;
+export type DeleteVentaMutationFn = Apollo.MutationFunction<DeleteVentaMutation, DeleteVentaMutationVariables>;
+
+/**
+ * __useDeleteVentaMutation__
+ *
+ * To run a mutation, you first call `useDeleteVentaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteVentaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteVentaMutation, { data, loading, error }] = useDeleteVentaMutation({
+ *   variables: {
+ *      ventaId: // value for 'ventaId'
+ *   },
+ * });
+ */
+export function useDeleteVentaMutation(baseOptions?: Apollo.MutationHookOptions<DeleteVentaMutation, DeleteVentaMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteVentaMutation, DeleteVentaMutationVariables>(DeleteVentaDocument, options);
+      }
+export type DeleteVentaMutationHookResult = ReturnType<typeof useDeleteVentaMutation>;
+export type DeleteVentaMutationResult = Apollo.MutationResult<DeleteVentaMutation>;
+export type DeleteVentaMutationOptions = Apollo.BaseMutationOptions<DeleteVentaMutation, DeleteVentaMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($input: LoginInput!) {
   Login(input: $input) {

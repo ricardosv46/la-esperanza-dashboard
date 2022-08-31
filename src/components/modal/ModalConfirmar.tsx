@@ -1,13 +1,4 @@
-import {
-	Button,
-	Modal,
-	ModalBody,
-	ModalCloseButton,
-	ModalContent,
-	ModalFooter,
-	ModalHeader,
-	ModalOverlay
-} from '@chakra-ui/react'
+import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react'
 
 interface IModal {
 	isOpen: boolean
@@ -15,9 +6,10 @@ interface IModal {
 	onClick: () => void
 	header: string
 	body: string
+	colorScheme?: 'green' | 'red'
 }
 
-const ModalConfirmar = ({ isOpen, onClick, onClose, body, header }: IModal) => {
+const ModalConfirmar = ({ isOpen, onClick, onClose, body, header, colorScheme = 'green' }: IModal) => {
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} isCentered>
 			<ModalOverlay />
@@ -31,7 +23,7 @@ const ModalConfirmar = ({ isOpen, onClick, onClose, body, header }: IModal) => {
 						Cancelar
 					</Button>
 					<Button
-						colorScheme='green'
+						colorScheme={colorScheme}
 						onClick={() => {
 							onClick()
 							onClose()
