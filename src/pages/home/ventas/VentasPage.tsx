@@ -68,7 +68,8 @@ const VentasPage = () => {
 							<Table colorScheme='gray'>
 								<Thead fontWeight={'black'}>
 									<Tr>
-										<Th color='gray.400'>Tipo Documento </Th>
+										<Th color='gray.400'>Tipo Comprobante</Th>
+										<Th color='gray.400'>Tipo Documento</Th>
 										<Th color='gray.400'>Documento</Th>
 										<Th color='gray.400'>Celular</Th>
 										<Th color='gray.400'>Email</Th>
@@ -82,7 +83,8 @@ const VentasPage = () => {
 									{ventas.map((venta) => (
 										<Tr key={venta.ventaId}>
 											<Td>{venta?.tipoComprobante}</Td>
-											<Td>{venta?.numeroComprobante}</Td>
+											<Td>{venta?.tipoDocumento}</Td>
+											<Td>{venta?.numeroDocumento}</Td>
 											<Td>{venta?.celular}</Td>
 											<Td>{venta?.email}</Td>
 											<Td>{venta?.fechaVenta}</Td>
