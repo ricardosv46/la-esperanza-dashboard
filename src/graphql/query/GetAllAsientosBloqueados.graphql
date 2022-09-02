@@ -1,0 +1,13 @@
+query GetAllAsientosBloqueados {
+	GetAllAsientosBloqueados {
+		asientoId
+		reservado
+		tendido
+		codigo
+		eventoId
+		Evento {
+			eventoId
+			titulo
+		}
+	}
+}

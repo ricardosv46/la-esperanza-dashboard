@@ -30,6 +30,9 @@ query GetAllPedidos($pagina: Int!, $numeroPagina: Int!) {
 				eventoId
 				feriaId
 				pedidoId
+				Evento {
+					titulo
+				}
 			}
 		}
 	}

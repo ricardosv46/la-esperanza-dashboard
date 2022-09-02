@@ -1,0 +1,3 @@
+mutation DeleteAsientoBloqueado($asientoId: Int!) {
+	DeleteAsientoBloqueado(asientoId: $asientoId)
+}

@@ -26,7 +26,7 @@ const EventosPage = lazy(() => import('../pages/home/bloqueo/eventos/EventosPage
 const VendedorasPage = lazy(() => import('../pages/home/vendedoras/VendedorasPage'))
 const EditarVendedora = lazy(() => import('../pages/home/vendedoras/EditarVendedora'))
 const CrearVendedora = lazy(() => import('../pages/home/vendedoras/CrearVendedora'))
-
+const Desbloqueo = lazy(() => import('../pages/home/bloqueo/desbloqueo/Desbloqueo'))
 const VentasPage = lazy(() => import('../pages/home/ventas/VentasPage'))
 const DetalleVenta = lazy(() => import('../pages/home/ventas/DetalleVenta'))
 
@@ -128,7 +128,7 @@ export const homeRoutes: Route[] = [
 		path: 'bloqueo',
 		component: ButacasPage,
 		subMenu: {
-			value: false,
+			value: true,
 			paths: [
 				{
 					icon: IconOptions,
@@ -146,6 +146,22 @@ export const homeRoutes: Route[] = [
 					to: 'evento',
 					component: EventosPage,
 					render: false
+				},
+				{
+					icon: IconFile,
+					name: 'Bloqueo',
+					path: '/bloqueo',
+					to: 'bloqueo',
+					component: ButacasPage,
+					render: true
+				},
+				{
+					icon: IconFile,
+					name: 'Desbloqueo',
+					path: '/desbloqueo',
+					to: 'desbloqueo',
+					component: Desbloqueo,
+					render: true
 				}
 			]
 		}
