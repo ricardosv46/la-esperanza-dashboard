@@ -9,7 +9,7 @@ import Select from '../../../components/shared/Select'
 import useForm, { FormError } from '../../../hooks/useForm'
 import useEventos from '../../../services/useEventos'
 import useVendedoras from '../../../services/useVendedoras'
-import { isContra } from '../../../utils/isContrseña'
+import { isContra } from '../../../utils/isContra'
 // import useEventos, { ICrearEvento } from '../../../services/useEventos'
 import { isEmpty } from '../../../utils/isEmpty'
 

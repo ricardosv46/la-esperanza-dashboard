@@ -27,7 +27,7 @@ import useForm, { FormError } from '../../../hooks/useForm'
 import useToggle from '../../../hooks/useToggle'
 import { useUpdatePassword } from '../../../services/useUpdatePassword'
 import useVendedoras from '../../../services/useVendedoras'
-import { isContra } from '../../../utils/isContrseña'
+import { isContra } from '../../../utils/isContra'
 import { isEmpty } from '../../../utils/isEmpty'
 
 const initialState = {
