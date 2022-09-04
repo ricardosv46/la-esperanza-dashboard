@@ -1,26 +1,28 @@
-import { useGetAllPedidosQuery } from '../generated/graphql'
+import { useGetAllPedidosQuery } from "../generated/graphql";
 
 interface Ipedidos {
-  pagina: number
-  numeroPagina: number
+  pagina: number;
+  numeroPagina: number;
+  razonSocial: string;
+  email: string;
+  fechaInicial: string;
+  fechaFinal: string;
 }
 
-const useAllPedidos = ({ pagina, numeroPagina }: Ipedidos) => {
+const useAllPedidos = (values: Ipedidos) => {
   const { data, loading, refetch } = useGetAllPedidosQuery({
-    fetchPolicy: 'network-only',
-    variables: {
-      pagina,
-      numeroPagina
-    }
-  })
-  const db = data?.GetAllPedidos?.data ?? []
-  const nTotal = data?.GetAllPedidos?.numeroTotal ?? 0
+    fetchPolicy: "network-only",
+    variables: { ...values },
+  });
+  const db = data?.GetAllPedidos?.data ?? [];
+
+  const nTotal = data?.GetAllPedidos?.numeroTotal ?? 0;
   return {
     db,
     loading,
     refetch,
-    nTotal
-  }
-}
+    nTotal,
+  };
+};
 
-export default useAllPedidos
+export default useAllPedidos;

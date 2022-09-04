@@ -1,39 +1,53 @@
-query GetAllPedidos($pagina: Int!, $numeroPagina: Int!) {
-	GetAllPedidos(pagina: $pagina, numeroPagina: $numeroPagina) {
-		numeroTotal
-		data {
-			pedidoId
-			tipoComprobante
-			numeroComprobante
-			razonSocial
-			precioTotal
-			fechaPedido
-			usuarioId
-			transaccionId
-			Usuario {
-				id
-				tipoUsuario
-				tipoDocumento
-				numeroDocumento
-				nombres
-				apellidos
-				celular
-				email
-				apiToken
-			}
-			DetallePedido {
-				detallePedidoId
-				tendido
-				codigo
-				asiento
-				precio
-				eventoId
-				feriaId
-				pedidoId
-				Evento {
-					titulo
-				}
-			}
-		}
-	}
+query GetAllPedidos(
+  $pagina: Int
+  $numeroPagina: Int
+  $email: String
+  $razonSocial: String
+  $fechaInicial: String
+  $fechaFinal: String
+) {
+  GetAllPedidos(
+    pagina: $pagina
+    numeroPagina: $numeroPagina
+    email: $email
+    razonSocial: $razonSocial
+    fechaInicial: $fechaInicial
+    fechaFinal: $fechaFinal
+  ) {
+    numeroTotal
+    data {
+      pedidoId
+      tipoComprobante
+      numeroComprobante
+      razonSocial
+      precioTotal
+      fechaPedido
+      usuarioId
+      transaccionId
+      Usuario {
+        id
+        tipoUsuario
+        tipoDocumento
+        numeroDocumento
+        nombres
+        apellidos
+        celular
+        email
+        apiToken
+      }
+      DetallePedido {
+        detallePedidoId
+        tendido
+        codigo
+        asiento
+        precio
+        eventoId
+        feriaId
+        pedidoId
+        Evento {
+          titulo
+        }
+      }
+    }
+  }
 }

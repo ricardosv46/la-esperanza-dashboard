@@ -583,6 +583,7 @@ export type Pedido = {
   __typename?: 'Pedido';
   DetallePedido?: Maybe<Array<DetallePedido>>;
   Usuario?: Maybe<User>;
+  email?: Maybe<Scalars['String']>;
   fechaPedido?: Maybe<Scalars['Date']>;
   numeroComprobante?: Maybe<Scalars['String']>;
   pedidoId?: Maybe<Scalars['ID']>;
@@ -620,6 +621,7 @@ export type Query = {
   GetAllSuscriptores?: Maybe<GetAllSuscriptores>;
   GetAllVendedoras?: Maybe<GetAllVendedoras>;
   GetAllVentas?: Maybe<GetAllVentas>;
+  GetDetalleAsientoVenta?: Maybe<AsignacionEntrada>;
   GetEventoSlug?: Maybe<Evento>;
   GetFeria?: Maybe<Feria>;
   GetPedidoId?: Maybe<Pedido>;
@@ -675,8 +677,12 @@ export type QueryGetAllImagenesArgs = {
 
 
 export type QueryGetAllPedidosArgs = {
+  email?: InputMaybe<Scalars['String']>;
+  fechaFinal?: InputMaybe<Scalars['String']>;
+  fechaInicial?: InputMaybe<Scalars['String']>;
   numeroPagina?: InputMaybe<Scalars['Int']>;
   pagina?: InputMaybe<Scalars['Int']>;
+  razonSocial?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -696,6 +702,11 @@ export type QueryGetAllVendedorasArgs = {
 export type QueryGetAllVentasArgs = {
   numeroPagina?: InputMaybe<Scalars['Int']>;
   pagina?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryGetDetalleAsientoVentaArgs = {
+  code?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1055,8 +1066,12 @@ export type GetAllImagenesQueryVariables = Exact<{
 export type GetAllImagenesQuery = { __typename?: 'Query', GetAllImagenes?: { __typename?: 'GetAllImagenes', numeroTotal?: number | null, data?: Array<{ __typename?: 'Imagen', id?: string | null, titulo?: string | null, url?: string | null }> | null } | null };
 
 export type GetAllPedidosQueryVariables = Exact<{
-  pagina: Scalars['Int'];
-  numeroPagina: Scalars['Int'];
+  pagina?: InputMaybe<Scalars['Int']>;
+  numeroPagina?: InputMaybe<Scalars['Int']>;
+  email?: InputMaybe<Scalars['String']>;
+  razonSocial?: InputMaybe<Scalars['String']>;
+  fechaInicial?: InputMaybe<Scalars['String']>;
+  fechaFinal?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -2173,8 +2188,15 @@ export type GetAllImagenesQueryHookResult = ReturnType<typeof useGetAllImagenesQ
 export type GetAllImagenesLazyQueryHookResult = ReturnType<typeof useGetAllImagenesLazyQuery>;
 export type GetAllImagenesQueryResult = Apollo.QueryResult<GetAllImagenesQuery, GetAllImagenesQueryVariables>;
 export const GetAllPedidosDocument = gql`
-    query GetAllPedidos($pagina: Int!, $numeroPagina: Int!) {
-  GetAllPedidos(pagina: $pagina, numeroPagina: $numeroPagina) {
+    query GetAllPedidos($pagina: Int, $numeroPagina: Int, $email: String, $razonSocial: String, $fechaInicial: String, $fechaFinal: String) {
+  GetAllPedidos(
+    pagina: $pagina
+    numeroPagina: $numeroPagina
+    email: $email
+    razonSocial: $razonSocial
+    fechaInicial: $fechaInicial
+    fechaFinal: $fechaFinal
+  ) {
     numeroTotal
     data {
       pedidoId
@@ -2228,10 +2250,14 @@ export const GetAllPedidosDocument = gql`
  *   variables: {
  *      pagina: // value for 'pagina'
  *      numeroPagina: // value for 'numeroPagina'
+ *      email: // value for 'email'
+ *      razonSocial: // value for 'razonSocial'
+ *      fechaInicial: // value for 'fechaInicial'
+ *      fechaFinal: // value for 'fechaFinal'
  *   },
  * });
  */
-export function useGetAllPedidosQuery(baseOptions: Apollo.QueryHookOptions<GetAllPedidosQuery, GetAllPedidosQueryVariables>) {
+export function useGetAllPedidosQuery(baseOptions?: Apollo.QueryHookOptions<GetAllPedidosQuery, GetAllPedidosQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetAllPedidosQuery, GetAllPedidosQueryVariables>(GetAllPedidosDocument, options);
       }
