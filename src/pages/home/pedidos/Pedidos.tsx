@@ -79,7 +79,7 @@ const Pedidos = () => {
       setValues({
         ...values,
         fechaFinal: form.fechaFinal,
-        fechaInicial: form.fechaFinal,
+        fechaInicial: form.fechaInicial,
         email: "",
         razonSocial: "",
       });
@@ -92,7 +92,7 @@ const Pedidos = () => {
       setValues({
         ...values,
         fechaFinal: form.fechaFinal,
-        fechaInicial: form.fechaFinal,
+        fechaInicial: form.fechaInicial,
         email: form.searchText,
         razonSocial: "",
       });
@@ -105,7 +105,7 @@ const Pedidos = () => {
       setValues({
         ...values,
         fechaFinal: form.fechaFinal,
-        fechaInicial: form.fechaFinal,
+        fechaInicial: form.fechaInicial,
         email: "",
         razonSocial: form.searchText,
       });
