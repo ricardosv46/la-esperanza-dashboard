@@ -22,10 +22,12 @@ import useAllPedidos from "../../../services/useAllPedidos";
 
 const Pedidos = () => {
   const navigate = useNavigate();
+
   const [state, setState] = useState({
     pagina: 1,
     numeroPagina: 10,
   });
+
   const [values, setValues] = useState({
     pagina: state.pagina,
     numeroPagina: state.numeroPagina,
@@ -35,20 +37,16 @@ const Pedidos = () => {
     fechaFinal: "",
   });
 
-  const { db: pedidos, loading, nTotal } = useAllPedidos(values);
+  const [data, setData] = useState<any>([]);
+
   const [form, setForm] = useState({
     searchText: "",
     fechaInicial: "",
     fechaFinal: "",
     tipo: "0",
   });
-  console.log(form);
-  const handleChange = (e: any) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const { db: pedidos, loading, nTotal } = useAllPedidos(values);
+
   const generatedTotal = (items: number, itemporpage: number) => {
     const n = Math.ceil(items / itemporpage);
     return Array(n)
@@ -65,11 +63,16 @@ const Pedidos = () => {
     });
   }, [state]);
 
-  console.log(form);
-  const [data, setData] = useState<any>([]);
   useEffect(() => {
     setData(pedidos);
-  }, [data, state]);
+  }, [data, state, values]);
+
+  const handleChange = (e: any) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSearch = () => {
     if (form.tipo === "0") {
@@ -80,6 +83,10 @@ const Pedidos = () => {
         email: "",
         razonSocial: "",
       });
+      setState({
+        pagina: 1,
+        numeroPagina: 10,
+      });
     }
     if (form.tipo === "1") {
       setValues({
@@ -88,6 +95,10 @@ const Pedidos = () => {
         fechaInicial: form.fechaFinal,
         email: form.searchText,
         razonSocial: "",
+      });
+      setState({
+        pagina: 1,
+        numeroPagina: 10,
       });
     }
     if (form.tipo === "2") {
@@ -98,6 +109,10 @@ const Pedidos = () => {
         email: "",
         razonSocial: form.searchText,
       });
+      setState({
+        pagina: 1,
+        numeroPagina: 10,
+      });
     }
   };
 
@@ -107,6 +122,18 @@ const Pedidos = () => {
       fechaInicial: "",
       fechaFinal: "",
       tipo: "0",
+    });
+    setState({
+      pagina: 1,
+      numeroPagina: 10,
+    });
+    setValues({
+      pagina: state.pagina,
+      numeroPagina: state.numeroPagina,
+      razonSocial: "",
+      email: "",
+      fechaInicial: "",
+      fechaFinal: "",
     });
   };
 
@@ -152,7 +179,7 @@ const Pedidos = () => {
                   Buscar por:
                 </option>
                 <option value="1">Email</option>
-                <option value="2">Razón social</option>
+                <option value="2">Nombre</option>
               </select>
               <input
                 type="text"
@@ -160,11 +187,16 @@ const Pedidos = () => {
                 name="searchText"
                 className=" p-2 border rounded-md border-primary w-full"
                 value={form.searchText}
+                placeholder={
+                  form.tipo === "1"
+                    ? "Ingrese el email a buscar"
+                    : "Ingrese el nombre a buscar"
+                }
               />
             </div>
             <div className="flex gap-3">
               <div className="w-full">
-                <label htmlFor="" className="text-sm">
+                <label htmlFor="fechaInicial" className="text-sm">
                   Fecha de incio
                 </label>
                 <input
@@ -172,11 +204,12 @@ const Pedidos = () => {
                   className="w-full py-2 border rounded-md border-primary"
                   onChange={handleChange}
                   name="fechaInicial"
+                  id="fechaInicial"
                   value={form.fechaInicial}
                 />
               </div>
               <div className="w-full">
-                <label htmlFor="" className="text-sm">
+                <label htmlFor="fechaFinal" className="text-sm">
                   Fecha final
                 </label>
                 <input
@@ -184,6 +217,7 @@ const Pedidos = () => {
                   className="w-full py-2 border rounded-md border-primary"
                   onChange={handleChange}
                   name="fechaFinal"
+                  id="fechaFinal"
                   value={form.fechaFinal}
                 />
               </div>
