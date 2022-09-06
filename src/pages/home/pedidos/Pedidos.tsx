@@ -13,233 +13,179 @@ import {
   Td,
   IconButton,
   Spinner,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Pagination from "../../../components/pagination";
-import IconEyeD from "../../../icons/IconEyeD";
-import useAllPedidos from "../../../services/useAllPedidos";
+  Button
+} from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import InputFloat from '../../../components/input/inputFloat'
+import Pagination from '../../../components/pagination'
+import Select from '../../../components/shared/Select'
+import useForm from '../../../hooks/useForm'
+import IconExcel from '../../../icons/IconExcel'
+import IconEyeD from '../../../icons/IconEyeD'
+import useAllPedidos from '../../../services/useAllPedidos'
+import { useGetReporteExcelPedidos } from '../../../services/useGetReporteExcelPedidos'
+import { generatedTotal } from '../../../utils/generatedTotal'
+import { isEmpty } from '../../../utils/isEmpty'
+
+const initialState = { searchText: '', fechaInicial: '', fechaFinal: '' }
+
+const dataTipo = [
+  {
+    value: '1',
+    label: 'Email',
+    desc: 'Email'
+  },
+  {
+    value: '2',
+    label: 'Nombres',
+    desc: 'Nombres'
+  }
+]
 
 const Pedidos = () => {
-  const navigate = useNavigate();
-
+  const navigate = useNavigate()
+  const [innerValue, setInnerValue] = useState<string>('')
+  const [selectValue, setSelectValue] = useState<string>('')
   const [state, setState] = useState({
     pagina: 1,
-    numeroPagina: 10,
-  });
+    numeroPagina: 10
+  })
 
-  const [values, setValues] = useState({
-    pagina: state.pagina,
-    numeroPagina: state.numeroPagina,
-    razonSocial: "",
-    email: "",
-    fechaInicial: "",
-    fechaFinal: "",
-  });
+  const [filtros, setFiltros] = useState({
+    razonSocial: '',
+    email: '',
+    fechaInicial: '',
+    fechaFinal: ''
+  })
 
-  const [data, setData] = useState<any>([]);
+  const { values, ...form } = useForm({
+    initialValues: initialState
+  })
 
-  const [form, setForm] = useState({
-    searchText: "",
-    fechaInicial: "",
-    fechaFinal: "",
-    tipo: "0",
-  });
-  const { db: pedidos, loading, nTotal } = useAllPedidos(values);
+  const { db: pedidos, loading, nTotal } = useAllPedidos({ ...state, ...filtros })
 
-  const generatedTotal = (items: number, itemporpage: number) => {
-    const n = Math.ceil(items / itemporpage);
-    return Array(n)
-      .fill(null)
-      .map((_, i) => i + 1);
-  };
-  const paginas = generatedTotal(nTotal, state.numeroPagina);
+  const { loading: loadingReporte, reporte: linkReporte } = useGetReporteExcelPedidos({
+    ...filtros
+  })
 
-  useEffect(() => {
-    setValues({
-      ...values,
-      pagina: state.pagina,
-      numeroPagina: state.numeroPagina,
-    });
-  }, [state]);
+  const paginas = generatedTotal(nTotal, state.numeroPagina)
 
-  useEffect(() => {
-    setData(pedidos);
-  }, [data, state, values]);
+  const isDisable =
+    isEmpty(values.fechaInicial) &&
+    isEmpty(values.fechaFinal) &&
+    isEmpty(values.searchText) &&
+    isEmpty(selectValue)
 
-  const handleChange = (e: any) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSearch = () => {
-    if (form.tipo === "0") {
-      setValues({
-        ...values,
-        fechaFinal: form.fechaFinal,
-        fechaInicial: form.fechaInicial,
-        email: "",
-        razonSocial: "",
-      });
-      setState({
-        pagina: 1,
-        numeroPagina: 10,
-      });
-    }
-    if (form.tipo === "1") {
-      setValues({
-        ...values,
-        fechaFinal: form.fechaFinal,
-        fechaInicial: form.fechaInicial,
-        email: form.searchText,
-        razonSocial: "",
-      });
-      setState({
-        pagina: 1,
-        numeroPagina: 10,
-      });
-    }
-    if (form.tipo === "2") {
-      setValues({
-        ...values,
-        fechaFinal: form.fechaFinal,
-        fechaInicial: form.fechaInicial,
-        email: "",
-        razonSocial: form.searchText,
-      });
-      setState({
-        pagina: 1,
-        numeroPagina: 10,
-      });
-    }
-  };
-
-  const handleClear = () => {
-    setForm({
-      searchText: "",
-      fechaInicial: "",
-      fechaFinal: "",
-      tipo: "0",
-    });
+  const handleSubmit = () => {
     setState({
       pagina: 1,
-      numeroPagina: 10,
-    });
-    setValues({
-      pagina: state.pagina,
-      numeroPagina: state.numeroPagina,
-      razonSocial: "",
-      email: "",
-      fechaInicial: "",
-      fechaFinal: "",
-    });
-  };
+      numeroPagina: 10
+    })
+    setFiltros({
+      fechaFinal: values.fechaFinal,
+      fechaInicial: values.fechaInicial,
+      razonSocial: selectValue === '2' ? values.searchText : '',
+      email: selectValue === '1' ? values.searchText : ''
+    })
+  }
+
+  const limpiarFiltro = () => {
+    setFiltros({ razonSocial: '', email: '', fechaInicial: '', fechaFinal: '' })
+    setState({
+      pagina: 1,
+      numeroPagina: 10
+    })
+    form.clear()
+    setInnerValue('')
+    setSelectValue('')
+  }
 
   return (
-    <Container maxWidth="1930px" p={"10"}>
-      <Flex flexDir={"column"}>
-        <Box maxWidth={"full"}>
+    <Container maxWidth="1930px" p={'10'}>
+      <Flex flexDir={'column'}>
+        <Box maxWidth={'full'}>
           <Heading as="h1" fontSize={22}>
             Pedidos
           </Heading>
-          <Text
-            color="blackAlpha.600"
-            _dark={{ color: "gray.400" }}
-            fontSize="14px"
-            mt={3}
-          >
+          <Text color="blackAlpha.600" _dark={{ color: 'gray.400' }} fontSize="14px" mt={3}>
             Desde aquí podrás visualizar la información de todos tus pedidos.
           </Text>
         </Box>
+        <Flex justifyContent="flex-end">
+          <Button
+            as="a"
+            href={linkReporte}
+            download
+            type="button"
+            disabled={loadingReporte}
+            w="auto"
+            h={12}
+            colorScheme="green"
+            display="flex"
+            justifyItems="center"
+            alignItems="center"
+            px={5}
+            gap={3}>
+            <Text fontWeight="semibold" fontSize="xl">
+              Descargar Reporte
+            </Text>
+            <IconExcel className="mt-1" />
+          </Button>
+        </Flex>
 
-        <Box maxWidth={"full"} marginTop="2rem">
+        <Box maxWidth={'full'} marginTop="2rem">
           <Heading as="h4" fontSize={18}>
             Filtros
           </Heading>
-          <Text
-            color="blackAlpha.600"
-            _dark={{ color: "gray.400" }}
-            fontSize="14px"
-            mt={3}
-          >
+          <Text color="blackAlpha.600" _dark={{ color: 'gray.400' }} fontSize="14px" mt={3}>
             Desde aquí podrás filtrar tu información.
           </Text>
-          <div className=" gap-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-end">
-            <div className="flex-col w-full gap-2 flex  sm:flex-row">
-              <select
-                onChange={handleChange}
-                value={form.tipo}
-                name="tipo"
-                id=""
-                className="py-3 px-4 w-full sm:w-auto"
-              >
-                <option value="0" className="mt-3">
-                  Buscar por:
-                </option>
-                <option value="1">Email</option>
-                <option value="2">Nombre</option>
-              </select>
-              <input
-                type="text"
-                onChange={handleChange}
-                name="searchText"
-                className=" p-2 border rounded-md border-primary w-full"
-                value={form.searchText}
-                placeholder={
-                  form.tipo === "1"
-                    ? "Ingrese el email a buscar"
-                    : "Ingrese el nombre a buscar"
-                }
-              />
-            </div>
-            <div className="flex gap-3">
-              <div className="w-full">
-                <label htmlFor="fechaInicial" className="text-sm">
-                  Fecha de incio
-                </label>
-                <input
-                  type="date"
-                  className="w-full py-2 border rounded-md border-primary"
-                  onChange={handleChange}
-                  name="fechaInicial"
-                  id="fechaInicial"
-                  value={form.fechaInicial}
-                />
-              </div>
-              <div className="w-full">
-                <label htmlFor="fechaFinal" className="text-sm">
-                  Fecha final
-                </label>
-                <input
-                  type="date"
-                  className="w-full py-2 border rounded-md border-primary"
-                  onChange={handleChange}
-                  name="fechaFinal"
-                  id="fechaFinal"
-                  value={form.fechaFinal}
-                />
-              </div>
-            </div>
-            <div className="w-full flex justify-center items-center gap-5 ">
-              <button
-                className="border border-primary w-full lg:w-full bg-primary text-white rounded-md py-2 px-5"
-                onClick={handleSearch}
-              >
+          <form
+            className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:md:grid-cols-4 xl:md:grid-cols-6 "
+            onSubmit={form.onSubmit(handleSubmit)}>
+            <Select
+              innerValue={innerValue!}
+              setValue={setSelectValue}
+              setInnerValue={setInnerValue}
+              selectOptions={dataTipo!}
+              label="Buscar por"
+            />
+            <InputFloat
+              type="text"
+              label={selectValue === '1' ? 'Email' : 'Nombres'}
+              {...form.inputProps('searchText')}
+            />
+            <InputFloat type="date" label="Fecha Inicial" {...form.inputProps('fechaInicial')} />
+            <InputFloat type="date" label="Fecha Final" {...form.inputProps('fechaFinal')} />
+
+            <Button
+              disabled={isDisable}
+              type="submit"
+              w="auto"
+              px={16}
+              py="30px"
+              colorScheme="green">
+              <Text fontWeight="semibold" fontSize="xl">
                 Filtrar
-              </button>
-              <button
-                className="border border-lime-600 w-full lg:w-full bg-lime-600 text-white rounded-md py-2 px-5"
-                onClick={handleClear}
-              >
-                Limpiar filtros
-              </button>
-            </div>
-          </div>
+              </Text>
+            </Button>
+            <Button
+              px={16}
+              w="auto"
+              type="button"
+              py="30px"
+              disabled={isDisable}
+              colorScheme="red"
+              onClick={limpiarFiltro}>
+              <Text fontWeight="semibold" fontSize="xl">
+                Limpiar Filtro
+              </Text>
+            </Button>
+          </form>
         </Box>
         {loading ? (
-          <Flex justifyContent="center" alignItems="center" h={"xl"}>
+          <Flex justifyContent="center" alignItems="center" h={'xl'}>
             <Spinner
               thickness="4px"
               speed="0.65s"
@@ -251,7 +197,7 @@ const Pedidos = () => {
         ) : (
           <TableContainer mt={10}>
             <Table colorScheme="gray">
-              <Thead fontWeight={"black"}>
+              <Thead fontWeight={'black'}>
                 <Tr>
                   <Th color="gray.400">Nombres</Th>
                   <Th color="gray.400">Numero de comprobante</Th>
@@ -269,7 +215,7 @@ const Pedidos = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {data.map((pedido: any) => (
+                {pedidos.map((pedido: any) => (
                   <Tr key={pedido.pedidoId}>
                     <Td>
                       {pedido?.Usuario?.nombres} {pedido?.Usuario?.apellidos}
@@ -285,10 +231,9 @@ const Pedidos = () => {
                           aria-label="detalle"
                           onClick={() => {
                             navigate(`/detalle-pedido/${pedido.pedidoId}}`, {
-                              state: pedido,
-                            });
-                          }}
-                        >
+                              state: pedido
+                            })
+                          }}>
                           <IconEyeD />
                         </IconButton>
                       </Flex>
@@ -303,7 +248,7 @@ const Pedidos = () => {
         <Pagination state={state} setstate={setState} paginas={paginas} />
       </Flex>
     </Container>
-  );
-};
+  )
+}
 
-export default Pedidos;
+export default Pedidos

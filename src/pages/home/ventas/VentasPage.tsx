@@ -26,9 +26,13 @@ import Pagination from '../../../components/pagination'
 import Select from '../../../components/shared/Select'
 import useForm from '../../../hooks/useForm'
 import useToggle from '../../../hooks/useToggle'
+import IconExcel from '../../../icons/IconExcel'
 import IconEyeD from '../../../icons/IconEyeD'
+import { useGetReporteExcelVentas } from '../../../services/useGetReporteExcelVentas'
 import useVendedoras from '../../../services/useVendedoras'
 import useVentas from '../../../services/useVentas'
+import { generatedTotal } from '../../../utils/generatedTotal'
+import { isEmpty } from '../../../utils/isEmpty'
 
 interface IPropsVenta {
   vendedorId: number | null
@@ -81,7 +85,7 @@ const VentasPage = () => {
     fechaInicial: '',
     fechaFinal: ''
   })
-  console.log({ filtros })
+
   const { ventas, loading, nTotal, deleteVenta } = useVentas({ ...state, ...filtros })
   const [innerValue, setInnerValue] = useState<string>('')
   const [selectValue, setSelectValue] = useState<string>('')
@@ -96,25 +100,30 @@ const VentasPage = () => {
     initialValues: initialState
   })
 
+  const isDisable =
+    isEmpty(values.fechaInicial) &&
+    isEmpty(values.fechaFinal) &&
+    isEmpty(selectValuePago) &&
+    isEmpty(selectValue)
+
   const dataVendedores = vendedores.map((vendedor) => ({
     value: vendedor?.id!,
     label: vendedor?.nombres! + ' ' + vendedor?.apellidos!,
     desc: vendedor?.email!
   }))
 
-  const generatedTotal = (items: number, itemporpage: number) => {
-    const n = Math.ceil(items / itemporpage)
-    return Array(n)
-      .fill(null)
-      .map((_, i) => i + 1)
-  }
-  const paginas = generatedTotal(nTotal, state.numeroPagina)
+  const { loading: loadingReporte, reporte: linkReporte } = useGetReporteExcelVentas({
+    ...filtros
+  })
 
-  console.log({ filtros })
+  const paginas = generatedTotal(nTotal, state.numeroPagina)
 
   const handleSubmit = () => {
     console.log(values)
-
+    setstate({
+      pagina: 1,
+      numeroPagina: 10
+    })
     setFiltros({
       ...values,
       vendedorId: Number(selectValue) ?? null,
@@ -148,6 +157,11 @@ const VentasPage = () => {
       pagina: 1,
       numeroPagina: 10
     })
+    form.clear()
+    setInnerValue('')
+    setSelectValue('')
+    setInnerValuePago('')
+    setSelectValuePago('')
   }
 
   return (
@@ -162,6 +176,27 @@ const VentasPage = () => {
               Desde aquí podrás visualizar la información de todos las ventas.
             </Text>
           </Box>
+          <Flex justifyContent="flex-end">
+            <Button
+              as="a"
+              href={linkReporte}
+              download
+              type="button"
+              disabled={loadingReporte}
+              w="auto"
+              h={12}
+              colorScheme="green"
+              display="flex"
+              justifyItems="center"
+              alignItems="center"
+              px={5}
+              gap={3}>
+              <Text fontWeight="semibold" fontSize="xl">
+                Descargar Reporte
+              </Text>
+              <IconExcel className="mt-1" />
+            </Button>
+          </Flex>
           <Box maxWidth={'full'} marginTop="2rem">
             <Heading as="h4" fontSize={18}>
               Filtros
@@ -186,7 +221,13 @@ const VentasPage = () => {
               <InputFloat type="date" label="Fecha Inicial" {...form.inputProps('fechaInicial')} />
               <InputFloat type="date" label="Fecha Final" {...form.inputProps('fechaFinal')} />
 
-              <Button type="submit" w="auto" px={16} py="30px" colorScheme="green">
+              <Button
+                disabled={isDisable}
+                type="submit"
+                w="auto"
+                px={16}
+                py="30px"
+                colorScheme="green">
                 <Text fontWeight="semibold" fontSize="xl">
                   Filtrar
                 </Text>
@@ -194,6 +235,7 @@ const VentasPage = () => {
               <Button
                 px={16}
                 w="auto"
+                disabled={isDisable}
                 type="button"
                 py="30px"
                 colorScheme="red"

@@ -1,14 +1,4 @@
-import {
-  Box,
-  Flex,
-  Link,
-  Text,
-  Image,
-  Button,
-  Heading,
-  Checkbox,
-  useToast
-} from '@chakra-ui/react'
+import { Box, Flex, Link, Text, Image, Button, Heading, Checkbox, useToast } from '@chakra-ui/react'
 import { FormEvent, useState, useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
@@ -51,15 +41,22 @@ const LoginPage = () => {
         password
       }).then((res) => {
         if (res?.ok) {
-          login(res?.data!)
-        } else {
-          toast({
-            title: 'Email o Password incorrecto, vuelva a intentarlo',
+          if (res?.data?.tipoUsuario === 1) {
+            return login(res?.data!)
+          }
+          return toast({
+            title: 'El usuario no tiene permisos.',
             position: 'top-right',
             isClosable: true,
             status: 'error'
           })
         }
+        toast({
+          title: 'Email o Password incorrecto, vuelva a intentarlo',
+          position: 'top-right',
+          isClosable: true,
+          status: 'error'
+        })
       })
     }
   }
@@ -86,8 +83,7 @@ const LoginPage = () => {
         flex={1}
         h="full"
         justifyContent="center"
-        alignItems={{ md: 'center' }}
-      >
+        alignItems={{ md: 'center' }}>
         <Box width={{ base: '90%', md: 96 }}>
           <Box pb={4}>
             <IconLogo />
@@ -109,8 +105,7 @@ const LoginPage = () => {
             as="form"
             autoComplete="none"
             flexDirection="column"
-            onSubmit={handleSubmit}
-          >
+            onSubmit={handleSubmit}>
             <InputFloat
               type="email"
               label="Email"
@@ -136,8 +131,7 @@ const LoginPage = () => {
               fontSize="xl"
               type="submit"
               fontWeight="bold"
-              colorScheme="primary"
-            >
+              colorScheme="primary">
               Iniciar sesión
             </Button>
           </Flex>
@@ -158,16 +152,8 @@ const LoginPage = () => {
         h="full"
         overflow="hidden"
         position="relative"
-        display={{ base: 'none', md: 'block' }}
-      >
-        <Image
-          w="full"
-          h="full"
-          inset={0}
-          src={ImgLogin}
-          pos="absolute"
-          objectFit="cover"
-        />
+        display={{ base: 'none', md: 'block' }}>
+        <Image w="full" h="full" inset={0} src={ImgLogin} pos="absolute" objectFit="cover" />
 
         <Box bg="#0E1C3A" pos="absolute" opacity="0.7" inset={0} />
 
@@ -178,8 +164,7 @@ const LoginPage = () => {
           align="start"
           flexDir="column"
           justify="center"
-          position="relative"
-        >
+          position="relative">
           <Heading as="h2" fontSize="6xl" color="white">
             Panel Administrativo
           </Heading>

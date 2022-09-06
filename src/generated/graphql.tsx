@@ -628,6 +628,7 @@ export type Query = {
   GetReporteExcel?: Maybe<Scalars['String']>;
   GetVentaId?: Maybe<Venta>;
   ReporteGetAllPedidos?: Maybe<Scalars['String']>;
+  ReporteGetAllVentas?: Maybe<Scalars['String']>;
 };
 
 
@@ -740,6 +741,14 @@ export type QueryReporteGetAllPedidosArgs = {
   fechaFinal?: InputMaybe<Scalars['String']>;
   fechaInicial?: InputMaybe<Scalars['String']>;
   razonSocial?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryReporteGetAllVentasArgs = {
+  fechaFinal?: InputMaybe<Scalars['String']>;
+  fechaInicial?: InputMaybe<Scalars['String']>;
+  tipoVenta?: InputMaybe<Scalars['String']>;
+  vendedorId?: InputMaybe<Scalars['Int']>;
 };
 
 export type Referencial = {
@@ -1142,6 +1151,26 @@ export type GetVentaIdQueryVariables = Exact<{
 
 
 export type GetVentaIdQuery = { __typename?: 'Query', GetVentaId?: { __typename?: 'Venta', ventaId?: string | null, tipoComprobante?: string | null, razonSocial?: string | null, celular?: string | null, precioTotal?: number | null, fechaVenta?: any | null, usuarioId?: number | null, DetalleVenta?: Array<{ __typename?: 'DetalleVenta', detalleVentaId?: string | null, tendido?: string | null, codigo?: string | null, asiento?: string | null, precio?: number | null, feriaId?: number | null, eventoId?: number | null, Evento?: { __typename?: 'Evento', titulo?: string | null } | null }> | null } | null };
+
+export type ReporteGetAllPedidosQueryVariables = Exact<{
+  fechaInicial?: InputMaybe<Scalars['String']>;
+  fechaFinal?: InputMaybe<Scalars['String']>;
+  razonSocial?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type ReporteGetAllPedidosQuery = { __typename?: 'Query', ReporteGetAllPedidos?: string | null };
+
+export type ReporteGetAllVentasQueryVariables = Exact<{
+  fechaInicial?: InputMaybe<Scalars['String']>;
+  fechaFinal?: InputMaybe<Scalars['String']>;
+  vendedorId?: InputMaybe<Scalars['Int']>;
+  tipoVenta?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type ReporteGetAllVentasQuery = { __typename?: 'Query', ReporteGetAllVentas?: string | null };
 
 
 export const AsignarPrecioButacaEventoDocument = gql`
@@ -2621,3 +2650,85 @@ export function useGetVentaIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetVentaIdQueryHookResult = ReturnType<typeof useGetVentaIdQuery>;
 export type GetVentaIdLazyQueryHookResult = ReturnType<typeof useGetVentaIdLazyQuery>;
 export type GetVentaIdQueryResult = Apollo.QueryResult<GetVentaIdQuery, GetVentaIdQueryVariables>;
+export const ReporteGetAllPedidosDocument = gql`
+    query ReporteGetAllPedidos($fechaInicial: String, $fechaFinal: String, $razonSocial: String, $email: String) {
+  ReporteGetAllPedidos(
+    fechaInicial: $fechaInicial
+    fechaFinal: $fechaFinal
+    razonSocial: $razonSocial
+    email: $email
+  )
+}
+    `;
+
+/**
+ * __useReporteGetAllPedidosQuery__
+ *
+ * To run a query within a React component, call `useReporteGetAllPedidosQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReporteGetAllPedidosQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReporteGetAllPedidosQuery({
+ *   variables: {
+ *      fechaInicial: // value for 'fechaInicial'
+ *      fechaFinal: // value for 'fechaFinal'
+ *      razonSocial: // value for 'razonSocial'
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useReporteGetAllPedidosQuery(baseOptions?: Apollo.QueryHookOptions<ReporteGetAllPedidosQuery, ReporteGetAllPedidosQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ReporteGetAllPedidosQuery, ReporteGetAllPedidosQueryVariables>(ReporteGetAllPedidosDocument, options);
+      }
+export function useReporteGetAllPedidosLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReporteGetAllPedidosQuery, ReporteGetAllPedidosQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ReporteGetAllPedidosQuery, ReporteGetAllPedidosQueryVariables>(ReporteGetAllPedidosDocument, options);
+        }
+export type ReporteGetAllPedidosQueryHookResult = ReturnType<typeof useReporteGetAllPedidosQuery>;
+export type ReporteGetAllPedidosLazyQueryHookResult = ReturnType<typeof useReporteGetAllPedidosLazyQuery>;
+export type ReporteGetAllPedidosQueryResult = Apollo.QueryResult<ReporteGetAllPedidosQuery, ReporteGetAllPedidosQueryVariables>;
+export const ReporteGetAllVentasDocument = gql`
+    query ReporteGetAllVentas($fechaInicial: String, $fechaFinal: String, $vendedorId: Int, $tipoVenta: String) {
+  ReporteGetAllVentas(
+    fechaInicial: $fechaInicial
+    fechaFinal: $fechaFinal
+    vendedorId: $vendedorId
+    tipoVenta: $tipoVenta
+  )
+}
+    `;
+
+/**
+ * __useReporteGetAllVentasQuery__
+ *
+ * To run a query within a React component, call `useReporteGetAllVentasQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReporteGetAllVentasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReporteGetAllVentasQuery({
+ *   variables: {
+ *      fechaInicial: // value for 'fechaInicial'
+ *      fechaFinal: // value for 'fechaFinal'
+ *      vendedorId: // value for 'vendedorId'
+ *      tipoVenta: // value for 'tipoVenta'
+ *   },
+ * });
+ */
+export function useReporteGetAllVentasQuery(baseOptions?: Apollo.QueryHookOptions<ReporteGetAllVentasQuery, ReporteGetAllVentasQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ReporteGetAllVentasQuery, ReporteGetAllVentasQueryVariables>(ReporteGetAllVentasDocument, options);
+      }
+export function useReporteGetAllVentasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReporteGetAllVentasQuery, ReporteGetAllVentasQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ReporteGetAllVentasQuery, ReporteGetAllVentasQueryVariables>(ReporteGetAllVentasDocument, options);
+        }
+export type ReporteGetAllVentasQueryHookResult = ReturnType<typeof useReporteGetAllVentasQuery>;
+export type ReporteGetAllVentasLazyQueryHookResult = ReturnType<typeof useReporteGetAllVentasLazyQuery>;
+export type ReporteGetAllVentasQueryResult = Apollo.QueryResult<ReporteGetAllVentasQuery, ReporteGetAllVentasQueryVariables>;

@@ -1,0 +1,13 @@
+query ReporteGetAllPedidos(
+  $fechaInicial: String
+  $fechaFinal: String
+  $razonSocial: String
+  $email: String
+) {
+  ReporteGetAllPedidos(
+    fechaInicial: $fechaInicial
+    fechaFinal: $fechaFinal
+    razonSocial: $razonSocial
+    email: $email
+  )
+}

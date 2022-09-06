@@ -1,15 +1,15 @@
-import { Login } from '../../interfaces'
+import { User } from '../../generated/graphql'
 import { AuthInitialState, initialState } from './AuthState'
 
-type action = { type: 'logout' } | { type: 'login'; payload: Login }
+type action = { type: 'logout' } | { type: 'login'; payload: User }
 
-const AuthReducer = (
-  state: AuthInitialState,
-  action: action
-): AuthInitialState => {
+const AuthReducer = (state: AuthInitialState, action: action): AuthInitialState => {
   switch (action.type) {
     case 'login':
-      return { ...state, user: action.payload!, isAuth: true }
+      if (action.payload.tipoUsuario === 1) {
+        return { ...state, user: action.payload, isAuth: true }
+      }
+      return { ...state, isAuth: false }
     case 'logout':
       localStorage.removeItem('token')
       localStorage.removeItem('user')

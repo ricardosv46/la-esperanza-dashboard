@@ -1,0 +1,13 @@
+query ReporteGetAllVentas(
+  $fechaInicial: String
+  $fechaFinal: String
+  $vendedorId: Int
+  $tipoVenta: String
+) {
+  ReporteGetAllVentas(
+    fechaInicial: $fechaInicial
+    fechaFinal: $fechaFinal
+    vendedorId: $vendedorId
+    tipoVenta: $tipoVenta
+  )
+}
