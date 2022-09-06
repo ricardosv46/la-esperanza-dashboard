@@ -627,6 +627,7 @@ export type Query = {
   GetPedidoId?: Maybe<Pedido>;
   GetReporteExcel?: Maybe<Scalars['String']>;
   GetVentaId?: Maybe<Venta>;
+  ReporteGetAllPedidos?: Maybe<Scalars['String']>;
 };
 
 
@@ -700,8 +701,12 @@ export type QueryGetAllVendedorasArgs = {
 
 
 export type QueryGetAllVentasArgs = {
+  fechaFinal?: InputMaybe<Scalars['String']>;
+  fechaInicial?: InputMaybe<Scalars['String']>;
   numeroPagina?: InputMaybe<Scalars['Int']>;
   pagina?: InputMaybe<Scalars['Int']>;
+  tipoVenta?: InputMaybe<Scalars['String']>;
+  vendedorId?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -727,6 +732,14 @@ export type QueryGetReporteExcelArgs = {
 
 export type QueryGetVentaIdArgs = {
   ventaId?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QueryReporteGetAllPedidosArgs = {
+  email?: InputMaybe<Scalars['String']>;
+  fechaFinal?: InputMaybe<Scalars['String']>;
+  fechaInicial?: InputMaybe<Scalars['String']>;
+  razonSocial?: InputMaybe<Scalars['String']>;
 };
 
 export type Referencial = {
@@ -1102,6 +1115,10 @@ export type GetAllVendedorasQuery = { __typename?: 'Query', GetAllVendedoras?: {
 export type GetAllVentasQueryVariables = Exact<{
   pagina?: InputMaybe<Scalars['Int']>;
   numeroPagina?: InputMaybe<Scalars['Int']>;
+  vendedorId?: InputMaybe<Scalars['Int']>;
+  tipoVenta?: InputMaybe<Scalars['String']>;
+  fechaInicial?: InputMaybe<Scalars['String']>;
+  fechaFinal?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -2394,8 +2411,15 @@ export type GetAllVendedorasQueryHookResult = ReturnType<typeof useGetAllVendedo
 export type GetAllVendedorasLazyQueryHookResult = ReturnType<typeof useGetAllVendedorasLazyQuery>;
 export type GetAllVendedorasQueryResult = Apollo.QueryResult<GetAllVendedorasQuery, GetAllVendedorasQueryVariables>;
 export const GetAllVentasDocument = gql`
-    query GetAllVentas($pagina: Int, $numeroPagina: Int) {
-  GetAllVentas(pagina: $pagina, numeroPagina: $numeroPagina) {
+    query GetAllVentas($pagina: Int, $numeroPagina: Int, $vendedorId: Int, $tipoVenta: String, $fechaInicial: String, $fechaFinal: String) {
+  GetAllVentas(
+    pagina: $pagina
+    numeroPagina: $numeroPagina
+    vendedorId: $vendedorId
+    tipoVenta: $tipoVenta
+    fechaInicial: $fechaInicial
+    fechaFinal: $fechaFinal
+  ) {
     numeroTotal
     data {
       ventaId
@@ -2438,6 +2462,10 @@ export const GetAllVentasDocument = gql`
  *   variables: {
  *      pagina: // value for 'pagina'
  *      numeroPagina: // value for 'numeroPagina'
+ *      vendedorId: // value for 'vendedorId'
+ *      tipoVenta: // value for 'tipoVenta'
+ *      fechaInicial: // value for 'fechaInicial'
+ *      fechaFinal: // value for 'fechaFinal'
  *   },
  * });
  */
