@@ -19,7 +19,7 @@ import {
   useToast
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import InputFloat from '../../../components/input/inputFloat'
 import ModalConfirmar from '../../../components/modal/ModalConfirmar'
 import Pagination from '../../../components/pagination'
@@ -286,15 +286,11 @@ const VentasPage = () => {
                       <Td>{venta?.razonSocial}</Td>
                       <Td>
                         <Flex justifyContent="center" alignItems="center" gap={5}>
-                          <IconButton
-                            aria-label="detalle"
-                            onClick={() => {
-                              navigate(`${venta.ventaId}`, {
-                                state: venta
-                              })
-                            }}>
-                            <IconEyeD />
-                          </IconButton>
+                          <Link to={venta?.ventaId!} state={venta}>
+                            <IconButton aria-label="detalle">
+                              <IconEyeD />
+                            </IconButton>
+                          </Link>
                           <IconButton
                             aria-label="eliminar"
                             onClick={() => {
