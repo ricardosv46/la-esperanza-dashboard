@@ -12,7 +12,8 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
+  useToast
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -26,7 +27,7 @@ import VentasPage from './VentasPage'
 
 const DetalleVenta = () => {
   const { id } = useParams() as { id: string }
-
+  const toast = useToast()
   const { venta, loading } = useVentaId({ ventaId: Number(id) })
 
   const token = localStorage.getItem('token')
@@ -101,6 +102,14 @@ const DetalleVenta = () => {
                           aria-label="descarga"
                           onClick={async () => {
                             const respuesta = await getReporte(code)
+                            if (respuesta === null) {
+                              return toast({
+                                title: 'Evento ya no existe',
+                                position: 'top-right',
+                                isClosable: true,
+                                status: 'error'
+                              })
+                            }
                             window.open(respuesta)
                           }}>
                           <IconPdf />
